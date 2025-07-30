@@ -5,7 +5,7 @@ module.exports = {
 
     if (channel) {
       channel.send(
-        '🔇 The queue has ended. Add more songs to keep the party going!'
+        '🔇 La cola ha terminado. ¡Agrega más canciones para seguir la fiesta!'
       );
     }
     if (player.collector) {

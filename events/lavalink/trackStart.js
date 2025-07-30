@@ -11,12 +11,36 @@ module.exports = {
     const channel = client.channels.cache.get(player.textChannelId);
     if (!channel) return;
 
+    console.log(`🎵 TrackStart: ${track.info.title} (Autoplay: ${track.pluginInfo?.clientData?.fromAutoplay === true})`);
+
+    // Limpiar mensaje anterior si existe y no es el actual
+    if (player.queue.current?.userData?.nowPlayingMessage && 
+        player.queue.current !== track) {
+      try {
+        await player.queue.current.userData.nowPlayingMessage.delete();
+        console.log('🗑️ Mensaje anterior eliminado');
+      } catch (error) {
+        console.log('⚠️ Error eliminando mensaje anterior (puede ya estar eliminado)');
+      }
+    }
+
     const progressBar = createProgressBar(0, track.info.duration);
+    
+    // Verificar si la canción es del autoplay
+    const isFromAutoplay = track.pluginInfo?.clientData?.fromAutoplay === true;
+    
+    // Determinar quién solicitó la canción
+    let requestedBy = 'Desconocido';
+    if (isFromAutoplay) {
+      requestedBy = `${requestedBy}`;
+    } else if (track.userData?.requester) {
+      requestedBy = track.userData.requester;
+    }
 
     const embed = new EmbedBuilder()
-      .setColor('#F0E68C')
+      .setColor(isFromAutoplay ? '#FFD700' : '#F0E68C') // Color dorado para autoplay
       .setAuthor({
-        name: 'Reproduciendo Ahora 🎵',
+        name: isFromAutoplay ? 'Autoplay 🎵🤖' : 'Reproduciendo Ahora 🎵',
         iconURL: client.user.displayAvatarURL(),
       })
       .setTitle(track.info.title)
@@ -38,7 +62,7 @@ module.exports = {
         },
         {
           name: '🎧 Solicitada por',
-          value: `${track.userData?.requester || 'Desconocido'}`,
+          value: `${requestedBy}`,
           inline: true,
         },
       ])
@@ -51,23 +75,25 @@ module.exports = {
       });
 
     const [firstRow, secondRow] = createControlButtons();
-    const controlMessage = await channel.send({
-      embeds: [embed],
-      components: [firstRow, secondRow],
-    });
+    
+    try {
+      const controlMessage = await channel.send({
+        embeds: [embed],
+        components: [firstRow, secondRow],
+      });
 
-    const progressInterval = setInterval(() => {
-      if (player && !player.paused) {
-        const newProgressBar = createProgressBar(
-          player.position,
-          track.info.duration
-        );
-        embed.setDescription(
-          `${newProgressBar}\n\`${formatTime(player.position)} / ${formatTime(track.info.duration)}\``
-        );
-        controlMessage.edit({ embeds: [embed] }).catch(console.error);
-      }
-    }, 10000);
+      const progressInterval = setInterval(() => {
+        if (player && !player.paused && player.queue.current === track) {
+          const newProgressBar = createProgressBar(
+            player.position,
+            track.info.duration
+          );
+          embed.setDescription(
+            `${newProgressBar}\n\`${formatTime(player.position)} / ${formatTime(track.info.duration)}\``
+          );
+          controlMessage.edit({ embeds: [embed] }).catch(console.error);
+        }
+      }, 10000);
 
     player.queue.current.userData.nowPlayingMessage = controlMessage;
 
@@ -173,7 +199,7 @@ module.exports = {
           case 'volup':
             if (player.volume + 10 > 100) {
               return interaction.followUp({
-                content: '⚠️ No se puede aumentar el volumen por encima de 100',
+                content: '⚠️ No se puede aumentar el volumen por encima de 100%',
                 ephemeral: true,
               });
             }
@@ -184,7 +210,7 @@ module.exports = {
           case 'voldown':
             if (player.volume - 10 < 0) {
               return interaction.followUp({
-                content: '⚠️ No se puede disminuir el volumen por debajo de 0',
+                content: '⚠️ No se puede disminuir el volumen por debajo de 0%',
                 ephemeral: true,
               });
             }
@@ -210,10 +236,18 @@ module.exports = {
 
     collector.on('end', () => {
       clearInterval(progressInterval);
-      if (controlMessage) {
-        controlMessage.delete().catch(console.error);
-      }
+      // No eliminar el mensaje aquí, dejar que trackStart del siguiente tema lo maneje
     });
+    
+    } catch (error) {
+      console.error('❌ Error en trackStart:', error);
+      // Fallback: enviar mensaje simple si falla el embed
+      try {
+        await channel.send(`🎵 **${isFromAutoplay ? 'Autoplay' : 'Reproduciendo'}:** ${track.info.title} - ${track.info.author}`);
+      } catch (fallbackError) {
+        console.error('❌ Error en mensaje de fallback:', fallbackError);
+      }
+    }
   },
 };
 

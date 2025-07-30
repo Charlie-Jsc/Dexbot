@@ -4,7 +4,7 @@ module.exports = {
     const channel = client.channels.cache.get(player.textChannelId);
     if (channel) {
       channel.send(
-        `⚠️ The track \`${track.info.title}\` got stuck for more than ${thresholdMs}ms. Skipping to the next track.`
+        `⚠️ La pista \`${track.info.title}\` se ha quedado atascada durante más de ${thresholdMs}ms. Saltando a la siguiente pista.`
       );
     }
     player.skip();

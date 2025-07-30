@@ -12,7 +12,7 @@ module.exports = {
       await settings.save();
     } catch (error) {
       console.error(
-        `Error creating guild settings for ${guild.name}: ${error.message}`
+        `Error creando la configuración del servidor para ${guild.name}: ${error.message}`
       );
     }
   },

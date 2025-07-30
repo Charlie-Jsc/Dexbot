@@ -49,7 +49,7 @@ module.exports = {
         ]);
       }
 
-      const source = 'spsearch';
+      const source = 'ytsearch';
 
       player = interaction.client.lavalink.createPlayer({
         guildId: interaction.guildId,
@@ -102,7 +102,7 @@ module.exports = {
     const client = interaction.client;
     const query = interaction.options.getString('query');
     const member = interaction.member;
-    const source = interaction.options.getString('source') || 'spsearch';
+    const source = interaction.options.getString('source') || 'ytsearch';
 
     if (query === 'join_vc' || query === 'start_typing' || query === 'error') {
       return interaction.reply({
@@ -148,7 +148,7 @@ module.exports = {
 
     if (!search?.tracks?.length) {
       return interaction.editReply({
-        content: '❌ No results found! Try a different search term.',
+        content: '❌ No se encontraron resultados! Prueba con un término de búsqueda diferente.',
         ephemeral: true,
       });
     }
@@ -162,30 +162,30 @@ module.exports = {
       const playlistEmbed = new EmbedBuilder()
         .setColor('#DDA0DD')
         .setAuthor({
-          name: 'Added Playlist to Queue 📃',
+          name: 'Playlist Agregada a la Cola 📃',
           iconURL: client.user.displayAvatarURL(),
         })
         .setTitle(search.playlist?.title)
         .setThumbnail(search.tracks[0].info.artworkUrl)
         .setDescription(
-          `Added \`${search.tracks.length}\` tracks from playlist\n\n` +
-            `**First Track:** [${search.tracks[0].info.title}](${search.tracks[0].info.uri})\n` +
-            `**Last Track:** [${search.tracks[search.tracks.length - 1].info.title}](${search.tracks[search.tracks.length - 1].info.uri})`
+          `Se han añadido \`${search.tracks.length}\` pistas de la playlist\n\n` +
+            `**Primera Pista:** [${search.tracks[0].info.title}](${search.tracks[0].info.uri})\n` +
+            `**Última Pista:** [${search.tracks[search.tracks.length - 1].info.title}](${search.tracks[search.tracks.length - 1].info.uri})`
         )
         .addFields([
           {
-            name: '👤 Playlist Author',
+            name: '👤 Autor de la Playlist',
             value: `\`${search.tracks[0].info.author}\``,
             inline: true,
           },
           {
-            name: '⌛ Total Duration',
+            name: '⌛ Duración Total',
             value: `\`${formatTime(search.tracks.reduce((acc, track) => acc + track.info.duration, 0))}\``,
             inline: true,
           },
         ])
         .setFooter({
-          text: `Added by ${interaction.user.tag} • Queue position: #${player.queue.tracks.length - search.tracks.length + 1}`,
+          text: `Agregado por ${interaction.user.tag} • Posición en la Cola: #${player.queue.tracks.length - search.tracks.length + 1}`,
           iconURL: interaction.user.displayAvatarURL(),
         })
         .setTimestamp();
@@ -203,7 +203,7 @@ module.exports = {
       const trackEmbed = new EmbedBuilder()
         .setColor('#DDA0DD')
         .setAuthor({
-          name: 'Added to Queue 🎵',
+          name: 'Agregado a la cola 🎵',
           iconURL: client.user.displayAvatarURL(),
         })
         .setTitle(track.info.title)
@@ -211,23 +211,23 @@ module.exports = {
         .setThumbnail(track.info.artworkUrl)
         .addFields([
           {
-            name: '👤 Artist',
+            name: '👤 Artista',
             value: `\`${track.info.author}\``,
             inline: true,
           },
           {
-            name: '⌛ Duration',
+            name: '⌛ Duración',
             value: `\`${formatTime(track.info.duration)}\``,
             inline: true,
           },
           {
-            name: '🎧 Position in Queue',
+            name: '🎧 Posición en la Cola',
             value: `\`#${player.queue.tracks.length}\``,
             inline: true,
           },
         ])
         .setFooter({
-          text: `Added by ${interaction.user.tag}`,
+          text: `Agregado por ${interaction.user.tag}`,
           iconURL: interaction.user.displayAvatarURL(),
         })
         .setTimestamp();

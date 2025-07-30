@@ -375,9 +375,9 @@ module.exports = {
 
         const addEmbed = new EmbedBuilder()
           .setColor('#00FF00')
-          .setTitle('User Added to Ticket')
+          .setTitle('Usuario Añadido al Ticket')
           .setDescription(
-            `✅ ${targetUser.toString()} has been added to the ticket by ${interaction.user.toString()}`
+            `✅ ${targetUser.toString()} ha sido añadido al ticket por ${interaction.user.toString()}`
           )
           .setTimestamp();
 

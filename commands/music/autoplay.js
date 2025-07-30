@@ -10,9 +10,9 @@ module.exports = {
     const client = interaction.client;
     const player = client.lavalink.players.get(interaction.guild.id);
 
-    if (!player.playing) {
+    if (!player || !player.connected) {
       return interaction.reply({
-        content: '❌ ¡No se está reproduciendo nada!',
+        content: '❌ ¡No estoy conectado a ningún canal de voz!',
         ephemeral: true,
       });
     }
@@ -31,12 +31,15 @@ module.exports = {
       });
     }
 
+    // Solo verificar la fuente si hay una pista actual reproduciéndose
     if (
+      player.queue.current && 
       player.queue.current.info.sourceName !== 'youtube' &&
       player.queue.current.info.sourceName !== 'youtubemusic'
     ) {
       return interaction.reply({
-        content: `El autoplay no soporta la fuente \`${player.queue.current.info.sourceName}\``,
+        content: `❌ **El autoplay no es compatible con ${player.queue.current.info.sourceName}**\n\n🎵 **Para usar autoplay:**\n• Reproduce música desde **YouTube** o **YouTube Music**\n• Usa \`/play canción\` para buscar en YouTube\n• El autoplay se activará automáticamente con esas fuentes`,
+        ephemeral: true,
       });
     }
 
@@ -44,7 +47,7 @@ module.exports = {
     player.set('autoplay', !autoplay);
 
     return interaction.reply(
-      `✅ **¡Autoplay está ahora ${autoplay ? 'deshabilitado' : 'habilitado'}!**`
+      `✅ **¡Autoplay está ahora ${!autoplay ? 'habilitado' : 'deshabilitado'}!**`
     );
   },
 };
