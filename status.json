@@ -2,7 +2,7 @@
   "interval": 30000,
   "status": {
     "type": "LISTENING",
-    "state": "a {userCount} personas escuchando",
+    "state": "a {userCount} personas",
     "backup_state": "with {userCount} users",
     "url": "https://twitch.tv/lanya"
   }

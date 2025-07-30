@@ -1,17 +1,21 @@
 <div align="center">
 
-  <h1><img src="utils/logo.jpg" alt="Lanya Logo" width="35"> Lanya2.0 Discord Bot</h1>
+  <h1>🎵 Dexbot - Bot de Discord Multifuncional</h1>
   <br>
-  <p><strong>An open-source Discord bot designed to enhance community interaction with a variety of engaging and useful features.</strong></p>
+  <p><strong>Un bot de Discord de código abierto diseñado para mejorar la interacción comunitaria con una variedad de características útiles y entretenidas.</strong></p>
   
   [![Discord](https://img.shields.io/discord/1342840214573416458?color=5865F2&logo=discord&logoColor=white)](https://discord.gg/kAYpdenZ8b)
-  [![License](https://img.shields.io/github/license/gaurav87565/Lanya-2.0)](LICENSE)
-  [![Stars](https://img.shields.io/github/stars/gaurav87565/Lanya-2.0?style=social)](https://github.com/gaurav87565/Lanya-2.0/stargazers)
+  [![License](https://img.shields.io/github/license/Charlie-Jsc/Dexbot)](LICENSE)
+  [![Stars](https://img.shields.io/github/stars/Charlie-Jsc/Dexbot?style=social)](https://github.com/Charlie-Jsc/Dexbot/stargazers)
 </div>
 
-## ✨ About Lanya
+## ✨ Acerca de Dexbot
 
-Lanya is a Discord bot built to improve server engagement and provide useful tools for both administrators and members. With commands ranging from fun interactions to powerful moderation tools.
+Dexbot es un bot de Discord construido para mejorar la participación del servidor y proporcionar herramientas útiles tanto para administradores como para miembros. Con comandos que van desde interacciones divertidas hasta potentes herramientas de moderación y música.
+
+## 📝 Créditos
+
+Este proyecto está basado en [Lanya 2.0](https://github.com/gaurav87565/Lanya-2.0) por [gaurav87565](https://github.com/gaurav87565). Agradecemos al equipo original por su excelente trabajo.
 
 ## 🚀 Features
 
@@ -144,137 +148,141 @@ Lanya is a Discord bot built to improve server engagement and provide useful too
   
   | Command        | Description                                                        |
   | ---------------| -------------------------------------------------------------------|
-  | `/autoplay`    | Toggle autoplay to play recommended tracks when the queue is empty |
-  | `/controls`    | Basic playback controls                                            |
-  | `/filters`     | Toggle audio filters for the current song                          |
-  | `/loop`        | Set the loop mode                                                  |
-  | `/lyrics`      | Fetches lyrics for the currently playing song                      |
-  | `/nowplaying`  | Show information about the currently playing track                 |
+  | `/autoplay`    | Alternar autoplay para reproducir pistas recomendadas cuando la cola esté vacía |
+  | `/controls`    | Controles básicos de reproducción                                  |
+  | `/filters`     | Alternar filtros de audio para la canción actual                  |
+  | `/loop`        | Establecer el modo de repetición                                   |
+  | `/lyrics`      | Obtiene la letra de la canción que se está reproduciendo actualmente |
+  | `/nowplaying`  | Mostrar información sobre la pista que se está reproduciendo actualmente |
+  | `/play`        | Reproducir una canción o playlist de diferentes fuentes           |
+  | `/playlist`    | Gestionar tus playlists                                            |
+  | `/queue`       | Gestionar la cola de reproducción                                  |
+  | `/search`      | Buscar una canción para agregar a la cola                         |
 </details>
 
-## 🤝 Support Server
+## 🤝 Servidor de Soporte
 
-For any assistance, feature requests, or bug reports, join our official support server:
+Para cualquier asistencia, solicitudes de funciones o reportes de errores, únete a nuestro servidor oficial de soporte:
 
   <a href="https://discord.gg/kAYpdenZ8b" target="_blank">
     <img src="https://img.shields.io/static/v1?message=Discord&logo=discord&label=&color=7289DA&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="discord logo"  />
 
-## 🔧 Quick Setup
+## 🔧 Configuración Rápida
 
-### Prerequisites
+### Requisitos Previos
 
-- [Node.js](https://nodejs.org/) (v16.9.0 or higher)
-- [MongoDB](https://www.mongodb.com/) database
-- [Discord Bot Token](https://discord.com/developers/applications)
-- Weather API key (for weather commands)
+- [Node.js](https://nodejs.org/) (v16.9.0 o superior)
+- [MongoDB](https://www.mongodb.com/) base de datos
+- [Token de Bot de Discord](https://discord.com/developers/applications)
+- Clave API del clima (para comandos del clima)
 
-### Installation
+### Instalación
 
-1. **Clone the Repository**
+1. **Clonar el Repositorio**
 
 ```bash
-git clone https://github.com/gaurav87565/Lanya-2.0.git
-cd Lanya
+git clone https://github.com/Charlie-Jsc/Dexbot.git
+cd Dexbot
 ```
 
-2. **Install Dependencies**
+2. **Instalar Dependencias**
 
 ```bash
 npm install
 ```
 
-3. **Enter Your Configuration Details**
+3. **Ingrese los Detalles de Configuración**
 
-The setup script will prompt you to enter:
+El script de configuración le pedirá que ingrese:
 
-- Discord Bot Token
-- Client ID
-- Weather API Key
-- MongoDB Connection String
+- Token del Bot de Discord
+- ID del Cliente
+- Clave API del Clima
+- Cadena de Conexión de MongoDB
 
-4. **Start the Bot**
+4. **Iniciar el Bot**
 
 ```bash
 npm run start
 ```
 
-For production environments:
+Para entornos de producción:
 
 ```bash
 npm run start:prod
 ```
 
-## 🧩 Project Structure
+## 🧩 Estructura del Proyecto
 
 ```
-Lanya/
-├── commands/           # Command files organized by category
-├── events/             # Event handler files
-├── models/             # Database models
-├── utils/              # Utility functions
-└── index.js            # Main entry point
+Dexbot/
+├── commands/           # Archivos de comandos organizados por categoría
+├── events/             # Archivos de manejadores de eventos
+├── models/             # Modelos de base de datos
+├── utils/              # Funciones de utilidad
+└── lanya.js            # Punto de entrada principal
 ```
 
-## 🛠️ Development
+## 🛠️ Desarrollo
 
-### Adding New Commands
+### Agregando Nuevos Comandos
 
-1. Create a new command file in the appropriate category folder
-2. Use the command template structure
-3. Register the command in the command handler
+1. Crear un nuevo archivo de comando en la carpeta de categoría apropiada
+2. Usar la estructura de plantilla de comando
+3. Registrar el comando en el manejador de comandos
 
-Example command structure:
+Ejemplo de estructura de comando:
 
 ```javascript
 module.exports = {
-  name: 'commandname',
-  description: 'Command description',
-  options: [], // Slash command options
-  execute: async (interaction, client) => {
-    // Command code here
+  data: new SlashCommandBuilder()
+    .setName('nombrecomando')
+    .setDescription('Descripción del comando'),
+  async execute(interaction) {
+    // Código del comando aquí
   },
 };
 ```
 
-## 🤲 Contributing
+## 🤲 Contribuyendo
 
-Contributions are welcome and appreciated! Here's how you can contribute:
+¡Las contribuciones son bienvenidas y apreciadas! Aquí es cómo puedes contribuir:
 
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Commit your changes (`git commit -m 'Add some amazing feature'`)
-5. Push to the branch (`git push origin feature/amazing-feature`)
-6. Open a Pull Request
+1. Hacer fork del repositorio
+2. Crear una nueva rama (`git checkout -b feature/caracteristica-increible`)
+3. Hacer tus cambios
+4. Commit de tus cambios (`git commit -m 'Agregar alguna característica increíble'`)
+5. Push a la rama (`git push origin feature/caracteristica-increible`)
+6. Abrir un Pull Request
 
-Please make sure to update tests and documentation as appropriate.
+Por favor asegúrate de actualizar las pruebas y documentación según sea apropiado.
 
-## 📜 Code of Conduct
+## 📜 Código de Conducta
 
-We strive to maintain a friendly, inclusive, and respectful community. Please follow these guidelines:
+Nos esforzamos por mantener una comunidad amigable, inclusiva y respetuosa. Por favor sigue estas pautas:
 
-- **Be Respectful**: Treat others with respect. Disagreements are okay, but be civil.
-- **Be Inclusive**: We welcome all contributions and encourage participation from everyone.
-- **Be Supportive**: Help others when they have questions and be open to feedback.
+- **Sé Respetuoso**: Trata a otros con respeto. Los desacuerdos están bien, pero sé civilizado.
+- **Sé Inclusivo**: Damos la bienvenida a todas las contribuciones y alentamos la participación de todos.
+- **Sé Solidario**: Ayuda a otros cuando tengan preguntas y mantente abierto a la retroalimentación.
 
-## 📝 License
+## 📝 Licencia
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
 
-## 📋 Roadmap
+## 📋 Hoja de Ruta
 
-- [ ] Server logs system
-- [ ] Advanced auto-moderation features
-- [ ] Custom command creation interface
-- [ ] Web dashboard for easy configuration
-- [ ] Enhanced Minecraft integration features
-- [ ] Music playback capabilities
-- [ ] Role reaction system
+- [ ] Sistema de logs del servidor
+- [ ] Funciones avanzadas de auto-moderación
+- [ ] Interfaz de creación de comandos personalizados
+- [ ] Panel web para configuración fácil
+- [ ] Funciones mejoradas de integración con Minecraft
+- [ ] Capacidades de reproducción de música mejoradas
+- [ ] Sistema de reacciones de roles
 
-Have suggestions? Feel free to share them in our [Support Server](https://discord.gg/kAYpdenZ8b)!
+¿Tienes sugerencias? ¡Siéntete libre de compartirlas en nuestro [Servidor de Soporte](https://discord.gg/kAYpdenZ8b)!
 
 ---
 
 <div align="center">
-  Made with ❤️ by the DaPirates Development Team
+  Hecho con ❤️ por el Equipo de Desarrollo Dexbot
 </div>
