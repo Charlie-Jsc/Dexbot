@@ -9,23 +9,23 @@ const serverStatusUpdater = require('../../functions/serverStatusUpdater');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('addserverstatus')
-    .setDescription('Add a Minecraft server to track its status.')
+    .setDescription('Agregar un servidor de Minecraft para rastrear su estado.')
     .addStringOption((option) =>
       option
         .setName('servername')
-        .setDescription('The name of the server.')
+        .setDescription('El nombre del servidor.')
         .setRequired(true)
     )
     .addStringOption((option) =>
       option
         .setName('serverip')
-        .setDescription('The IP address of the server.')
+        .setDescription('La dirección IP del servidor.')
         .setRequired(true)
     )
     .addStringOption((option) =>
       option
         .setName('gamemode')
-        .setDescription('The game mode of the server (Java or Bedrock).')
+        .setDescription('El modo de juego del servidor (Java o Bedrock).')
         .setRequired(true)
         .addChoices(
           { name: 'Java', value: 'java' },
@@ -35,7 +35,7 @@ module.exports = {
     .addChannelOption((option) =>
       option
         .setName('channel')
-        .setDescription('The channel where the server status will be posted.')
+        .setDescription('El canal donde se publicará el estado del servidor.')
         .addChannelTypes(ChannelType.GuildText)
         .setRequired(true)
     ),
@@ -43,7 +43,7 @@ module.exports = {
     if (!interaction.member.permissions.has('ManageGuild')) {
       return interaction.reply({
         content:
-          'You do not have `ManageGuild` permission to add server status!',
+          'No tienes el permiso `ManageGuild` para agregar estado del servidor!',
         ephemeral: true,
       });
     }
@@ -64,7 +64,7 @@ module.exports = {
     if (existingEntry) {
       return interaction.reply({
         content:
-          'This server is already being tracked in the specified channel!',
+          '¡Este servidor ya está siendo rastreado en el canal especificado!',
         ephemeral: true,
       });
     }
@@ -83,17 +83,17 @@ module.exports = {
       embeds: [
         new EmbedBuilder()
           .setColor('#008080')
-          .setTitle('✅ Server Status Tracking Added')
+          .setTitle('✅ Rastreo de Estado del Servidor Agregado')
           .setDescription(
-            `Successfully added server status tracking for **${serverName}** (\`${serverIp}\`, ${gameMode.toUpperCase()}) in <#${channelId}>.`
+            `Se agregó exitosamente el rastreo de estado del servidor para **${serverName}** (\`${serverIp}\`, ${gameMode.toUpperCase()}) en <#${channelId}>.`
           )
           .addFields({
-            name: '⏱ Please Note',
-            value: `The first update will appear shortly. Please wait for the next update cycle!`,
+            name: '⏱ Por Favor Nota',
+            value: `La primera actualización aparecerá en breve. ¡Por favor espera el próximo ciclo de actualización!`,
             inline: false,
           })
           .setFooter({
-            text: 'Status tracking will update every 30 seconds.',
+            text: 'El rastreo de estado se actualizará cada 30 segundos.',
           })
           .setTimestamp(),
       ],

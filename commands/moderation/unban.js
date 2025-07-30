@@ -3,29 +3,29 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('unban')
-    .setDescription('Unban a member from the server.')
+    .setDescription('Desbanear a un miembro del servidor.')
     .addStringOption((option) =>
       option
         .setName('user_id')
-        .setDescription('The ID of the user to unban')
+        .setDescription('El ID del usuario a desbanear')
         .setRequired(true)
     )
     .addStringOption((option) =>
       option
         .setName('reason')
-        .setDescription('Reason for unbanning the user')
+        .setDescription('Razón para desbanear al usuario')
         .setRequired(false)
     ),
 
   async execute(interaction) {
     const userId = interaction.options.getString('user_id');
     const reason =
-      interaction.options.getString('reason') || 'No reason provided.';
+      interaction.options.getString('reason') || 'No se proporcionó razón.';
     const executor = interaction.member;
 
     if (!interaction.member.permissions.has('BanMembers')) {
       return interaction.reply({
-        content: 'You do not have `BanMembers` permission to ban members!',
+        content: 'No tienes el permiso `BanMembers` para banear miembros!',
         ephemeral: true,
       });
     }
@@ -35,12 +35,12 @@ module.exports = {
 
       const unbanEmbed = new EmbedBuilder()
         .setColor(0x00ff00)
-        .setTitle('Member Unbanned')
-        .setDescription(`✅ \`${userId}\` has been unbanned from the server.`)
+        .setTitle('Miembro Desbaneado')
+        .setDescription(`✅ \`${userId}\` ha sido desbaneado del servidor.`)
         .addFields(
-          { name: 'Reason', value: reason, inline: true },
+          { name: 'Razón', value: reason, inline: true },
           {
-            name: 'Unbanned by',
+            name: 'Desbaneado por',
             value: `<@${interaction.user.id}>`,
             inline: true,
           }
@@ -52,7 +52,7 @@ module.exports = {
       console.error(error);
       return interaction.reply({
         content:
-          'Failed to unban the user. Please ensure the user ID is correct and that I have permission to unban members.',
+          'Falló al desbanear al usuario. Por favor asegúrate de que el ID del usuario es correcto y que tengo permiso para desbanear miembros.',
         ephemeral: true,
       });
     }

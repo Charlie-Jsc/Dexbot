@@ -7,7 +7,7 @@ const {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('unlock')
-    .setDescription('Unlocks the channel to allow messages to be sent.'),
+    .setDescription('Desbloquea el canal para permitir que se envíen mensajes.'),
 
   async execute(interaction) {
     if (
@@ -16,7 +16,7 @@ module.exports = {
       )
     ) {
       return interaction.reply({
-        content: 'You do not have permission to lock this channel.',
+        content: 'No tienes permiso para bloquear este canal.',
         ephemeral: true,
       });
     }
@@ -30,9 +30,9 @@ module.exports = {
     ) {
       const embed = new EmbedBuilder()
         .setColor('#57F287')
-        .setTitle('Channel Unlocked')
+        .setTitle('Canal Desbloqueado')
         .setDescription(
-          `The channel ${channel.name} has been unlocked. Everyone is allowed to send messages`
+          `El canal ${channel.name} ha sido desbloqueado. Todos pueden enviar mensajes`
         )
         .setTimestamp();
 
@@ -47,7 +47,7 @@ module.exports = {
       }
     } else {
       await interaction.reply({
-        content: 'This channel is already unlocked.',
+        content: 'Este canal ya está desbloqueado.',
         ephemeral: true,
       });
     }

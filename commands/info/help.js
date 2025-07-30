@@ -11,18 +11,18 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('help')
     .setDescription(
-      'Displays a list of commands or detailed info about a specific command.'
+      'Muestra una lista de comandos o información detallada sobre un comando específico.'
     )
     .addStringOption((option) =>
       option
         .setName('command')
-        .setDescription('Get detailed info about a specific command')
+        .setDescription('Obtener información detallada sobre un comando específico')
         .setAutocomplete(true)
     )
     .addStringOption((option) =>
       option
         .setName('search')
-        .setDescription('Search for commands using keywords')
+        .setDescription('Buscar comandos usando palabras clave')
     ),
 
   async autocomplete(interaction) {
@@ -43,20 +43,20 @@ module.exports = {
     const searchQuery = interaction.options.getString('search');
     // Custom category display names and emojis
     const categoryMap = {
-      admin: { name: 'Administration', emoji: '⚙️' },
-      fun: { name: 'Fun & Games', emoji: '🎉' },
-      level: { name: 'Leaderboard', emoji: '🎮' },
-      music: { name: 'Music', emoji: '🎵' },
-      moderation: { name: 'Moderation', emoji: '🔨' },
-      utility: { name: 'Utility', emoji: '🪛' },
+      admin: { name: 'Administración', emoji: '⚙️' },
+      fun: { name: 'Diversión y Juegos', emoji: '🎉' },
+      level: { name: 'Tabla de Clasificación', emoji: '🎮' },
+      music: { name: 'Música', emoji: '🎵' },
+      moderation: { name: 'Moderación', emoji: '🔨' },
+      utility: { name: 'Utilidades', emoji: '🪛' },
       minecraft: { name: 'Minecraft', emoji: '🟩' },
-      info: { name: 'Information', emoji: 'ℹ️' },
+      info: { name: 'Información', emoji: 'ℹ️' },
       tickets: { name: 'Tickets', emoji: '🎫' },
     };
     const helpEmbed = new EmbedBuilder()
       .setColor(0x5865f2)
       .setFooter({
-        text: `Requested by ${interaction.user.tag}`,
+        text: `Solicitado por ${interaction.user.tag}`,
         iconURL: interaction.user.displayAvatarURL(),
       })
       .setTimestamp();
@@ -70,24 +70,24 @@ module.exports = {
       const results = fuse.search(searchQuery);
       if (!results.length) {
         return interaction.reply({
-          content: `❌ No commands found matching "${searchQuery}".`,
+          content: `❌ No se encontraron comandos que coincidan con "${searchQuery}".`,
           ephemeral: true,
         });
       }
       const embed = new EmbedBuilder()
         .setColor(0x5865f2)
-        .setTitle(`🔎 Search Results for "${searchQuery}"`)
+        .setTitle(`🔎 Resultados de búsqueda para "${searchQuery}"`)
         .setDescription(
           results
             .slice(0, 10)
             .map(
               (r, i) =>
-                `**${i + 1}.** \`/${r.item.data.name}\` - ${r.item.data.description || 'No description.'}`
+                `**${i + 1}.** \`/${r.item.data.name}\` - ${r.item.data.description || 'Sin descripción.'}`
             )
             .join('\n')
         )
         .setFooter({
-          text: `Requested by ${interaction.user.tag}`,
+          text: `Solicitado por ${interaction.user.tag}`,
           iconURL: interaction.user.displayAvatarURL(),
         })
         .setTimestamp();
@@ -98,16 +98,16 @@ module.exports = {
       const command = client.commands.get(commandName);
       if (!command) {
         return interaction.reply({
-          content: '❌ Command not found!',
+          content: '❌ ¡Comando no encontrado!',
           ephemeral: true,
         });
       }
       helpEmbed
-        .setTitle(`🔍 Command: **/${command.data.name}**`)
-        .setDescription(command.data.description || 'No description available.')
+        .setTitle(`🔍 Comando: **/${command.data.name}**`)
+        .setDescription(command.data.description || 'No hay descripción disponible.')
         .addFields(
           {
-            name: '🛠️ Usage',
+            name: '🛠️ Uso',
             value:
               `\`/${command.data.name}\`` +
               (command.data.options?.length
@@ -116,7 +116,7 @@ module.exports = {
                 : ''),
           },
           {
-            name: 'ℹ️ Details',
+            name: 'ℹ️ Detalles',
             value: `${command.data.description}`,
           },
           ...(command.data.options?.length
@@ -162,14 +162,14 @@ module.exports = {
 
       helpEmbed
         .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
-        .setTitle('✨ Help Menu')
+        .setTitle('✨ Menú de Ayuda')
         .setDescription(
-          'Browse available commands by selecting a category from the menu below. Use `/help <command>` for detailed info about a specific command.'
+          'Navega por los comandos disponibles seleccionando una categoría del menú de abajo. Usa `/help <comando>` para información detallada sobre un comando específico.'
         )
         .addFields(
           Object.entries(categories).map(([category, commands]) => ({
             name: `${category}`,
-            value: `${commands.length} commands available`,
+            value: `${commands.length} comandos disponibles`,
             inline: true,
           }))
         );
@@ -213,7 +213,7 @@ module.exports = {
               .join('\n') || 'No commands available.'
           )
           .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
+            text: `Solicitado por ${interaction.user.tag}`,
             iconURL: interaction.user.displayAvatarURL(),
           })
           .setTimestamp();

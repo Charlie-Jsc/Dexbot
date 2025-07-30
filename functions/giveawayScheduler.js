@@ -57,9 +57,9 @@ async function checkGiveaways(client) {
 
         if (eligibleParticipants.length < giveaway.winners) {
           const embed = EmbedBuilder.from(message.embeds[0]);
-          embed.setTitle('❌ Giveaway Cancelled ❌');
+          embed.setTitle('❌ Sorteo Cancelado ❌');
           embed.setDescription(
-            `Prize: **${giveaway.prize}**\nStatus: **Cancelled - Not enough participants**\nRequired Participants: ${giveaway.winners}\nActual Participants: ${eligibleParticipants.length}`
+            `Premio: **${giveaway.prize}**\nEstado: **Cancelado - No hay suficientes participantes**\nParticipantes Requeridos: ${giveaway.winners}\nParticipantes Actuales: ${eligibleParticipants.length}`
           );
           embed.setColor('#FF0000');
 
@@ -82,16 +82,16 @@ async function checkGiveaways(client) {
         await giveaway.save();
 
         const embed = EmbedBuilder.from(message.embeds[0]);
-        embed.setTitle('🎉 Giveaway Ended 🎉');
+        embed.setTitle('🎉 Sorteo Terminado 🎉');
         embed.setDescription(
-          `Prize: **${giveaway.prize}**\nWinners: ${winners.map((w) => `<@${w}>`).join(', ')}\nHosted by: <@${giveaway.hostId}>\nParticipants: ${eligibleParticipants.length}`
+          `Premio: **${giveaway.prize}**\nGanadores: ${winners.map((w) => `<@${w}>`).join(', ')}\nOrganizado por: <@${giveaway.hostId}>\nParticipantes: ${eligibleParticipants.length}`
         );
         embed.setColor('#00FF00');
 
         await message.edit({ embeds: [embed], components: [] });
 
         await channel.send(
-          `🎉 Congratulations ${winners.map((w) => `<@${w}>`).join(', ')}! You won **${giveaway.prize}**! 🎉`
+          `🎉 ¡Felicidades ${winners.map((w) => `<@${w}>`).join(', ')}! ¡Ganaste **${giveaway.prize}**! 🎉`
         );
       } catch (error) {
         console.error(`Error processing giveaway ${giveaway._id}:`, error);

@@ -9,13 +9,13 @@ const {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('calculator')
-    .setDescription('A simple scientific calculator.'),
+    .setDescription('Una calculadora científica simple.'),
 
   async execute(interaction) {
     let currentInput = '';
     const embed = new EmbedBuilder()
       .setColor('#0099ff')
-      .setTitle('Scientific Calculator')
+      .setTitle('Calculadora Científica')
       .setDescription(`\`\`\`${currentInput || '          '}\`\`\``);
 
     const mainRow = new ActionRowBuilder().addComponents(

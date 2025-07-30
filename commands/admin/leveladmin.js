@@ -8,43 +8,43 @@ const { GuildSettings, LevelRoles, MemberData } = require('../../models/Level');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('leveladmin')
-    .setDescription('Manage the level system')
+    .setDescription('Gestiona el sistema de niveles')
     .addSubcommand((subcommand) =>
       subcommand
         .setName('addlevelrole')
-        .setDescription('Add a role to be given at a specific level')
+        .setDescription('Añade un rol para ser asignado en un nivel específico')
         .addIntegerOption((option) =>
           option
             .setName('level')
-            .setDescription('Level to assign the role at')
+            .setDescription('Nivel en el que asignar el rol')
             .setRequired(true)
         )
         .addRoleOption((option) =>
           option
             .setName('role')
-            .setDescription('Role to assign')
+            .setDescription('Rol a asignar')
             .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('removelevelrole')
-        .setDescription('Remove a role assigned at a specific level')
+        .setDescription('Elimina un rol asignado en un nivel específico')
         .addIntegerOption((option) =>
           option
             .setName('level')
-            .setDescription('Level to remove the role from')
+            .setDescription('Nivel del que eliminar el rol')
             .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('addlevel')
-        .setDescription('Add a level to a user')
+        .setDescription('Añade un nivel a un usuario')
         .addUserOption((option) =>
           option
             .setName('user')
-            .setDescription('User to add a level to')
+            .setDescription('Usuario al que añadir un nivel')
             .setRequired(true)
         )
         .addIntegerOption((option) =>
@@ -138,7 +138,7 @@ module.exports = {
     const subcommand = interaction.options.getSubcommand();
     if (!interaction.member.permissions.has('Administrator')) {
       return interaction.reply({
-        content: 'You do not have `Administrator` permission to manage levels!',
+        content: '¡No tienes el permiso de `Administrador` para gestionar niveles!',
         ephemeral: true,
       });
     }

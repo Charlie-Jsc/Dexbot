@@ -1,28 +1,28 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 
 const responses = [
-  'Yes.',
+  'Sí.',
   'No.',
-  'Ask again later.',
-  'Definitely.',
-  'Maybe.',
-  'Absolutely not.',
-  'Absolutely!',
-  'I wouldn’t count on it.',
-  'It’s certain.',
-  'Very doubtful.',
-  'Yes, in due time.',
-  'No way!',
+  'Pregunta más tarde.',
+  'Definitivamente.',
+  'Tal vez.',
+  'Absolutamente no.',
+  '¡Absolutamente!',
+  'No contaría con ello.',
+  'Es seguro.',
+  'Muy dudoso.',
+  'Sí, a su debido tiempo.',
+  '¡De ninguna manera!',
 ];
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('8ball')
-    .setDescription('Ask the Magic 8 Ball a question.')
+    .setDescription('Pregunta a la Bola Mágica 8.')
     .addStringOption((option) =>
       option
         .setName('question')
-        .setDescription('Your question for the Magic 8 Ball')
+        .setDescription('Tu pregunta para la Bola Mágica 8')
         .setRequired(true)
     ),
 
@@ -32,12 +32,12 @@ module.exports = {
 
     const embed = new EmbedBuilder()
       .setColor(0x5865f2)
-      .setTitle('🔮 Magic 8 Ball')
-      .setDescription(`You asked: **${question}**`)
+      .setTitle('🔮 Bola Mágica 8')
+      .setDescription(`Preguntaste: **${question}**`)
       .addFields(
-        { name: 'Response', value: response, inline: true },
+        { name: 'Respuesta', value: response, inline: true },
         {
-          name: 'Requested by',
+          name: 'Solicitado por',
           value: `${interaction.user.tag}`,
           inline: true,
         }

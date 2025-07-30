@@ -12,21 +12,21 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers)
     .setName('warn')
-    .setDescription('Warn a user or remove a warn')
+    .setDescription('Advertir a un usuario o remover una advertencia')
     .addSubcommand((subcommand) =>
       subcommand
         .setName('add')
-        .setDescription('Warn a user')
+        .setDescription('Advertir a un usuario')
         .addUserOption((option) => {
           return option
             .setName('user')
-            .setDescription('The user to warn')
+            .setDescription('El usuario a advertir')
             .setRequired(true);
         })
         .addStringOption((option) => {
           return option
             .setName('reason')
-            .setDescription('The reason for the warn')
+            .setDescription('La razón para la advertencia')
             .setRequired(true)
             .setMaxLength(500);
         })
@@ -34,11 +34,11 @@ module.exports = {
     .addSubcommand((subcommand) =>
       subcommand
         .setName('remove')
-        .setDescription('Remove a warn from a user')
+        .setDescription('Remover una advertencia de un usuario')
         .addStringOption((option) => {
           return option
             .setName('warn_id')
-            .setDescription('The id of the warn to remove')
+            .setDescription('El id de la advertencia a remover')
             .setRequired(true)
             .setMinLength(24)
             .setMaxLength(24);
@@ -48,7 +48,7 @@ module.exports = {
   async execute(interaction) {
     if (!interaction.member.permissions.has('KickMembers')) {
       return interaction.reply({
-        content: 'You do not have `KickMembers` permission to manage warnings!',
+        content: 'No tienes el permiso `KickMembers` para gestionar advertencias!',
         ephemeral: true,
       });
     }
@@ -75,16 +75,16 @@ module.exports = {
             embeds: [
               new EmbedBuilder()
                 .setColor(0xff0000)
-                .setTitle('Member Warned')
-                .setDescription(`⚠️ <@${user.id}> has been warned`)
+                .setTitle('Miembro Advertido')
+                .setDescription(`⚠️ <@${user.id}> ha sido advertido`)
                 .addFields(
                   {
-                    name: 'Reason',
+                    name: 'Razón',
                     value: `${reason}`,
                     inline: true,
                   },
                   {
-                    name: 'Warned by',
+                    name: 'Advertido por',
                     value: `<@${interaction.user.id}>`,
                     inline: true,
                   }
@@ -97,15 +97,15 @@ module.exports = {
             .send({
               embeds: [
                 new EmbedBuilder()
-                  .setTitle(`⚠️You have been warned in: ${guild.name}`)
+                  .setTitle(`⚠️ Has sido advertido en: ${guild.name}`)
                   .addFields(
                     {
-                      name: 'Reason',
+                      name: 'Razón',
                       value: `${reason}`,
                       inline: true,
                     },
                     {
-                      name: 'Warned by',
+                      name: 'Advertido por',
                       value: `<@${interaction.user.id}>`,
                       inline: true,
                     }
@@ -119,7 +119,7 @@ module.exports = {
               await interaction.followUp({
                 embeds: [
                   new EmbedBuilder()
-                    .setTitle('❌ User has dms disabled so no DM was sent.')
+                    .setTitle('❌ El usuario tiene los DMs deshabilitados así que no se envió ningún DM.')
                     .setColor(0xff0000),
                 ],
               });
@@ -132,7 +132,7 @@ module.exports = {
         const warnId = interaction.options.getString('warn_id');
 
         const error = new EmbedBuilder()
-          .setDescription(`No warn Id watching \`${warnId}\` was found!`)
+          .setDescription(`No se encontró advertencia con ID \`${warnId}\`!`)
           .setColor(0xed4245);
         data = await warnings.findOne({ _id: warnId, guildId: guildId });
         if (!data) return await interaction.reply({ embeds: [error] });
@@ -140,9 +140,9 @@ module.exports = {
         await warnings.deleteOne({ _id: warnId, guildId: guildId });
 
         const embed = new EmbedBuilder()
-          .setTitle('Remove Infraction')
+          .setTitle('Remover Infracción')
           .setDescription(
-            `Successfully removed the warn with the ID matching \`${warnId}\``
+            `Se removió exitosamente la advertencia con el ID \`${warnId}\``
           )
           .setColor(5763719)
           .setTimestamp();

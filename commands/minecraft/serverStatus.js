@@ -5,17 +5,17 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('serverstatus')
-    .setDescription('Get the status of a Minecraft server.')
+    .setDescription('Obtener el estado de un servidor de Minecraft.')
     .addStringOption((option) =>
       option
         .setName('serverip')
-        .setDescription('The IP address of the Minecraft server.')
+        .setDescription('La dirección IP del servidor de Minecraft.')
         .setRequired(true)
     )
     .addStringOption((option) =>
       option
         .setName('gamemode')
-        .setDescription('The game mode of the server (Java or Bedrock).')
+        .setDescription('El modo de juego del servidor (Java o Bedrock).')
         .setRequired(true)
         .addChoices(
           { name: 'Java', value: 'java' },
@@ -38,16 +38,16 @@ module.exports = {
       if (data.offline) {
         const offlineEmbed = new EmbedBuilder()
           .setColor('#FF0000')
-          .setTitle(`❌ Server Offline`)
-          .setDescription(`The server at \`${serverIp}\` is currently offline.`)
+          .setTitle(`❌ Servidor Desconectado`)
+          .setDescription(`El servidor en \`${serverIp}\` está actualmente desconectado.`)
           .addFields(
             {
-              name: '🖥 IP Address',
+              name: '🖥 Dirección IP',
               value: `↳ \`${serverIp}\``,
               inline: true,
             },
             {
-              name: '🛜 Port',
+              name: '🛜 Puerto',
               value: `↳ \`${data.port || 'Unknown'}\``,
               inline: true,
             }
@@ -61,30 +61,30 @@ module.exports = {
       const embed = new EmbedBuilder()
         .setColor('#008080')
         .setTitle(`${serverIp}`)
-        .setDescription('**Server Online** 🟢')
+        .setDescription('**Servidor En Línea** 🟢')
         .addFields(
           {
-            name: '🖥 IP Address',
+            name: '🖥 Dirección IP',
             value: `↳ \`${data.ip}\``,
             inline: true,
           },
           {
-            name: '🛜 Port',
+            name: '🛜 Puerto',
             value: `↳ \`${data.port}\``,
             inline: true,
           },
           {
-            name: '🗺 Hostname',
+            name: '🗺 Nombre del Host',
             value: '↳ `' + data.hostname + '`' || 'Unknown',
             inline: false,
           },
           {
-            name: '📊 Players Online',
+            name: '📊 Jugadores En Línea',
             value: `↳ \`${data.players?.online || 0}\` / **${data.players?.max || 0}**`,
             inline: false,
           },
           {
-            name: '🔧 Version',
+            name: '🔧 Versión',
             value: '↳ **' + data.version + '**' || 'Unknown',
             inline: false,
           },

@@ -8,11 +8,11 @@ const {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('skin')
-    .setDescription("Fetch a Minecraft player's skin")
+    .setDescription("Obtener la skin de un jugador de Minecraft")
     .addStringOption((option) =>
       option
         .setName('username')
-        .setDescription('Minecraft username to fetch skin for')
+        .setDescription('Nombre de usuario de Minecraft para obtener la skin')
         .setRequired(true)
     ),
 
@@ -22,7 +22,7 @@ module.exports = {
 
     const downloadButton = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
-        .setLabel('Download Skin')
+        .setLabel('Descargar Skin')
         .setStyle(ButtonStyle.Link)
         .setURL(skinUrl)
     );
@@ -30,10 +30,10 @@ module.exports = {
     await interaction.reply({
       embeds: [
         {
-          title: `🤖 Minecraft Skin for ${username}`,
+          title: `🤖 Skin de Minecraft para ${username}`,
           image: { url: skinUrl },
           color: 0x55ff55,
-          description: `Here's the skin for Minecraft player: ${username}`,
+          description: `Aquí está la skin para el jugador de Minecraft: ${username}`,
         },
       ],
       components: [downloadButton],

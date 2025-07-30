@@ -3,11 +3,11 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('clear')
-    .setDescription('Clears a specified number of messages from the channel.')
+    .setDescription('Borra un número específico de mensajes del canal.')
     .addIntegerOption((option) =>
       option
         .setName('amount')
-        .setDescription('Number of messages to delete')
+        .setDescription('Número de mensajes a eliminar')
         .setRequired(true)
     ),
 
@@ -16,13 +16,13 @@ module.exports = {
 
     if (!interaction.member.permissions.has('ManageMessages')) {
       return interaction.reply({
-        content: 'You do not have permission to clear messages.',
+        content: 'No tienes permiso para borrar mensajes.',
         ephemeral: true,
       });
     }
     if (amount < 1 || amount > 100) {
       return interaction.reply({
-        content: 'Please provide a number between 1 and 100.',
+        content: 'Por favor proporciona un número entre 1 y 100.',
         ephemeral: true,
       });
     }
@@ -30,10 +30,10 @@ module.exports = {
     await interaction.channel.bulkDelete(amount, true);
     const embed = new EmbedBuilder()
       .setColor(0x5865f2)
-      .setTitle('Messages Cleared')
-      .setDescription(`${amount} messages have been deleted.`)
+      .setTitle('Mensajes Borrados')
+      .setDescription(`${amount} mensajes han sido eliminados.`)
       .setFooter({
-        text: `Requested by ${interaction.user.tag}`,
+        text: `Solicitado por ${interaction.user.tag}`,
         iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
       })
       .setTimestamp();

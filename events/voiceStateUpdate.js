@@ -32,7 +32,7 @@ module.exports = {
         );
         if (textChannel) {
           textChannel.send(
-            '👋 Left the voice channel due to inactivity (3 minutes with no listeners)'
+            '👋 Salí del canal de voz debido a inactividad (3 minutos sin oyentes)'
           );
         }
       }, 180000);

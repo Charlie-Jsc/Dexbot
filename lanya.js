@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 
@@ -8,7 +9,6 @@ app.get('/', (req, res) => {
 app.listen(10000, () => {
   console.log('✅ Express server running on http://localhost:10000');
 });
-require('dotenv').config();
 const { Client, GatewayIntentBits } = require('discord.js');
 const { LavalinkManager } = require('lavalink-client');
 const fs = require('fs');

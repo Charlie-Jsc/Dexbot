@@ -28,26 +28,26 @@ module.exports = {
     );
 
     const embed = new EmbedBuilder()
-      .setTitle('Thread Members Updated')
+      .setTitle('Miembros del Hilo Actualizados')
       .setColor('Purple')
       .addFields(
-        { name: 'Thread Name', value: `${thread.name}`, inline: true },
-        { name: 'Thread ID', value: `${thread.id}`, inline: true }
+        { name: 'Nombre del Hilo', value: `${thread.name}`, inline: true },
+        { name: 'ID del Hilo', value: `${thread.id}`, inline: true }
       )
       .setTimestamp();
 
     if (addedMembers.length > 0) {
       embed.addFields({
-        name: 'Added Members',
-        value: addedMembers.map((id) => `<@${id}>`).join(', ') || 'None',
+        name: 'Miembros Agregados',
+        value: addedMembers.map((id) => `<@${id}>`).join(', ') || 'Ninguno',
         inline: false,
       });
     }
 
     if (removedMembers.length > 0) {
       embed.addFields({
-        name: 'Removed Members',
-        value: removedMembers.map((id) => `<@${id}>`).join(', ') || 'None',
+        name: 'Miembros Removidos',
+        value: removedMembers.map((id) => `<@${id}>`).join(', ') || 'Ninguno',
         inline: false,
       });
     }

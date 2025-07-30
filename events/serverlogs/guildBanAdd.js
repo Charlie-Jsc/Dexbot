@@ -22,9 +22,9 @@ module.exports = {
         name: ban.user.tag,
         iconURL: ban.user.displayAvatarURL(),
       })
-      .setTitle('Member Banned')
+      .setTitle('Miembro Baneado')
       .setDescription(
-        `${ban.user.tag} (${ban.user.id}) has been banned from the server.`
+        `${ban.user.tag} (${ban.user.id}) ha sido baneado del servidor.`
       )
       .setTimestamp();
 

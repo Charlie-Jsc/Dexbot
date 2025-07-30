@@ -19,11 +19,11 @@ module.exports = {
 
       const winnerEmbed = new EmbedBuilder()
         .setColor('#00FF00')
-        .setTitle('We Have a Winner!')
+        .setTitle('¡Tenemos un Ganador!')
         .setDescription(
-          `${message.author} guessed the number **${game.number}** and won!`
+          `¡${message.author} adivinó el número **${game.number}** y ganó!`
         )
-        .setFooter({ text: 'The game is now over!' })
+        .setFooter({ text: '¡El juego ha terminado!' })
         .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
         .setTimestamp();
 

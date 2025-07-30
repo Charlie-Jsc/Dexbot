@@ -76,7 +76,7 @@ class TranscriptGenerator {
         transcript += '\n';
       } catch (error) {
         console.error(`Error processing message ${msg.id}:`, error);
-        transcript += `[Error loading message]\n\n`;
+        transcript += `[Error al cargar mensaje]\n\n`;
       }
     }
 

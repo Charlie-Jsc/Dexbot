@@ -7,7 +7,7 @@ const {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('lock')
-    .setDescription('Locks the channel to prevent messages from being sent.'),
+    .setDescription('Bloquea el canal para evitar que se envíen mensajes.'),
 
   async execute(interaction) {
     if (
@@ -17,7 +17,7 @@ module.exports = {
     ) {
       return interaction.reply({
         content:
-          'You do not have `ManageChannels` permission to lock this channel.',
+          'No tienes el permiso `ManageChannels` para bloquear este canal.',
         ephemeral: true,
       });
     }
@@ -31,9 +31,9 @@ module.exports = {
     ) {
       const embed = new EmbedBuilder()
         .setColor(0xff0000)
-        .setTitle('Channel Locked')
+        .setTitle('Canal Bloqueado')
         .setDescription(
-          `The channel ${channel.name} has been locked. Only users with the appropriate role can send messages.`
+          `El canal ${channel.name} ha sido bloqueado. Solo usuarios con el rol apropiado pueden enviar mensajes.`
         )
         .setTimestamp();
 
@@ -48,7 +48,7 @@ module.exports = {
       }
     } else {
       await interaction.reply({
-        content: 'This channel is already locked.',
+        content: 'Este canal ya está bloqueado.',
         ephemeral: true,
       });
     }

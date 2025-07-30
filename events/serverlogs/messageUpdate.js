@@ -35,11 +35,11 @@ module.exports = {
         iconURL: oldMessage.author.displayAvatarURL(),
       })
       .setDescription(
-        `**Message edited in ${oldMessage.channel}:**\n` +
-          `**Before:** ${oldMessage.content || '*No content*'}\n` +
-          `**After:** ${newMessage.content || '*No content*'}`
+        `**Mensaje editado en ${oldMessage.channel}:**\n` +
+          `**Antes:** ${oldMessage.content || '*Sin contenido*'}\n` +
+          `**Después:** ${newMessage.content || '*Sin contenido*'}`
       )
-      .setFooter({ text: `User ID: ${oldMessage.author.id}` })
+      .setFooter({ text: `ID del Usuario: ${oldMessage.author.id}` })
       .setTimestamp();
 
     logChannel.send({ embeds: [embed] });

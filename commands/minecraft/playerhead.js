@@ -8,11 +8,11 @@ const {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('playerhead')
-    .setDescription('Generate a Minecraft player head')
+    .setDescription('Generar una cabeza de jugador de Minecraft')
     .addStringOption((option) =>
       option
         .setName('username')
-        .setDescription('Minecraft username to fetch player head for')
+        .setDescription('Nombre de usuario de Minecraft para obtener la cabeza del jugador')
         .setRequired(true)
     ),
 
@@ -22,7 +22,7 @@ module.exports = {
 
     const downloadButton = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
-        .setLabel('Download Player Head')
+        .setLabel('Descargar Cabeza del Jugador')
         .setStyle(ButtonStyle.Link)
         .setURL(headUrl)
     );
@@ -30,10 +30,10 @@ module.exports = {
     await interaction.reply({
       embeds: [
         {
-          title: `👤 Minecraft Player Head`,
+          title: `👤 Cabeza de Jugador de Minecraft`,
           image: { url: headUrl },
           color: 0xff5555,
-          description: `Minecraft head for: ${username}`,
+          description: `Cabeza de Minecraft para: ${username}`,
         },
       ],
       components: [downloadButton],

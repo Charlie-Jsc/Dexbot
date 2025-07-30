@@ -8,22 +8,22 @@ const {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('bodyavatar')
-    .setDescription('Generate a Minecraft player body avatar')
+    .setDescription('Generar un avatar de cuerpo de jugador de Minecraft')
     .addStringOption((option) =>
       option
         .setName('username')
-        .setDescription('Minecraft username to fetch player body for')
+        .setDescription('Nombre de usuario de Minecraft para obtener el cuerpo del jugador')
         .setRequired(true)
     )
 
     .addStringOption((option) =>
       option
         .setName('direction')
-        .setDescription('direction of the avatar')
+        .setDescription('dirección del avatar')
         .setRequired(false)
         .addChoices(
-          { name: 'Left', value: 'left' },
-          { name: 'Right', value: 'right' }
+          { name: 'Izquierda', value: 'left' },
+          { name: 'Derecha', value: 'right' }
         )
     ),
 
@@ -34,7 +34,7 @@ module.exports = {
 
     const downloadButton = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
-        .setLabel('Download Player body Avatar')
+        .setLabel('Descargar Avatar de Cuerpo del Jugador')
         .setStyle(ButtonStyle.Link)
         .setURL(bodyUrl)
     );
@@ -42,10 +42,10 @@ module.exports = {
     await interaction.reply({
       embeds: [
         {
-          title: `👤 Minecraft Player body Avatar`,
+          title: `👤 Avatar de Cuerpo de Jugador de Minecraft`,
           image: { url: bodyUrl },
           color: 0xff5555,
-          description: `Minecraft body avatar for: ${username}`,
+          description: `Avatar de cuerpo de Minecraft para: ${username}`,
         },
       ],
       components: [downloadButton],

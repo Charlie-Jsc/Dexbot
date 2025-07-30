@@ -25,7 +25,7 @@ async function startGiveaway(interaction) {
     // Validate duration format
     if (!durationRegex.test(duration)) {
       return interaction.editReply({
-        content: 'Invalid duration format! Use something like `1d2h30m40s`.',
+        content: '¡Formato de duración inválido! Usa algo como `1d2h30m40s`.',
         flags: [MessageFlags.Ephemeral],
       });
     }
@@ -33,7 +33,7 @@ async function startGiveaway(interaction) {
     // Validate minimum duration (30 seconds)
     if (ms(duration) < 30000) {
       return interaction.editReply({
-        content: 'Giveaway duration must be at least 30 seconds!',
+        content: '¡La duración del sorteo debe ser de al menos 30 segundos!',
         flags: [MessageFlags.Ephemeral],
       });
     }
@@ -41,7 +41,7 @@ async function startGiveaway(interaction) {
     // Validate maximum duration (30 days)
     if (ms(duration) > 2592000000) {
       return interaction.editReply({
-        content: 'Giveaway duration cannot be longer than 30 days!',
+        content: '¡La duración del sorteo no puede ser mayor a 30 días!',
         flags: [MessageFlags.Ephemeral],
       });
     }
@@ -49,7 +49,7 @@ async function startGiveaway(interaction) {
     // Validate winners count
     if (winners < 1) {
       return interaction.editReply({
-        content: 'Number of winners must be at least 1!',
+        content: '¡El número de ganadores debe ser al menos 1!',
         flags: [MessageFlags.Ephemeral],
       });
     }
@@ -57,7 +57,7 @@ async function startGiveaway(interaction) {
     // Validate maximum winners
     if (winners > 50) {
       return interaction.editReply({
-        content: 'Number of winners cannot be more than 50!',
+        content: '¡El número de ganadores no puede ser mayor a 50!',
         flags: [MessageFlags.Ephemeral],
       });
     }
@@ -71,7 +71,7 @@ async function startGiveaway(interaction) {
     ) {
       return interaction.editReply({
         content:
-          'I need `SendMessages`, `EmbedLinks`, and `AddReactions` permissions in the target channel!',
+          '¡Necesito los permisos `SendMessages`, `EmbedLinks` y `AddReactions` en el canal objetivo!',
         flags: [MessageFlags.Ephemeral],
       });
     }
@@ -81,22 +81,22 @@ async function startGiveaway(interaction) {
       !targetChannel.permissionsFor(interaction.member).has(['ManageMessages'])
     ) {
       return interaction.editReply({
-        content: 'You need `ManageMessages` permission to start a giveaway!',
+        content: '¡Necesitas el permiso `ManageMessages` para iniciar un sorteo!',
         flags: [MessageFlags.Ephemeral],
       });
     }
 
     const embed = new EmbedBuilder()
-      .setTitle('🎉 New Giveaway! 🎉')
+      .setTitle('🎉 ¡Nuevo Sorteo! 🎉')
       .setDescription(
-        `Prize: **${prize}**\nHosted by: ${interaction.user}\nEnds in: <t:${Math.floor(endTime / 1000)}:R>\nWinners: **${winners}**`
+        `Premio: **${prize}**\nOrganizado por: ${interaction.user}\nTermina en: <t:${Math.floor(endTime / 1000)}:R>\nGanadores: **${winners}**`
       )
       .setColor('#FF0000')
       .setTimestamp(endTime);
 
     if (requiredRole) {
       embed.addFields({
-        name: 'Required Role',
+        name: 'Rol Requerido',
         value: `${requiredRole}`,
         inline: true,
       });
@@ -104,7 +104,7 @@ async function startGiveaway(interaction) {
 
     const joinButton = new ButtonBuilder()
       .setCustomId('join_giveaway')
-      .setLabel('🎉 Join')
+      .setLabel('🎉 Unirse')
       .setStyle(ButtonStyle.Primary);
 
     const row = new ActionRowBuilder().addComponents(joinButton);
@@ -130,7 +130,7 @@ async function startGiveaway(interaction) {
     await giveaway.save();
 
     await interaction.editReply({
-      content: `Giveaway started in ${targetChannel}!`,
+      content: `¡Sorteo iniciado en ${targetChannel}!`,
       flags: [MessageFlags.Ephemeral],
     });
   } catch (error) {
@@ -138,7 +138,7 @@ async function startGiveaway(interaction) {
     // Use editReply in the catch block as well
     await interaction.editReply({
       content:
-        'An error occurred while starting the giveaway. Please try again later.',
+        'Ocurrió un error al iniciar el sorteo. Por favor intenta de nuevo más tarde.',
       flags: [MessageFlags.Ephemeral],
     });
   }

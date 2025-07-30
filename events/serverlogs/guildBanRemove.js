@@ -22,9 +22,9 @@ module.exports = {
         name: ban.user.tag,
         iconURL: ban.user.displayAvatarURL(),
       })
-      .setTitle('Member Unbanned')
+      .setTitle('Miembro Desbaneado')
       .setDescription(
-        `${ban.user.tag} (${ban.user.id}) has been unbanned from the server.`
+        `${ban.user.tag} (${ban.user.id}) ha sido desbaneado del servidor.`
       )
       .setTimestamp();
 

@@ -14,77 +14,77 @@ const closeTicket = require('../../functions/closeTicket');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('ticket')
-    .setDescription('Ticket management commands')
+    .setDescription('Comandos de gestión de tickets')
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
     .addSubcommand((subcommand) =>
       subcommand
         .setName('close')
-        .setDescription('Close a ticket')
+        .setDescription('Cerrar un ticket')
         .addStringOption((option) =>
           option
             .setName('reason')
-            .setDescription('Reason for closing the ticket')
+            .setDescription('Razón para cerrar el ticket')
             .setRequired(false)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('transfer')
-        .setDescription('Transfer a ticket to another staff member')
+        .setDescription('Transferir un ticket a otro miembro del staff')
         .addUserOption((option) =>
           option
             .setName('user')
-            .setDescription('User to transfer the ticket to')
+            .setDescription('Usuario al que transferir el ticket')
             .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('ban')
-        .setDescription('Ban a user from creating tickets')
+        .setDescription('Banear a un usuario de crear tickets')
         .addUserOption((option) =>
           option
             .setName('user')
-            .setDescription('User to ban from tickets')
+            .setDescription('Usuario a banear de los tickets')
             .setRequired(true)
         )
         .addStringOption((option) =>
           option
             .setName('reason')
-            .setDescription('Reason for the ticket ban')
+            .setDescription('Razón para el baneo de tickets')
             .setRequired(false)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('unban')
-        .setDescription('Unban a user from creating tickets')
+        .setDescription('Desbanear a un usuario de crear tickets')
         .addUserOption((option) =>
           option
             .setName('user')
-            .setDescription('User to unban from tickets')
+            .setDescription('Usuario a desbanear de los tickets')
             .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('add')
-        .setDescription('Add a user to the ticket')
+        .setDescription('Agregar un usuario al ticket')
         .addUserOption((option) =>
           option
             .setName('user')
-            .setDescription('User to add to the ticket')
+            .setDescription('Usuario a agregar al ticket')
             .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('remove')
-        .setDescription('Remove a user from the ticket')
+        .setDescription('Eliminar un usuario del ticket')
         .addUserOption((option) =>
           option
             .setName('user')
-            .setDescription('User to remove from the ticket')
+            .setDescription('Usuario a eliminar del ticket')
             .setRequired(true)
         )
     ),
@@ -97,7 +97,7 @@ module.exports = {
 
     if (!settings?.enabled) {
       return interaction.reply({
-        content: '❌ Ticket system is not enabled in this server.',
+        content: '❌ El sistema de tickets no está habilitado en este servidor.',
         ephemeral: true,
       });
     }
@@ -110,7 +110,7 @@ module.exports = {
     if (!hasPermission) {
       return interaction.reply({
         content:
-          '❌ You do not have permission to use ticket management commands!',
+          '❌ ¡No tienes permisos para usar comandos de gestión de tickets!',
         ephemeral: true,
       });
     }
@@ -120,13 +120,13 @@ module.exports = {
         try {
           if (!interaction.channel.name.startsWith('ticket-')) {
             return interaction.reply({
-              content: '❌ This command can only be used in ticket channels!',
+              content: '❌ ¡Este comando solo puede usarse en canales de tickets!',
               ephemeral: true,
             });
           }
 
           const reason =
-            interaction.options.getString('reason') || 'No reason provided';
+            interaction.options.getString('reason') || 'No se proporcionó razón';
 
           await interaction.deferReply();
           await closeTicket(interaction.channel, interaction.user, reason);
@@ -143,7 +143,7 @@ module.exports = {
       case 'transfer': {
         if (!interaction.channel.name.startsWith('ticket-')) {
           return interaction.reply({
-            content: '❌ This command can only be used in ticket channels!',
+            content: '❌ ¡Este comando solo puede usarse en canales de tickets!',
             ephemeral: true,
           });
         }
@@ -271,7 +271,7 @@ module.exports = {
 
         if (existingBan) {
           return interaction.reply({
-            content: '❌ This user is already banned from creating tickets!',
+            content: '❌ ¡Este usuario ya está baneado de crear tickets!',
             ephemeral: true,
           });
         }
@@ -313,7 +313,7 @@ module.exports = {
 
         if (!existingBan) {
           return interaction.reply({
-            content: '❌ This user is not banned from creating tickets!',
+            content: '❌ ¡Este usuario no está baneado de crear tickets!',
             ephemeral: true,
           });
         }
@@ -338,7 +338,7 @@ module.exports = {
       case 'add': {
         if (!interaction.channel.name.startsWith('ticket-')) {
           return interaction.reply({
-            content: '❌ This command can only be used in ticket channels!',
+            content: '❌ ¡Este comando solo puede usarse en canales de tickets!',
             ephemeral: true,
           });
         }
@@ -351,7 +351,7 @@ module.exports = {
 
         if (!ticket) {
           return interaction.reply({
-            content: '❌ No active ticket found for this channel!',
+            content: '❌ ¡No se encontró un ticket activo para este canal!',
             ephemeral: true,
           });
         }
@@ -362,7 +362,7 @@ module.exports = {
             ?.has(PermissionFlagsBits.ViewChannel)
         ) {
           return interaction.reply({
-            content: '❌ This user already has access to the ticket!',
+            content: '❌ ¡Este usuario ya tiene acceso al ticket!',
             ephemeral: true,
           });
         }
@@ -388,7 +388,7 @@ module.exports = {
       case 'remove': {
         if (!interaction.channel.name.startsWith('ticket-')) {
           return interaction.reply({
-            content: '❌ This command can only be used in ticket channels!',
+            content: '❌ ¡Este comando solo puede usarse en canales de tickets!',
             ephemeral: true,
           });
         }
@@ -401,14 +401,14 @@ module.exports = {
 
         if (!ticket) {
           return interaction.reply({
-            content: '❌ No active ticket found for this channel!',
+            content: '❌ ¡No se encontró un ticket activo para este canal!',
             ephemeral: true,
           });
         }
 
         if (targetUser.id === ticket.userId) {
           return interaction.reply({
-            content: '❌ You cannot remove the ticket creator!',
+            content: '❌ ¡No puedes eliminar al creador del ticket!',
             ephemeral: true,
           });
         }
@@ -419,7 +419,7 @@ module.exports = {
             ?.has(PermissionFlagsBits.ViewChannel)
         ) {
           return interaction.reply({
-            content: '❌ This user does not have access to the ticket!',
+            content: '❌ ¡Este usuario no tiene acceso al ticket!',
             ephemeral: true,
           });
         }

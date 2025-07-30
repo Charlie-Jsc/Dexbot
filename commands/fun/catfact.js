@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('catfact')
-    .setDescription('Get a random cat fact!'),
+    .setDescription('¡Obtén un dato curioso aleatorio sobre gatos!'),
 
   async execute(interaction) {
     try {
@@ -13,15 +13,15 @@ module.exports = {
 
       const embed = new EmbedBuilder()
         .setColor(0x5865f2)
-        .setTitle('Did You Know?')
+        .setTitle('¿Sabías Que?')
         .setDescription(factData.fact)
-        .setFooter({ text: 'Want another fact? Use /catfact!' });
+        .setFooter({ text: '¿Quieres otro dato? ¡Usa /catfact!' });
 
       await interaction.reply({ embeds: [embed] });
     } catch (error) {
       console.error('Error fetching cat fact:', error);
       await interaction.reply(
-        "Sorry, I couldn't fetch a cat fact at the moment. Please try again later."
+        "Lo siento, no pude obtener un dato de gatos en este momento. Por favor, inténtalo más tarde."
       );
     }
   },

@@ -8,77 +8,77 @@ const cancelGiveaway = require('../../functions/cancelGiveaway');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('giveaway')
-    .setDescription('Manage giveaways')
+    .setDescription('Gestiona sorteos')
     .addSubcommand((subcommand) =>
       subcommand
         .setName('start')
-        .setDescription('Start a new giveaway')
+        .setDescription('Inicia un nuevo sorteo')
         .addStringOption((option) =>
           option
             .setName('duration')
-            .setDescription('The duration of the giveaway (e.g., 1d1h1m1s)')
+            .setDescription('La duración del sorteo (ej., 1d1h1m1s)')
             .setRequired(true)
         )
         .addStringOption((option) =>
           option
             .setName('prize')
-            .setDescription('The prize of the giveaway')
+            .setDescription('El premio del sorteo')
             .setRequired(true)
         )
         .addIntegerOption((option) =>
           option
             .setName('winners')
-            .setDescription('Number of winners for the giveaway')
+            .setDescription('Número de ganadores para el sorteo')
             .setRequired(true)
         )
         .addRoleOption((option) =>
           option
             .setName('required_role')
-            .setDescription('Optional: Role required to join the giveaway')
+            .setDescription('Opcional: Rol requerido para participar en el sorteo')
         )
         .addChannelOption((option) =>
           option
             .setName('channel')
-            .setDescription('Optional: Channel to host the giveaway.')
+            .setDescription('Opcional: Canal para alojar el sorteo.')
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('reroll')
-        .setDescription('Reroll the giveaway to select new winners')
+        .setDescription('Rehacer el sorteo para seleccionar nuevos ganadores')
         .addStringOption((option) =>
           option
             .setName('message_id')
-            .setDescription('The message ID of the giveaway')
+            .setDescription('El ID del mensaje del sorteo')
             .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('end')
-        .setDescription('End an ongoing giveaway')
+        .setDescription('Termina un sorteo en curso')
         .addStringOption((option) =>
           option
             .setName('message_id')
-            .setDescription('The message ID of the giveaway')
+            .setDescription('El ID del mensaje del sorteo')
             .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('cancel')
-        .setDescription('Cancel an ongoing giveaway')
+        .setDescription('Cancela un sorteo en curso')
         .addStringOption((option) =>
           option
             .setName('message_id')
-            .setDescription('The message ID of the giveaway')
+            .setDescription('El ID del mensaje del sorteo')
             .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('list')
-        .setDescription('List all ongoing giveaways in the server')
+        .setDescription('Lista todos los sorteos en curso en el servidor')
     ),
 
   async execute(interaction) {
@@ -86,7 +86,7 @@ module.exports = {
     if (!interaction.member.permissions.has('Administrator')) {
       return interaction.reply({
         content:
-          'You do not have `Administrator` permission to manage giveaways!',
+          '¡No tienes el permiso de `Administrador` para gestionar sorteos!',
         ephemeral: true,
       });
     }

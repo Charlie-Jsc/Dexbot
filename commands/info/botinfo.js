@@ -11,7 +11,7 @@ const os = require('os');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('botinfo')
-    .setDescription('Displays information about the bot.'),
+    .setDescription('Muestra información sobre el bot.'),
 
   async execute(interaction) {
     const { client } = interaction;
@@ -32,51 +32,51 @@ module.exports = {
 
     const botInfoEmbed = new EmbedBuilder()
       .setColor(0x5865f2)
-      .setTitle(`${client.user.username} - Bot Information`)
+      .setTitle(`${client.user.username} - Información del Bot`)
       .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
       .addFields(
         {
-          name: 'Developer',
+          name: 'Desarrollador',
           value: '```elm\nGaurav & Neppixel\n```',
           inline: true,
         },
         {
-          name: 'Servers',
+          name: 'Servidores',
           value: '```elm\n' + totalGuilds + '\n```',
           inline: true,
         },
         {
-          name: 'Users',
+          name: 'Usuarios',
           value: '```elm\n' + totalMembers + '\n```',
           inline: true,
         },
         {
-          name: 'Uptime',
+          name: 'Tiempo Activo',
           value: '```elm\n' + uptime + '\n```',
           inline: true,
         },
         {
-          name: 'CPU Usage',
+          name: 'Uso de CPU',
           value: '```elm\n' + cpuUsage + '%\n```',
           inline: true,
         },
         {
-          name: 'RAM Usage',
+          name: 'Uso de RAM',
           value: '```elm\n' + memoryUsage + ' MB / ' + totalMemory + ' MB\n```',
           inline: true,
         },
         {
-          name: 'CPU Model',
+          name: 'Modelo de CPU',
           value: '```elm\n' + cpuModel + '\n```',
           inline: true,
         },
         {
-          name: 'Operating System',
+          name: 'Sistema Operativo',
           value: '```elm\n' + operatingSystem + '\n```',
           inline: true,
         },
         {
-          name: 'Created On',
+          name: 'Creado el',
           value:
             '```elm\n' +
             moment(client.user.createdAt).format('MMMM Do YYYY, h:mm:ss A') +
@@ -84,19 +84,19 @@ module.exports = {
           inline: true,
         },
         {
-          name: 'Library',
+          name: 'Librería',
           value: '```elm\ndiscord.js v14\n```',
           inline: true,
         }
       )
       .setFooter({
-        text: `Requested by ${interaction.user.tag}`,
+        text: `Solicitado por ${interaction.user.tag}`,
         iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
       })
       .setTimestamp();
 
     const sourceCodeButton = new ButtonBuilder()
-      .setLabel('Source Code')
+      .setLabel('Código Fuente')
       .setURL('https://github.com/gaurav87565/Lanya-2.0')
       .setStyle(ButtonStyle.Link);
 

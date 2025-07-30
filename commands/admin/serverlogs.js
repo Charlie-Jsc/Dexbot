@@ -4,30 +4,30 @@ const ServerLog = require('../../models/serverlogs');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('serverlogs')
-    .setDescription('Manage server log settings')
+    .setDescription('Gestiona la configuración de logs del servidor')
     .addSubcommand((subcommand) =>
       subcommand
         .setName('setchannel')
-        .setDescription('Set the log channel')
+        .setDescription('Establece el canal de logs')
         .addChannelOption((option) =>
           option
             .setName('channel')
-            .setDescription('The channel to send logs to')
+            .setDescription('El canal al que enviar los logs')
             .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('toggle')
-        .setDescription('Toggle a log category on or off')
+        .setDescription('Activa o desactiva una categoría de logs')
         .addStringOption((option) =>
           option
             .setName('category')
-            .setDescription('The log category to toggle')
+            .setDescription('La categoría de logs a activar/desactivar')
             .setRequired(true)
             .addChoices(
-              { name: 'Messages', value: 'messages' },
-              { name: 'Nicknames', value: 'nicknames' },
+              { name: 'Mensajes', value: 'messages' },
+              { name: 'Apodos', value: 'nicknames' },
               { name: 'Member Events', value: 'memberEvents' },
               { name: 'Channel Events', value: 'channelEvents' },
               { name: 'Role Events', value: 'roleEvents' },

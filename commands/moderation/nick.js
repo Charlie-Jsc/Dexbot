@@ -3,19 +3,19 @@ const { SlashCommandBuilder } = require('discord.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('nick')
-    .setDescription("Change your or another user's nickname.")
+    .setDescription("Cambiar tu apodo o el de otro usuario.")
     .addUserOption((option) =>
       option
         .setName('user')
         .setDescription(
-          'The user to change the nickname for (leave blank to change your own)'
+          'El usuario al que cambiar el apodo (deja en blanco para cambiar el tuyo)'
         )
         .setRequired(true)
     )
     .addStringOption((option) =>
       option
         .setName('nickname')
-        .setDescription('The new nickname')
+        .setDescription('El nuevo apodo')
         .setRequired(true)
     ),
   async execute(interaction) {
@@ -24,7 +24,7 @@ module.exports = {
 
     const member = interaction.guild.members.cache.get(user.id);
     if (!member) {
-      return await interaction.reply('User not found in this guild.');
+      return await interaction.reply('Usuario no encontrado en este servidor.');
     }
 
     if (
@@ -34,17 +34,17 @@ module.exports = {
       try {
         await member.setNickname(nickname);
         return await interaction.reply(
-          `Nickname for **${user.username}** has been changed to **${nickname}**.`
+          `El apodo de **${user.username}** ha sido cambiado a **${nickname}**.`
         );
       } catch (error) {
         console.error(error);
         return await interaction.reply(
-          "I am unable to change this user's nickname. Please check my permissions."
+          "No puedo cambiar el apodo de este usuario. Por favor verifica mis permisos."
         );
       }
     } else {
       return await interaction.reply(
-        'You do not have `ManageNicknames` permission to change nicknames.'
+        'No tienes el permiso `ManageNicknames` para cambiar apodos.'
       );
     }
   },

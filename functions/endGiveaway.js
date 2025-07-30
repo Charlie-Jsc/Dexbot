@@ -8,7 +8,7 @@ async function endGiveaway(interaction) {
 
     if (!giveaway) {
       return interaction.reply({
-        content: 'Giveaway not found or has already ended.',
+        content: 'Sorteo no encontrado o ya ha terminado.',
         flags: MessageFlags.Ephemeral,
       });
     }
@@ -19,14 +19,14 @@ async function endGiveaway(interaction) {
       .catch(() => null);
     if (!channel) {
       return interaction.reply({
-        content: 'Could not find the giveaway channel.',
+        content: 'No se pudo encontrar el canal del sorteo.',
         flags: MessageFlags.Ephemeral,
       });
     }
 
     if (!channel.permissionsFor(interaction.member).has(['ManageMessages'])) {
       return interaction.reply({
-        content: 'You need `ManageMessages` permission to end a giveaway!',
+        content: '¡Necesitas el permiso `ManageMessages` para terminar un sorteo!',
         flags: MessageFlags.Ephemeral,
       });
     }
@@ -38,7 +38,7 @@ async function endGiveaway(interaction) {
 
     if (eligibleParticipants.length < giveaway.winners) {
       return interaction.reply({
-        content: 'Not enough participants for the giveaway.',
+        content: 'No hay suficientes participantes para el sorteo.',
         flags: MessageFlags.Ephemeral,
       });
     }
@@ -51,7 +51,7 @@ async function endGiveaway(interaction) {
     ) {
       return interaction.reply({
         content:
-          'I need `SendMessages` and `EmbedLinks` permissions in the giveaway channel!',
+          '¡Necesito los permisos `SendMessages` y `EmbedLinks` en el canal del sorteo!',
         flags: MessageFlags.Ephemeral,
       });
     }
@@ -62,7 +62,7 @@ async function endGiveaway(interaction) {
       .catch(() => null);
     if (!message) {
       return interaction.reply({
-        content: 'Could not find the giveaway message.',
+        content: 'No se pudo encontrar el mensaje del sorteo.',
         flags: MessageFlags.Ephemeral,
       });
     }
@@ -81,32 +81,32 @@ async function endGiveaway(interaction) {
 
     let embed = message.embeds[0];
     if (!embed) {
-      embed = new EmbedBuilder().setTitle('Giveaway Ended').setColor('#00FF00');
+      embed = new EmbedBuilder().setTitle('Sorteo Terminado').setColor('#00FF00');
     } else {
       embed = EmbedBuilder.from(embed);
     }
 
-    embed.setTitle('🎉 Giveaway Ended 🎉');
+    embed.setTitle('🎉 Sorteo Terminado 🎉');
     embed.setDescription(
-      `Prize: **${giveaway.prize}**\nWinners: ${winners.map((w) => `<@${w}>`).join(', ')}\nHosted by: <@${giveaway.hostId}>\nParticipants: ${eligibleParticipants.length}`
+      `Premio: **${giveaway.prize}**\nGanadores: ${winners.map((w) => `<@${w}>`).join(', ')}\nOrganizado por: <@${giveaway.hostId}>\nParticipantes: ${eligibleParticipants.length}`
     );
     embed.setColor('#00FF00');
 
     await message.edit({ embeds: [embed], components: [] }).catch(() => null);
     await channel
       .send(
-        `🎉 Congratulations ${winners.map((w) => `<@${w}>`).join(', ')}! You won **${giveaway.prize}**! 🎉`
+        `🎉 ¡Felicidades ${winners.map((w) => `<@${w}>`).join(', ')}! ¡Ganaste **${giveaway.prize}**! 🎉`
       )
       .catch(() => null);
     await interaction.reply({
-      content: 'Giveaway ended successfully and winners have been announced!',
+      content: '¡Sorteo terminado exitosamente y los ganadores han sido anunciados!',
       flags: MessageFlags.Ephemeral,
     });
   } catch (error) {
     console.error('Error ending giveaway:', error);
     await interaction.reply({
       content:
-        'An error occurred while ending the giveaway. Please try again later.',
+        'Ocurrió un error al terminar el sorteo. Por favor intenta de nuevo más tarde.',
       flags: MessageFlags.Ephemeral,
     });
   }

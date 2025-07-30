@@ -9,12 +9,12 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('nuke')
     .setDescription(
-      'Nuke the current text channel by cloning it and deleting the original.'
+      'Nukear el canal de texto actual clonándolo y eliminando el original.'
     ),
   async execute(interaction) {
     if (!interaction.member.permissions.has('ManageChannels')) {
       return interaction.reply({
-        content: 'You do not have `ManageChannels` permission to nuke members!',
+        content: 'No tienes el permiso `ManageChannels` para nukear miembros!',
         ephemeral: true,
       });
     }
@@ -22,7 +22,7 @@ module.exports = {
 
     if (channelToNuke.type !== 0) {
       return interaction.reply(
-        'This command can only be used in text channels.'
+        'Este comando solo puede ser usado en canales de texto.'
       );
     }
 
@@ -33,16 +33,16 @@ module.exports = {
       const newChannel = await channelToNuke.clone({
         name: channelName,
         position: channelPosition,
-        reason: 'Channel nuked by command',
+        reason: 'Canal nukeado por comando',
       });
 
-      await channelToNuke.delete('Channel nuked by command');
+      await channelToNuke.delete('Canal nukeado por comando');
       const attachment = new AttachmentBuilder('./utils/nuke.gif');
       const embed = new EmbedBuilder()
         .setColor('#FF0000')
-        .setTitle('💣 Channel Nuked! 💣')
+        .setTitle('💣 ¡Canal Nukeado! 💣')
         .setImage('attachment://nuke.gif')
-        .setFooter({ text: `Nuked by ${interaction.user.tag}.` })
+        .setFooter({ text: `Nukeado por ${interaction.user.tag}.` })
         .setTimestamp();
 
       const nukeMessage = await newChannel.send({
@@ -55,7 +55,7 @@ module.exports = {
       }, 30000);
     } catch (error) {
       console.error('Error during nuke operation:', error);
-      await interaction.reply('There was an error trying to nuke the channel.');
+      await interaction.reply('Hubo un error tratando de nukear el canal.');
     }
   },
 };

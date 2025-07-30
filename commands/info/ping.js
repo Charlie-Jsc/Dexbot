@@ -3,35 +3,35 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('ping')
-    .setDescription("Displays the bot's API and client ping."),
+    .setDescription("Muestra el ping de la API y del cliente del bot."),
 
   async execute(interaction) {
     const apiPing = Math.round(interaction.client.ws.ping);
     const sent = await interaction.reply({
-      content: 'Pinging...',
+      content: 'Haciendo ping...',
       fetchReply: true,
     });
     const clientPing = sent.createdTimestamp - interaction.createdTimestamp;
 
     const pingEmbed = new EmbedBuilder()
       .setColor(0x5865f2)
-      .setTitle('🏓 Pong!')
+      .setTitle('🏓 ¡Pong!')
       .setThumbnail(interaction.client.user.displayAvatarURL())
       .addFields(
         {
-          name: '📡 API Ping',
+          name: '📡 Ping de API',
           value: `\`${apiPing}ms\``,
           inline: true,
         },
         {
-          name: '⏱️ Client Ping',
+          name: '⏱️ Ping del Cliente',
           value: `\`${clientPing}ms\``,
           inline: true,
         }
       )
-      .setDescription('Here is the latency information for the bot:')
+      .setDescription('Aquí está la información de latencia del bot:')
       .setFooter({
-        text: `Requested by ${interaction.user.tag}`,
+        text: `Solicitado por ${interaction.user.tag}`,
         iconURL: interaction.user.displayAvatarURL(),
       })
       .setTimestamp();

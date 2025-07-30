@@ -24,13 +24,13 @@ module.exports = {
         name: member.user.tag,
         iconURL: member.user.displayAvatarURL(),
       })
-      .setTitle('Member Joined')
-      .setDescription(`<@${member.id}> has joined the server.`)
+      .setTitle('Miembro Se Unió')
+      .setDescription(`<@${member.id}> se ha unido al servidor.`)
       .addFields({
-        name: 'Account Created',
+        name: 'Cuenta Creada',
         value: `<t:${Math.floor(member.user.createdTimestamp / 1000)}:F>`,
       })
-      .setFooter({ text: `User ID: ${member.id}` })
+      .setFooter({ text: `ID del Usuario: ${member.id}` })
       .setTimestamp();
 
     logChannel.send({ embeds: [embed] });

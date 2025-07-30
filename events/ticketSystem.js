@@ -29,7 +29,7 @@ module.exports = {
       } catch (error) {
         console.error('Error closing ticket:', error);
         await interaction.editReply(
-          '❌ An error occurred while closing the ticket.'
+          '❌ Ocurrió un error al cerrar el ticket.'
         );
       }
       return;
@@ -51,7 +51,7 @@ module.exports = {
 
         if (!hasPermission) {
           return interaction.editReply({
-            content: '❌ You do not have permission to claim tickets!',
+            content: '❌ ¡No tienes permisos para reclamar tickets!',
           });
         }
 
@@ -81,18 +81,18 @@ module.exports = {
 
         const claimEmbed = new EmbedBuilder()
           .setColor('#00FF00')
-          .setTitle('Ticket Claimed')
+          .setTitle('Ticket Reclamado')
           .setDescription(
-            `🎫 This ticket is now being handled by ${interaction.user.toString()}`
+            `🎫 Este ticket ahora está siendo manejado por ${interaction.user.toString()}`
           )
           .addFields(
             {
-              name: 'Ticket ID',
+              name: 'ID del Ticket',
               value: ticket.ticketId,
               inline: true,
             },
             {
-              name: 'Claimed At',
+              name: 'Reclamado En',
               value: `<t:${Math.floor(ticket.claimedAt.getTime() / 1000)}:R>`,
               inline: true,
             }
@@ -101,12 +101,12 @@ module.exports = {
 
         const closeButton = new ButtonBuilder()
           .setCustomId('close_ticket')
-          .setLabel('Close Ticket')
+          .setLabel('Cerrar Ticket')
           .setStyle(ButtonStyle.Danger);
 
         const viewClaimButton = new ButtonBuilder()
           .setCustomId('view_claim')
-          .setLabel(`Claimed by ${interaction.user.username}`)
+          .setLabel(`Reclamado por ${interaction.user.username}`)
           .setStyle(ButtonStyle.Secondary)
           .setDisabled(true);
 
@@ -125,7 +125,7 @@ module.exports = {
         if (logChannel) {
           const logEmbed = new EmbedBuilder()
             .setColor('#00FF00')
-            .setTitle('Ticket Claimed')
+            .setTitle('Ticket Reclamado')
             .addFields(
               {
                 name: 'Ticket',
@@ -133,17 +133,17 @@ module.exports = {
                 inline: true,
               },
               {
-                name: 'Channel',
+                name: 'Canal',
                 value: `<#${channel.id}>`,
                 inline: true,
               },
               {
-                name: 'Claimed By',
+                name: 'Reclamado Por',
                 value: interaction.user.toString(),
                 inline: true,
               },
               {
-                name: 'User',
+                name: 'Usuario',
                 value: `<@${ticket.userId}>`,
                 inline: true,
               }
@@ -178,7 +178,7 @@ module.exports = {
 
       if (ticketBan) {
         return interaction.reply({
-          content: `❌ You are banned from creating tickets! Reason: ${ticketBan.reason}`,
+          content: `❌ ¡Estás baneado de crear tickets! Razón: ${ticketBan.reason}`,
           ephemeral: true,
         });
       }
@@ -191,7 +191,7 @@ module.exports = {
 
       if (existingTickets.length >= settings.ticketLimit) {
         return interaction.reply({
-          content: `❌ You can only have ${settings.ticketLimit} tickets open at a time!`,
+          content: `❌ ¡Solo puedes tener ${settings.ticketLimit} tickets abiertos a la vez!`,
           ephemeral: true,
         });
       }
@@ -203,7 +203,7 @@ module.exports = {
 
       if (!category) {
         return interaction.reply({
-          content: '❌ Invalid ticket category.',
+          content: '❌ Categoría de ticket inválida.',
           ephemeral: true,
         });
       }
@@ -251,28 +251,28 @@ module.exports = {
 
       const welcomeEmbed = new EmbedBuilder()
         .setColor(category.color || '#DDA0DD')
-        .setTitle(`${category.name} Ticket`)
+        .setTitle(`Ticket de ${category.name}`)
         .setDescription(
           settings.welcomeMessage?.replace(
             '{user}',
             interaction.user.toString()
           ) ||
-            `Welcome ${interaction.user.toString()}! Support staff will be with you shortly.`
+            `¡Bienvenido ${interaction.user.toString()}! El personal de soporte estará contigo en breve.`
         )
         .addFields(
-          { name: 'Category', value: category.name, inline: true },
-          { name: 'Ticket ID', value: ticket.ticketId, inline: true }
+          { name: 'Categoría', value: category.name, inline: true },
+          { name: 'ID del Ticket', value: ticket.ticketId, inline: true }
         )
         .setTimestamp();
 
       const closeButton = new ButtonBuilder()
         .setCustomId('close_ticket')
-        .setLabel('Close Ticket')
+        .setLabel('Cerrar Ticket')
         .setStyle(ButtonStyle.Danger);
 
       const claimButton = new ButtonBuilder()
         .setCustomId('claim_ticket')
-        .setLabel('Claim Ticket')
+        .setLabel('Reclamar Ticket')
         .setStyle(ButtonStyle.Success);
 
       const row = new ActionRowBuilder().addComponents(
@@ -287,13 +287,13 @@ module.exports = {
       });
 
       await interaction.reply({
-        content: `✅ Your ticket has been created: ${ticketChannel}`,
+        content: `✅ Tu ticket ha sido creado: ${ticketChannel}`,
         ephemeral: true,
       });
     } catch (error) {
       console.error('Error creating ticket:', error);
       await interaction.reply({
-        content: '❌ An error occurred while creating the ticket.',
+        content: '❌ Ocurrió un error al crear el ticket.',
         ephemeral: true,
       });
     }

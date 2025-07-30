@@ -10,18 +10,18 @@ const { translate } = require('@vitalets/google-translate-api');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('translate')
-    .setDescription('Translate text to a specified language.')
+    .setDescription('Traducir texto a un idioma específico.')
     .addStringOption((option) =>
       option
         .setName('text')
-        .setDescription('The text to translate')
+        .setDescription('El texto a traducir')
         .setRequired(true)
     )
     .addStringOption((option) =>
       option
         .setName('language')
         .setDescription(
-          'The language to translate to (e.g., "es" for Spanish, "fr" for French)'
+          'El idioma al que traducir (ej: "es" para español, "fr" para francés)'
         )
         .setRequired(true)
     ),
@@ -35,15 +35,15 @@ module.exports = {
 
       const translationEmbed = new EmbedBuilder()
         .setColor('#0099ff')
-        .setTitle(`Translation`)
+        .setTitle(`Traducción`)
         .addFields(
           {
-            name: 'Original Text',
+            name: 'Texto Original',
             value: `\`${text}\``,
             inline: false,
           },
           {
-            name: 'Translated Text',
+            name: 'Texto Traducido',
             value: `\`${res.text}\``,
             inline: false,
           },

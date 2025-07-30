@@ -106,7 +106,7 @@ module.exports = {
       }
 
       await channel.send(
-        `${message.author} has leveled up to level **${level}**! 🎉`
+        `¡${message.author} ha subido al nivel **${level}**! 🎉`
       );
     } catch (err) {
       console.error('Level-up message failed:', err.message);

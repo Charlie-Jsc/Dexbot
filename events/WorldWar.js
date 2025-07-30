@@ -17,21 +17,21 @@ module.exports = {
 
       if (!activeGame) {
         return interaction.reply({
-          content: 'No active WorldWar game found.',
+          content: 'No se encontró un juego WorldWar activo.',
           ephemeral: true,
         });
       }
 
       if (activeGame.participants.includes(userId)) {
         return interaction.reply({
-          content: 'You are already in the game.',
+          content: 'Ya estás en el juego.',
           ephemeral: true,
         });
       }
 
       if (activeGame.participants.length >= activeGame.maxParticipants) {
         return interaction.reply({
-          content: 'The game is full.',
+          content: 'El juego está lleno.',
           ephemeral: true,
         });
       }
@@ -40,7 +40,7 @@ module.exports = {
       await activeGame.save();
 
       interaction.reply({
-        content: 'You have successfully joined the WorldWar!',
+        content: '¡Te has unido exitosamente al WorldWar!',
         ephemeral: true,
       });
     }

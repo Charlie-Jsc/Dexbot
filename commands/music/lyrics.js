@@ -4,7 +4,7 @@ const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('lyrics')
-    .setDescription('Fetches lyrics for the currently playing song.'),
+    .setDescription('Obtiene la letra de la canción que se está reproduciendo actualmente.'),
   async execute(interaction) {
     try {
       const client = interaction.client;
@@ -14,7 +14,7 @@ module.exports = {
       const player = client.lavalink.players.get(guildId);
 
       if (!player || !player.queue.current) {
-        return interaction.editReply('❌ No song is currently playing.');
+        return interaction.editReply('❌ No se está reproduciendo ninguna canción actualmente.');
       }
 
       const currentTrack = player.queue.current;
@@ -22,7 +22,7 @@ module.exports = {
 
       if (!lyrics) {
         return interaction.editReply({
-          content: 'Lyrics not found for this track.',
+          content: 'No se encontraron letras para esta pista.',
           ephemeral: true,
         });
       }
@@ -46,7 +46,7 @@ module.exports = {
 
       if (!lyricsText) {
         return interaction.editReply({
-          content: 'Lyrics format not supported.',
+          content: 'Formato de letras no soportado.',
           ephemeral: true,
         });
       }
@@ -61,10 +61,10 @@ module.exports = {
 
       const createEmbed = (pageIndex) => {
         return new EmbedBuilder()
-          .setTitle(`🎶 Lyrics for: ${currentTrack.info.title}`)
+          .setTitle(`🎶 Letras de: ${currentTrack.info.title}`)
           .setDescription(pages[pageIndex])
           .setFooter({
-            text: `Page ${pageIndex + 1}/${pages.length}`,
+            text: `Página ${pageIndex + 1}/${pages.length}`,
           })
           .setTimestamp()
           .setColor(0x11806a);
@@ -79,11 +79,11 @@ module.exports = {
       const row = new ActionRowBuilder().addComponents(
         new ButtonBuilder()
           .setCustomId('previous')
-          .setLabel('◀️ Previous')
+          .setLabel('◀️ Anterior')
           .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
           .setCustomId('next')
-          .setLabel('Next ▶️')
+          .setLabel('Siguiente ▶️')
           .setStyle(ButtonStyle.Primary)
       );
 
@@ -99,7 +99,7 @@ module.exports = {
       collector.on('collect', async (i) => {
         if (i.user.id !== interaction.user.id) {
           return i.reply({
-            content: 'These buttons are not for you!',
+            content: '¡Estos botones no son para ti!',
             ephemeral: true,
           });
         }
@@ -129,7 +129,7 @@ module.exports = {
     } catch (e) {
       console.error('Lyrics error:', e);
       return interaction.editReply({
-        content: 'An error occurred while fetching lyrics.',
+        content: 'Ocurrió un error al obtener las letras.',
         ephemeral: true,
       });
     }

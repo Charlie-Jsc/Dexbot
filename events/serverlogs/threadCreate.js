@@ -21,13 +21,13 @@ module.exports = {
     if (!logChannel) return;
 
     const embed = new EmbedBuilder()
-      .setTitle('Thread Created')
+      .setTitle('Hilo Creado')
       .setColor('Green')
-      .setDescription(`A new thread has been created in <#${thread.parentId}>`)
+      .setDescription(`Se ha creado un nuevo hilo en <#${thread.parentId}>`)
       .addFields(
-        { name: 'Thread Name', value: `${thread.name}`, inline: true },
-        { name: 'Thread ID', value: `${thread.id}`, inline: true },
-        { name: 'Thread Type', value: `${thread.type}`, inline: true }
+        { name: 'Nombre del Hilo', value: `${thread.name}`, inline: true },
+        { name: 'ID del Hilo', value: `${thread.id}`, inline: true },
+        { name: 'Tipo de Hilo', value: `${thread.type}`, inline: true }
       )
       .setTimestamp();
 

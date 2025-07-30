@@ -8,7 +8,7 @@ async function rerollGiveaway(interaction) {
 
     if (!giveaway) {
       return interaction.reply({
-        content: 'Giveaway not found or is still ongoing.',
+        content: 'Sorteo no encontrado o aún está en curso.',
         flags: MessageFlags.Ephemeral,
       });
     }
@@ -19,21 +19,21 @@ async function rerollGiveaway(interaction) {
       .catch(() => null);
     if (!channel) {
       return interaction.reply({
-        content: 'Could not find the giveaway channel.',
+        content: 'No se pudo encontrar el canal del sorteo.',
         flags: MessageFlags.Ephemeral,
       });
     }
 
     if (!channel.permissionsFor(interaction.member).has(['ManageMessages'])) {
       return interaction.reply({
-        content: 'You need `ManageMessages` permission to reroll a giveaway!',
+        content: '¡Necesitas el permiso `ManageMessages` para sortear de nuevo!',
         flags: MessageFlags.Ephemeral,
       });
     }
 
     if (giveaway.participants.length < giveaway.winners) {
       return interaction.reply({
-        content: 'Not enough participants to reroll.',
+        content: 'No hay suficientes participantes para sortear de nuevo.',
         flags: MessageFlags.Ephemeral,
       });
     }
@@ -46,7 +46,7 @@ async function rerollGiveaway(interaction) {
     ) {
       return interaction.reply({
         content:
-          'I need `SendMessages` and `EmbedLinks` permissions in the giveaway channel!',
+          '¡Necesito los permisos `SendMessages` y `EmbedLinks` en el canal del sorteo!',
         flags: MessageFlags.Ephemeral,
       });
     }
@@ -57,7 +57,7 @@ async function rerollGiveaway(interaction) {
       .catch(() => null);
     if (!message) {
       return interaction.reply({
-        content: 'Could not find the giveaway message.',
+        content: 'No se pudo encontrar el mensaje del sorteo.',
         flags: MessageFlags.Ephemeral,
       });
     }
@@ -76,13 +76,13 @@ async function rerollGiveaway(interaction) {
     if (embed) {
       embed = EmbedBuilder.from(embed);
       embed.setDescription(
-        `Prize: **${giveaway.prize}**\nNew Winners: ${winners.map((w) => `<@${w}>`).join(', ')}\nHosted by: ${interaction.user}\nParticipants: ${giveaway.participants.length}`
+        `Premio: **${giveaway.prize}**\nNuevos Ganadores: ${winners.map((w) => `<@${w}>`).join(', ')}\nOrganizado por: ${interaction.user}\nParticipantes: ${giveaway.participants.length}`
       );
       await message.edit({ embeds: [embed] }).catch(() => null);
     }
 
     await interaction.reply({
-      content: `🎉 New winners: ${winners.map((w) => `<@${w}>`).join(', ')}! Congratulations!`,
+                content: `🎉 ¡Felicidades ${winners.map(w => `<@${w}>`).join(' ')}, ganaste **${giveaway.prize}**! 🎉`,
       flags: MessageFlags.Ephemeral,
     });
 

@@ -8,43 +8,43 @@ const {
 } = require('discord.js');
 const WorldWar = require('../../models/WorldWar');
 const path = require('path');
-const Canvas = require('canvas');
+const Canvas = require('@napi-rs/canvas');
 const sharp = require('sharp');
 const fetch = require('node-fetch');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('worldwar')
-    .setDescription('Manage the WorldWar game')
+    .setDescription('Administrar el juego WorldWar')
     .addSubcommand((subcommand) =>
       subcommand
         .setName('setup')
-        .setDescription('Setup the WorldWar game')
+        .setDescription('Configurar el juego WorldWar')
         .addIntegerOption((option) =>
           option
             .setName('min_participants')
-            .setDescription('Minimum participants')
+            .setDescription('Participantes mínimos')
             .setRequired(true)
         )
         .addIntegerOption((option) =>
           option
             .setName('max_participants')
-            .setDescription('Maximum participants')
+            .setDescription('Participantes máximos')
             .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
-      subcommand.setName('start').setDescription('Start the WorldWar game.')
+      subcommand.setName('start').setDescription('Iniciar el juego WorldWar.')
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('cancel')
-        .setDescription('Cancel the active WorldWar game.')
+        .setDescription('Cancelar el juego WorldWar activo.')
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('stop')
-        .setDescription('Stop the current WorldWar game early.')
+        .setDescription('Detener el juego WorldWar actual anticipadamente.')
     ),
 
   async execute(interaction) {
@@ -74,10 +74,10 @@ async function setupGame(interaction) {
   const max = interaction.options.getInteger('max_participants');
 
   if (min < 2)
-    return interaction.reply('Minimum participants must be at least 2.');
+    return interaction.reply('Los participantes mínimos deben ser al menos 2.');
   if (max <= min)
     return interaction.reply(
-      'Maximum participants must be greater than minimum participants.'
+      'Los participantes máximos deben ser mayores que los participantes mínimos.'
     );
 
   let warNumber;

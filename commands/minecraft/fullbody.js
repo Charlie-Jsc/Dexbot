@@ -8,11 +8,11 @@ const {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('fullbody')
-    .setDescription('Generate a Minecraft player full body')
+    .setDescription('Generar un cuerpo completo de jugador de Minecraft')
     .addStringOption((option) =>
       option
         .setName('username')
-        .setDescription('Minecraft username to fetch player body for')
+        .setDescription('Nombre de usuario de Minecraft para obtener el cuerpo del jugador')
         .setRequired(true)
     ),
 
@@ -22,7 +22,7 @@ module.exports = {
 
     const downloadButton = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
-        .setLabel('Download Player body')
+        .setLabel('Descargar Cuerpo del Jugador')
         .setStyle(ButtonStyle.Link)
         .setURL(bodyUrl)
     );
@@ -30,10 +30,10 @@ module.exports = {
     await interaction.reply({
       embeds: [
         {
-          title: `👤 Minecraft Player Full Body`,
+          title: `👤 Cuerpo Completo de Jugador de Minecraft`,
           image: { url: bodyUrl },
           color: 0xff5555,
-          description: `Minecraft Full Body for: ${username}`,
+          description: `Cuerpo completo de Minecraft para: ${username}`,
         },
       ],
       components: [downloadButton],

@@ -4,40 +4,40 @@ const AutoRole = require('../../models/AutoRoles'); // The model to store the au
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('autorole')
-    .setDescription('Configure the auto-role system for new members')
+    .setDescription('Configura el sistema de roles automáticos para nuevos miembros')
     .addSubcommand((subcommand) =>
       subcommand
         .setName('add')
-        .setDescription('Set roles to be automatically assigned to new members')
+        .setDescription('Establece roles para asignar automáticamente a nuevos miembros')
         .addRoleOption((option) =>
           option
             .setName('role')
-            .setDescription('The role to assign to new members')
+            .setDescription('El rol a asignar a nuevos miembros')
             .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('remove')
-        .setDescription('Remove a role from the auto-role system')
+        .setDescription('Elimina un rol del sistema de roles automáticos')
         .addRoleOption((option) =>
           option
             .setName('role')
-            .setDescription('The role to remove from auto-role assignments')
+            .setDescription('El rol a eliminar de las asignaciones automáticas')
             .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('view')
-        .setDescription('View all roles assigned to new members')
+        .setDescription('Ver todos los roles asignados a nuevos miembros')
     ),
 
   async execute(interaction) {
     if (!interaction.member.permissions.has('Administrator')) {
       return interaction.reply({
         content:
-          'You do not have the `Administrator` permission to manage auto-roles!',
+          '¡No tienes el permiso de `Administrador` para gestionar roles automáticos!',
         ephemeral: true,
       });
     }
@@ -57,7 +57,7 @@ module.exports = {
       const role = options.getRole('role');
       if (autoRole.roleIds.includes(role.id)) {
         return interaction.reply({
-          content: `The role ${role.name} is already set as an auto-role.`,
+          content: `El rol ${role.name} ya está configurado como rol automático.`,
           ephemeral: true,
         });
       }
@@ -66,9 +66,9 @@ module.exports = {
 
       const embed = new EmbedBuilder()
         .setColor('#4CAF50')
-        .setTitle('Auto-Roles Updated')
+        .setTitle('Roles Automáticos Actualizados')
         .setDescription(
-          `The role ${role.name} has been added to the list of auto-roles. New members will automatically receive this role when they join.`
+          `El rol ${role.name} ha sido añadido a la lista de roles automáticos. Los nuevos miembros recibirán automáticamente este rol cuando se unan.`
         )
         .setTimestamp();
 
@@ -79,7 +79,7 @@ module.exports = {
       const role = options.getRole('role');
       if (!autoRole.roleIds.includes(role.id)) {
         return interaction.reply({
-          content: `The role ${role.name} is not set as an auto-role.`,
+          content: `El rol ${role.name} no está configurado como rol automático.`,
           ephemeral: true,
         });
       }
@@ -88,9 +88,9 @@ module.exports = {
 
       const embed = new EmbedBuilder()
         .setColor('#FF5733')
-        .setTitle('Auto-Role Removed')
+        .setTitle('Rol Automático Eliminado')
         .setDescription(
-          `The role ${role.name} has been removed from the list of auto-roles.`
+          `El rol ${role.name} ha sido eliminado de la lista de roles automáticos.`
         )
         .setTimestamp();
 
@@ -100,7 +100,7 @@ module.exports = {
     if (subcommand === 'view') {
       if (autoRole.roleIds.length === 0) {
         return interaction.reply({
-          content: 'No auto-roles have been set for this server.',
+          content: 'No se han configurado roles automáticos para este servidor.',
           ephemeral: true,
         });
       }
@@ -108,15 +108,15 @@ module.exports = {
       const roleNames = autoRole.roleIds
         .map((roleId) => {
           const role = guild.roles.cache.get(roleId);
-          return role ? role.name : `Unknown Role (ID: ${roleId})`;
+          return role ? role.name : `Rol Desconocido (ID: ${roleId})`;
         })
         .join('\n');
 
       const embed = new EmbedBuilder()
         .setColor('#00BFFF')
-        .setTitle('Configured Auto-Roles')
+        .setTitle('Roles Automáticos Configurados')
         .setDescription(
-          `The following roles are automatically assigned to new members when they join:\n\n\`${roleNames}\``
+          `Los siguientes roles se asignan automáticamente a nuevos miembros cuando se unen:\n\n\`${roleNames}\``
         )
         .setTimestamp();
 

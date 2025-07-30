@@ -6,7 +6,7 @@ const fetch = require('node-fetch');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('leaderboard')
-    .setDescription('View the server leaderboard based on levels and XP.'),
+    .setDescription('Ver la tabla de clasificación del servidor basada en niveles y XP.'),
 
   async execute(interaction) {
     await interaction.deferReply();
@@ -17,7 +17,7 @@ module.exports = {
 
     if (!guildData || !guildData.levelingEnabled) {
       return interaction.editReply({
-        content: '❌ Leveling system is not enabled in this server.',
+        content: '❌ El sistema de niveles no está habilitado en este servidor.',
       });
     }
 
@@ -27,7 +27,7 @@ module.exports = {
 
     if (leaderboard.length === 0) {
       return interaction.editReply({
-        content: 'No members found in the leaderboard.',
+        content: 'No se encontraron miembros en la tabla de clasificación.',
       });
     }
 
@@ -55,20 +55,20 @@ module.exports = {
     // Header
     ctx.fillStyle = '#FFFFFF';
     ctx.font = 'bold 50px Arial, sans-serif';
-    ctx.fillText('Leaderboard', 100, 80); // Adjusted to not overlap with trophy
+    ctx.fillText('Tabla de Clasificación', 100, 80); // Adjusted to not overlap with trophy
 
     // Column Titles
     ctx.font = 'bold 28px Arial, sans-serif';
-    ctx.fillText('Rank', 40, 130);
-    ctx.fillText('User', 140, 130);
-    ctx.fillText('Level', 500, 130);
+    ctx.fillText('Posición', 40, 130);
+    ctx.fillText('Usuario', 140, 130);
+    ctx.fillText('Nivel', 500, 130);
     ctx.fillText('XP', 700, 130);
 
     // Draw leaderboard rows
     for (let index = 0; index < topMembers.length; index++) {
       const member = topMembers[index];
 
-      let userTag = 'Unknown User';
+      let userTag = 'Usuario Desconocido';
       let avatarURL = 'https://cdn.discordapp.com/embed/avatars/0.png'; // Default avatar
 
       try {
@@ -113,7 +113,7 @@ module.exports = {
     });
 
     await interaction.editReply({
-      content: 'Here is the current leaderboard:',
+      content: 'Aquí está la tabla de clasificación actual:',
       files: [attachment],
     });
   },

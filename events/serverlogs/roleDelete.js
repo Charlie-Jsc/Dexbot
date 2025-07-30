@@ -19,10 +19,10 @@ module.exports = {
     if (!logChannel) return;
 
     const embed = new EmbedBuilder()
-      .setTitle('Role Deleted')
+      .setTitle('Rol Eliminado')
       .setColor('Red')
-      .addFields({ name: 'Role Name', value: role.name, inline: true })
-      .addFields({ name: 'Role ID', value: role.id, inline: true })
+      .addFields({ name: 'Nombre del Rol', value: role.name, inline: true })
+      .addFields({ name: 'ID del Rol', value: role.id, inline: true })
       .setTimestamp();
 
     logChannel.send({ embeds: [embed] });

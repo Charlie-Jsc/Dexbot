@@ -21,10 +21,10 @@ module.exports = {
     if (!logChannel) return;
 
     const embed = new EmbedBuilder()
-      .setTitle('Role Updated')
+      .setTitle('Rol Actualizado')
       .setColor('Orange')
       .addFields({
-        name: 'Role',
+        name: 'Rol',
         value: `<@&${newRole.id}> (${newRole.id})`,
       });
 
@@ -32,26 +32,26 @@ module.exports = {
 
     if (oldRole.name !== newRole.name) {
       embed.addFields({
-        name: 'Name Changed',
-        value: `**Old:** ${oldRole.name}\n**New:** ${newRole.name}`,
+        name: 'Nombre Cambiado',
+        value: `**Anterior:** ${oldRole.name}\n**Nuevo:** ${newRole.name}`,
       });
       hasChanges = true;
     }
 
     if (oldRole.color !== newRole.color) {
       embed.addFields({
-        name: 'Color Changed',
-        value: `**Old:** ${oldRole.hexColor}\n**New:** ${newRole.hexColor}`,
+        name: 'Color Cambiado',
+        value: `**Anterior:** ${oldRole.hexColor}\n**Nuevo:** ${newRole.hexColor}`,
       });
       hasChanges = true;
     }
 
     if (oldRole.permissions.bitfield !== newRole.permissions.bitfield) {
-      const oldPermissions = oldRole.permissions.toArray().join(', ') || 'None';
-      const newPermissions = newRole.permissions.toArray().join(', ') || 'None';
+      const oldPermissions = oldRole.permissions.toArray().join(', ') || 'Ninguno';
+      const newPermissions = newRole.permissions.toArray().join(', ') || 'Ninguno';
       embed.addFields({
-        name: 'Permissions Changed',
-        value: `**Old:** ${oldPermissions}\n**New:** ${newPermissions}`,
+        name: 'Permisos Cambiados',
+        value: `**Anteriores:** ${oldPermissions}\n**Nuevos:** ${newPermissions}`,
       });
       hasChanges = true;
     }

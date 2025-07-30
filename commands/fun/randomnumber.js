@@ -3,17 +3,17 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('randomnumber')
-    .setDescription('Generates a random number between the specified range.')
+    .setDescription('Genera un número aleatorio entre el rango especificado.')
     .addIntegerOption((option) =>
       option
         .setName('min')
-        .setDescription('Minimum number (inclusive)')
+        .setDescription('Número mínimo (inclusivo)')
         .setRequired(true)
     )
     .addIntegerOption((option) =>
       option
         .setName('max')
-        .setDescription('Maximum number (inclusive)')
+        .setDescription('Número máximo (inclusivo)')
         .setRequired(true)
     ),
 
@@ -25,18 +25,18 @@ module.exports = {
 
     const embed = new EmbedBuilder()
       .setColor(0x5865f2)
-      .setTitle('🎲 Random Number Generator')
+      .setTitle('🎲 Generador de Números Aleatorios')
       .setDescription(
-        `You requested a random number between **${min}** and **${max}**.`
+        `Solicitaste un número aleatorio entre **${min}** y **${max}**.`
       )
       .addFields(
         {
-          name: 'Random Number',
+          name: 'Número Aleatorio',
           value: `${randomNumber}`,
           inline: true,
         },
         {
-          name: 'Requested by',
+          name: 'Solicitado por',
           value: `${interaction.user.tag}`,
           inline: true,
         }

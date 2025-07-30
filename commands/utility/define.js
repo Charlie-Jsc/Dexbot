@@ -4,11 +4,11 @@ const fetch = require('node-fetch');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('define')
-    .setDescription('Get the definition of a word.')
+    .setDescription('Obtener la definición de una palabra.')
     .addStringOption((option) =>
       option
         .setName('word')
-        .setDescription('The word to define')
+        .setDescription('La palabra a definir')
         .setRequired(true)
     ),
 
@@ -22,21 +22,21 @@ module.exports = {
 
       if (!response.ok) {
         return await interaction.reply(
-          'Could not find the definition. Please check the word and try again.'
+          'No se pudo encontrar la definición. Por favor revisa la palabra e intenta de nuevo.'
         );
       }
 
       const data = await response.json();
 
       if (!data || data.length === 0) {
-        return await interaction.reply('No definition found for that word.');
+        return await interaction.reply('No se encontró definición para esa palabra.');
       }
 
       const definitions = data[0].meanings[0].definitions;
 
       const definitionEmbed = new EmbedBuilder()
         .setColor('#0099ff')
-        .setTitle(`Definition of "${word}"`)
+        .setTitle(`Definición de "${word}"`)
         .setDescription(
           definitions
             .map((def, index) => `**${index + 1}.** ${def.definition}`)

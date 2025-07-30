@@ -29,16 +29,16 @@ module.exports = {
 
     const embed = new EmbedBuilder()
       .setColor('Orange')
-      .setTitle('Channel Updated')
-      .setFooter({ text: `Channel ID: ${newChannel.id}` })
+      .setTitle('Canal Actualizado')
+      .setFooter({ text: `ID del Canal: ${newChannel.id}` })
       .setTimestamp();
 
     let changesDetected = false;
 
     if (oldChannel.name !== newChannel.name) {
       embed.addFields(
-        { name: 'Old Name', value: oldChannel.name, inline: true },
-        { name: 'New Name', value: newChannel.name, inline: true }
+        { name: 'Nombre Anterior', value: oldChannel.name, inline: true },
+        { name: 'Nombre Nuevo', value: newChannel.name, inline: true }
       );
       changesDetected = true;
     }
@@ -49,13 +49,13 @@ module.exports = {
     ) {
       embed.addFields(
         {
-          name: 'Old Topic',
-          value: oldChannel.topic || 'None',
+          name: 'Tema Anterior',
+          value: oldChannel.topic || 'Ninguno',
           inline: true,
         },
         {
-          name: 'New Topic',
-          value: newChannel.topic || 'None',
+          name: 'Tema Nuevo',
+          value: newChannel.topic || 'Ninguno',
           inline: true,
         }
       );
@@ -65,13 +65,13 @@ module.exports = {
     if (oldChannel.nsfw !== newChannel.nsfw) {
       embed.addFields(
         {
-          name: 'Old NSFW Status',
-          value: oldChannel.nsfw ? 'Enabled' : 'Disabled',
+          name: 'Estado NSFW Anterior',
+          value: oldChannel.nsfw ? 'Habilitado' : 'Deshabilitado',
           inline: true,
         },
         {
-          name: 'New NSFW Status',
-          value: newChannel.nsfw ? 'Enabled' : 'Disabled',
+          name: 'Estado NSFW Nuevo',
+          value: newChannel.nsfw ? 'Habilitado' : 'Deshabilitado',
           inline: true,
         }
       );
@@ -82,12 +82,12 @@ module.exports = {
       if (oldChannel.bitrate !== newChannel.bitrate) {
         embed.addFields(
           {
-            name: 'Old Bitrate',
+            name: 'Bitrate Anterior',
             value: `${oldChannel.bitrate / 1000} kbps`,
             inline: true,
           },
           {
-            name: 'New Bitrate',
+            name: 'Bitrate Nuevo',
             value: `${newChannel.bitrate / 1000} kbps`,
             inline: true,
           }
@@ -98,13 +98,13 @@ module.exports = {
       if (oldChannel.userLimit !== newChannel.userLimit) {
         embed.addFields(
           {
-            name: 'Old User Limit',
-            value: oldChannel.userLimit || 'Unlimited',
+            name: 'Límite de Usuarios Anterior',
+            value: oldChannel.userLimit || 'Ilimitado',
             inline: true,
           },
           {
-            name: 'New User Limit',
-            value: newChannel.userLimit || 'Unlimited',
+            name: 'Límite de Usuarios Nuevo',
+            value: newChannel.userLimit || 'Ilimitado',
             inline: true,
           }
         );
@@ -113,11 +113,11 @@ module.exports = {
     }
 
     if (oldChannel.parentId !== newChannel.parentId) {
-      const oldCategory = oldChannel.parent ? oldChannel.parent.name : 'None';
-      const newCategory = newChannel.parent ? newChannel.parent.name : 'None';
+      const oldCategory = oldChannel.parent ? oldChannel.parent.name : 'Ninguna';
+      const newCategory = newChannel.parent ? newChannel.parent.name : 'Ninguna';
       embed.addFields(
-        { name: 'Old Category', value: oldCategory, inline: true },
-        { name: 'New Category', value: newCategory, inline: true }
+        { name: 'Categoría Anterior', value: oldCategory, inline: true },
+        { name: 'Categoría Nueva', value: newCategory, inline: true }
       );
       changesDetected = true;
     }

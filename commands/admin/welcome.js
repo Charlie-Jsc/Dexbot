@@ -8,25 +8,25 @@ const Welcome = require('../../models/welcome');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('welcome')
-    .setDescription('Configure the welcome system')
+    .setDescription('Configura el sistema de bienvenida')
     .addSubcommand((subcommand) =>
       subcommand
         .setName('toggle')
-        .setDescription('Enable or disable the welcome system')
+        .setDescription('Habilita o deshabilita el sistema de bienvenida')
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('description')
-        .setDescription('Set the custom welcome message description')
+        .setDescription('Establece la descripción del mensaje de bienvenida personalizado')
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('setchannel')
-        .setDescription('Set the welcome channel')
+        .setDescription('Establece el canal de bienvenida')
         .addChannelOption((option) =>
           option
             .setName('channel')
-            .setDescription('The channel to send welcome messages')
+            .setDescription('El canal para enviar mensajes de bienvenida')
             .setRequired(true)
             .addChannelTypes(ChannelType.GuildText)
         )

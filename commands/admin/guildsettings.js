@@ -5,14 +5,14 @@ const Welcome = require('../../models/welcome');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('guildsettings')
-    .setDescription('View the settings for the guild'),
+    .setDescription('Ver la configuración del servidor'),
 
   async execute(interaction) {
     const { guild } = interaction;
     if (!interaction.member.permissions.has('Administrator')) {
       return interaction.reply({
         content:
-          'You do not have `Administrator` permission to manage the guild!',
+          '¡No tienes el permiso de `Administrador` para gestionar el servidor!',
         ephemeral: true,
       });
     }
@@ -20,7 +20,7 @@ module.exports = {
     const guildSettings = await GuildSettings.findOne({ guildId: guild.id });
     if (!guildSettings) {
       return interaction.reply({
-        content: 'Guild settings not found!',
+        content: '¡Configuración del servidor no encontrada!',
         ephemeral: true,
       });
     }
@@ -29,58 +29,58 @@ module.exports = {
 
     const embed = new EmbedBuilder()
       .setColor('#00BFFF')
-      .setTitle(`Guild Settings for ${guild.name}`)
+      .setTitle(`Configuración del Servidor para ${guild.name}`)
       .setTimestamp();
 
     embed.addFields({
-      name: '**Leveling Settings**',
+      name: '**Configuración de Niveles**',
       value: '\u200B',
       inline: false,
     });
     if (guildSettings.levelingEnabled) {
       embed.addFields(
-        { name: 'Leveling', value: 'Enabled', inline: true },
+        { name: 'Sistema de Niveles', value: 'Habilitado', inline: true },
         {
-          name: 'XP Rate',
+          name: 'Tasa de XP',
           value: `${guildSettings.xpRate}`,
           inline: true,
         },
         {
-          name: 'Level Up Channel',
+          name: 'Canal de Subida de Nivel',
           value: guildSettings.levelUpChannelId
             ? `<#${guildSettings.levelUpChannelId}>`
-            : 'Not set',
+            : 'No establecido',
           inline: true,
         }
       );
     } else {
       embed.addFields({
-        name: 'Leveling',
-        value: 'Disabled',
+        name: 'Sistema de Niveles',
+        value: 'Deshabilitado',
         inline: true,
       });
     }
 
     embed.addFields({
-      name: '**Welcome System Settings**',
+      name: '**Configuración del Sistema de Bienvenida**',
       value: '\u200B',
       inline: false,
     });
     if (welcomeSettings && welcomeSettings.enabled) {
       embed.addFields(
-        { name: 'Welcome System', value: 'Enabled', inline: true },
+        { name: 'Sistema de Bienvenida', value: 'Habilitado', inline: true },
         {
-          name: 'Welcome Channel',
+          name: 'Canal de Bienvenida',
           value: welcomeSettings.channelId
             ? `<#${welcomeSettings.channelId}>`
-            : 'Not set',
+            : 'No establecido',
           inline: true,
         }
       );
     } else {
       embed.addFields({
-        name: 'Welcome System',
-        value: 'Disabled',
+        name: 'Sistema de Bienvenida',
+        value: 'Deshabilitado',
         inline: true,
       });
     }

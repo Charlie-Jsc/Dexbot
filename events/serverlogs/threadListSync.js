@@ -21,14 +21,14 @@ module.exports = {
     if (!logChannel) return;
 
     const threadNames =
-      threads.threads.map((thread) => thread.name).join(', ') || 'None';
+      threads.threads.map((thread) => thread.name).join(', ') || 'Ninguno';
 
     const embed = new EmbedBuilder()
-      .setTitle('Thread List Synced')
+      .setTitle('Lista de Hilos Sincronizada')
       .setColor('Blue')
-      .setDescription('The thread list for the guild was synchronized.')
+      .setDescription('La lista de hilos del servidor fue sincronizada.')
       .addFields({
-        name: 'Synced Threads',
+        name: 'Hilos Sincronizados',
         value: `${threadNames}`,
         inline: false,
       })

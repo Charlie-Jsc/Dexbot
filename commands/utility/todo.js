@@ -4,78 +4,78 @@ const Todo = require('../../models/Todo');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('todo')
-    .setDescription('Manage your todo list.')
+    .setDescription('Gestionar tu lista de tareas.')
     .addSubcommand((subcommand) =>
       subcommand
         .setName('add')
-        .setDescription('Add a task to your todo list.')
+        .setDescription('Agregar una tarea a tu lista de tareas.')
         .addStringOption((option) =>
           option
             .setName('task')
-            .setDescription('The task to add')
+            .setDescription('La tarea a agregar')
             .setRequired(true)
         )
         .addStringOption((option) =>
           option
             .setName('priority')
-            .setDescription('Set the priority level: low, medium, high')
+            .setDescription('Establecer el nivel de prioridad: baja, media, alta')
             .setRequired(false)
             .addChoices(
-              { name: 'Low', value: 'low' },
-              { name: 'Medium', value: 'medium' },
-              { name: 'High', value: 'high' }
+              { name: 'Baja', value: 'low' },
+              { name: 'Media', value: 'medium' },
+              { name: 'Alta', value: 'high' }
             )
         )
     )
     .addSubcommand((subcommand) =>
-      subcommand.setName('view').setDescription('View your todo list.')
+      subcommand.setName('view').setDescription('Ver tu lista de tareas.')
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('delete')
-        .setDescription('Delete a task from your todo list.')
+        .setDescription('Eliminar una tarea de tu lista de tareas.')
         .addIntegerOption((option) =>
           option
             .setName('task_number')
-            .setDescription('The task number to delete')
+            .setDescription('El número de tarea a eliminar')
             .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('delete_all')
-        .setDescription('Delete all tasks from your todo list.')
+        .setDescription('Eliminar todas las tareas de tu lista de tareas.')
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('complete')
-        .setDescription('Mark a task as completed.')
+        .setDescription('Marcar una tarea como completada.')
         .addIntegerOption((option) =>
           option
             .setName('task_number')
-            .setDescription('The task number to mark as completed')
+            .setDescription('El número de tarea a marcar como completada')
             .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('priority')
-        .setDescription('Change the priority of a task.')
+        .setDescription('Cambiar la prioridad de una tarea.')
         .addIntegerOption((option) =>
           option
             .setName('task_number')
-            .setDescription('The task number to change priority')
+            .setDescription('El número de tarea para cambiar prioridad')
             .setRequired(true)
         )
         .addStringOption((option) =>
           option
             .setName('new_priority')
-            .setDescription('Set the new priority level: low, medium, high')
+            .setDescription('Establecer el nuevo nivel de prioridad: baja, media, alta')
             .setRequired(true)
             .addChoices(
-              { name: 'Low', value: 'low' },
-              { name: 'Medium', value: 'medium' },
-              { name: 'High', value: 'high' }
+              { name: 'Baja', value: 'low' },
+              { name: 'Media', value: 'medium' },
+              { name: 'Alta', value: 'high' }
             )
         )
     ),
@@ -99,15 +99,15 @@ module.exports = {
 
       const addEmbed = new EmbedBuilder()
         .setColor('#00FF00')
-        .setTitle('📝 Task Added')
+        .setTitle('📝 Tarea Agregada')
         .setDescription(
-          `\`\`\`\nTask: ${task}\nPriority: ${priority.toUpperCase()}\n\`\`\``
+          `\`\`\`\nTarea: ${task}\nPrioridad: ${priority.toUpperCase()}\n\`\`\``
         )
         .addFields({
-          name: 'Instructions',
-          value: 'Use `/todo view` to see all tasks.',
+          name: 'Instrucciones',
+          value: 'Usa `/todo view` para ver todas las tareas.',
         })
-        .setFooter({ text: 'Task added successfully!' })
+        .setFooter({ text: '¡Tarea agregada exitosamente!' })
         .setTimestamp();
 
       await interaction.reply({ embeds: [addEmbed], ephemeral: true });
@@ -117,9 +117,9 @@ module.exports = {
       if (todos.length === 0) {
         const emptyEmbed = new EmbedBuilder()
           .setColor('#FF0000')
-          .setTitle('🚫 No Tasks Found')
+          .setTitle('🚫 No se Encontraron Tareas')
           .setDescription(
-            'Your todo list is currently empty.\nUse `/todo add` to add a new task.'
+            'Tu lista de tareas está actualmente vacía.\nUsa `/todo add` para agregar una nueva tarea.'
           )
           .setTimestamp();
 
@@ -134,16 +134,16 @@ module.exports = {
           const timestamp = Math.floor(
             new Date(todo.dateAdded).getTime() / 1000
           );
-          return `\`${index + 1}.\` **${todo.task}**\n    • Priority: \`${todo.priority.toUpperCase()}\`\n    • Completed: \`${todo.isCompleted ? '✅' : '❌'}\`\n    • Added on: <t:${timestamp}:F>`;
+          return `\`${index + 1}.\` **${todo.task}**\n    • Prioridad: \`${todo.priority.toUpperCase()}\`\n    • Completada: \`${todo.isCompleted ? '✅' : '❌'}\`\n    • Agregada el: <t:${timestamp}:F>`;
         })
         .join('\n\n');
 
       const viewEmbed = new EmbedBuilder()
         .setColor('#0099FF')
-        .setTitle('📝 Your Todo List')
+        .setTitle('📝 Tu Lista de Tareas')
         .setDescription(tasks)
         .setFooter({
-          text: 'Use /todo complete [task_number] to mark a task as completed or /todo delete [task_number] to remove it.',
+          text: 'Usa /todo complete [número_tarea] para marcar una tarea como completada o /todo delete [número_tarea] para eliminarla.',
         })
         .setTimestamp();
 
@@ -155,9 +155,9 @@ module.exports = {
       if (taskNumber < 0 || taskNumber >= todos.length) {
         const errorEmbed = new EmbedBuilder()
           .setColor('#FF0000')
-          .setTitle('❌ Invalid Task Number')
+          .setTitle('❌ Número de Tarea Inválido')
           .setDescription(
-            'The specified task number does not exist. Please check your list and try again.'
+            'El número de tarea especificado no existe. Por favor revisa tu lista e intenta de nuevo.'
           )
           .setTimestamp();
 
@@ -172,11 +172,11 @@ module.exports = {
 
       const deleteEmbed = new EmbedBuilder()
         .setColor('#FFA500')
-        .setTitle('🗑️ Task Deleted')
-        .setDescription(`\`\`\`\nDeleted Task: ${removedTask.task}\n\`\`\``)
+        .setTitle('🗑️ Tarea Eliminada')
+        .setDescription(`\`\`\`\nTarea Eliminada: ${removedTask.task}\n\`\`\``)
         .addFields({
-          name: 'Note',
-          value: 'The task has been successfully removed from your todo list.',
+          name: 'Nota',
+          value: 'La tarea ha sido eliminada exitosamente de tu lista de tareas.',
         })
         .setTimestamp();
 
@@ -186,11 +186,11 @@ module.exports = {
 
       const deleteAllEmbed = new EmbedBuilder()
         .setColor('#FF0000')
-        .setTitle('🗑️ All Tasks Deleted')
+        .setTitle('🗑️ Todas las Tareas Eliminadas')
         .setDescription(
           deleted.deletedCount > 0
-            ? `All ${deleted.deletedCount} tasks have been removed from your todo list.`
-            : 'Your todo list was already empty.'
+            ? `Se eliminaron todas las ${deleted.deletedCount} tareas de tu lista de tareas.`
+            : 'Tu lista de tareas ya estaba vacía.'
         )
         .setTimestamp();
 
@@ -205,9 +205,9 @@ module.exports = {
       if (taskNumber < 0 || taskNumber >= todos.length) {
         const errorEmbed = new EmbedBuilder()
           .setColor('#FF0000')
-          .setTitle('❌ Invalid Task Number')
+          .setTitle('❌ Número de Tarea Inválido')
           .setDescription(
-            'The specified task number does not exist. Please check your list and try again.'
+            'El número de tarea especificado no existe. Por favor revisa tu lista e intenta de nuevo.'
           )
           .setTimestamp();
 
@@ -223,13 +223,13 @@ module.exports = {
 
       const completeEmbed = new EmbedBuilder()
         .setColor('#00FF00')
-        .setTitle('✅ Task Completed')
+        .setTitle('✅ Tarea Completada')
         .setDescription(
-          `\`\`\`\nCompleted Task: ${taskToComplete.task}\n\`\`\``
+          `\`\`\`\nTarea Completada: ${taskToComplete.task}\n\`\`\``
         )
         .addFields({
-          name: 'Status',
-          value: 'This task has been marked as completed.',
+          name: 'Estado',
+          value: 'Esta tarea ha sido marcada como completada.',
         })
         .setTimestamp();
 
@@ -246,9 +246,9 @@ module.exports = {
         if (taskNumber < 0 || taskNumber >= todos.length) {
           const errorEmbed = new EmbedBuilder()
             .setColor('#FF0000')
-            .setTitle('❌ Invalid Task Number')
+            .setTitle('❌ Número de Tarea Inválido')
             .setDescription(
-              'The specified task number does not exist. Please check your list and try again.'
+              'El número de tarea especificado no existe. Por favor revisa tu lista e intenta de nuevo.'
             )
             .setTimestamp();
 
@@ -265,24 +265,24 @@ module.exports = {
 
         const priorityChangeEmbed = new EmbedBuilder()
           .setColor('#FFA500')
-          .setTitle('🔄 Priority Changed')
+          .setTitle('🔄 Prioridad Cambiada')
           .setDescription(
-            `\`\`\`\nTask: ${taskToChange.task}\nOld Priority: ${oldPriority.toUpperCase()}\nNew Priority: ${newPriority.toUpperCase()}\n\`\`\``
+            `\`\`\`\nTarea: ${taskToChange.task}\nPrioridad Anterior: ${oldPriority.toUpperCase()}\nNueva Prioridad: ${newPriority.toUpperCase()}\n\`\`\``
           )
           .addFields(
             {
-              name: 'Task Number',
+              name: 'Número de Tarea',
               value: `${taskNumber + 1}`,
               inline: true,
             },
             {
-              name: 'Status',
-              value: 'Priority level updated successfully!',
+              name: 'Estado',
+              value: '¡Nivel de prioridad actualizado exitosamente!',
               inline: true,
             }
           )
           .setFooter({
-            text: 'Use /todo view to see the updated list.',
+            text: 'Usa /todo view para ver la lista actualizada.',
           })
           .setTimestamp();
 

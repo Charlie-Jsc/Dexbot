@@ -83,7 +83,7 @@ module.exports = {
       const ordinalSuffix = getOrdinalSuffix(memberCount);
 
       let description =
-        welcomeData.description || 'Welcome {member} to {server}';
+        welcomeData.description || 'Bienvenido {member} a {server}';
       description = description
         .replace(/{member}/g, member.user)
         .replace(/{server}/g, member.guild.name)
@@ -109,7 +109,7 @@ module.exports = {
       ctx.font = 'bold 150px Arial'; // Use system font
       ctx.fillStyle = '#FFD700';
       ctx.textAlign = 'center';
-      ctx.fillText('Welcome', canvas.width / 2, 750);
+      ctx.fillText('Bienvenido', canvas.width / 2, 750);
 
       ctx.font = '100px Arial';
       ctx.fillStyle = '#FFFFFF';
@@ -118,7 +118,7 @@ module.exports = {
       ctx.font = '80px Arial';
       ctx.fillStyle = '#FFD700';
       ctx.fillText(
-        `You are our ${memberCount}${ordinalSuffix} Member!`,
+        `¡Eres nuestro ${memberCount}° Miembro!`,
         canvas.width / 2,
         950
       );

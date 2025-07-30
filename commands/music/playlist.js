@@ -11,26 +11,26 @@ const { formatTime } = require('../../utils/utils');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('playlist')
-    .setDescription('Manage your playlists')
+    .setDescription('Gestionar tus playlists')
     .addSubcommand((sub) =>
       sub
         .setName('create')
-        .setDescription('Create a new playlist')
+        .setDescription('Crear una nueva playlist')
         .addStringOption((opt) =>
           opt
             .setName('name')
-            .setDescription('Name of the playlist')
+            .setDescription('Nombre de la playlist')
             .setRequired(true)
         )
     )
     .addSubcommand((sub) =>
       sub
         .setName('load')
-        .setDescription('Load a playlist into the queue')
+        .setDescription('Cargar una playlist en la cola')
         .addStringOption((opt) =>
           opt
             .setName('name')
-            .setDescription('Name of the playlist')
+            .setDescription('Nombre de la playlist')
             .setRequired(true)
             .setAutocomplete(true)
         )
@@ -38,11 +38,11 @@ module.exports = {
     .addSubcommand((sub) =>
       sub
         .setName('addcurrent')
-        .setDescription('Add current track to a playlist')
+        .setDescription('Agregar pista actual a una playlist')
         .addStringOption((opt) =>
           opt
             .setName('name')
-            .setDescription('Name of the playlist')
+            .setDescription('Nombre de la playlist')
             .setRequired(true)
             .setAutocomplete(true)
         )
@@ -50,11 +50,11 @@ module.exports = {
     .addSubcommand((sub) =>
       sub
         .setName('addqueue')
-        .setDescription('Add all tracks from current queue to a playlist')
+        .setDescription('Agregar todas las pistas de la cola actual a una playlist')
         .addStringOption((opt) =>
           opt
             .setName('name')
-            .setDescription('Name of the playlist')
+            .setDescription('Nombre de la playlist')
             .setRequired(true)
             .setAutocomplete(true)
         )
@@ -62,18 +62,18 @@ module.exports = {
     .addSubcommand((sub) =>
       sub
         .setName('add')
-        .setDescription('Add a track or playlist to your playlist')
+        .setDescription('Agregar una pista o playlist a tu playlist')
         .addStringOption((opt) =>
           opt
             .setName('name')
-            .setDescription('Name of your playlist')
+            .setDescription('Nombre de tu playlist')
             .setRequired(true)
             .setAutocomplete(true)
         )
         .addStringOption((opt) =>
           opt
             .setName('query')
-            .setDescription('Track URL or search query')
+            .setDescription('URL de pista o consulta de búsqueda')
             .setRequired(true)
             .setAutocomplete(true)
         )
@@ -81,44 +81,44 @@ module.exports = {
     .addSubcommand((sub) =>
       sub
         .setName('remove')
-        .setDescription('Remove a track from your playlist')
+        .setDescription('Remover una pista de tu playlist')
         .addStringOption((opt) =>
           opt
             .setName('name')
-            .setDescription('Name of the playlist')
+            .setDescription('Nombre de la playlist')
             .setRequired(true)
             .setAutocomplete(true)
         )
         .addIntegerOption((opt) =>
           opt
             .setName('position')
-            .setDescription('Position of the track to remove')
+            .setDescription('Posición de la pista a remover')
             .setRequired(true)
         )
     )
     .addSubcommand((sub) =>
       sub
         .setName('view')
-        .setDescription('View tracks in a playlist')
+        .setDescription('Ver pistas en una playlist')
         .addStringOption((opt) =>
           opt
             .setName('name')
-            .setDescription('Name of the playlist')
+            .setDescription('Nombre de la playlist')
             .setRequired(true)
             .setAutocomplete(true)
         )
     )
     .addSubcommand((sub) =>
-      sub.setName('list').setDescription('List all your playlists')
+      sub.setName('list').setDescription('Listar todas tus playlists')
     )
     .addSubcommand((sub) =>
       sub
         .setName('delete')
-        .setDescription('Delete a playlist')
+        .setDescription('Eliminar una playlist')
         .addStringOption((opt) =>
           opt
             .setName('name')
-            .setDescription('Name of the playlist')
+            .setDescription('Nombre de la playlist')
             .setRequired(true)
             .setAutocomplete(true)
         )
@@ -138,7 +138,7 @@ module.exports = {
             p.name.toLowerCase().includes(focused.value.toLowerCase())
           )
           .map((p) => ({
-            name: `${p.name} (${p.tracks.length} tracks)`,
+            name: `${p.name} (${p.tracks.length} pistas)`,
             value: p.name,
           }))
       );
@@ -148,7 +148,7 @@ module.exports = {
       if (!focused.value.trim()) {
         return await interaction.respond([
           {
-            name: 'Start typing to search for songs...',
+            name: 'Comienza a escribir para buscar canciones...',
             value: 'start_typing',
           },
         ]);
@@ -168,7 +168,7 @@ module.exports = {
         if (!results?.tracks?.length) {
           return await interaction.respond([
             {
-              name: 'No results found',
+              name: 'No se encontraron resultados',
               value: 'no_results',
             },
           ]);
@@ -178,7 +178,7 @@ module.exports = {
         if (results.loadType === 'playlist') {
           options = [
             {
-              name: `📑 Playlist: ${results.playlist?.title || 'Unknown'} (${results.tracks.length} tracks)`,
+              name: `📑 Playlist: ${results.playlist?.title || 'Desconocida'} (${results.tracks.length} pistas)`,
               value: focused.value,
             },
           ];
@@ -193,7 +193,7 @@ module.exports = {
       } catch (error) {
         return await interaction.respond([
           {
-            name: 'Error searching tracks',
+            name: 'Error buscando pistas',
             value: 'error',
           },
         ]);
@@ -217,15 +217,15 @@ module.exports = {
 
           const embed = new EmbedBuilder()
             .setColor('#F0E68C')
-            .setTitle('🎵 Playlist Created')
-            .setDescription(`Successfully created playlist: **${name}**`)
+            .setTitle('🎵 Playlist Creada')
+            .setDescription(`Se creó la playlist con éxito: **${name}**`)
             .addFields({
-              name: '📑 Tracks',
-              value: '`0 tracks`',
+              name: '📑 Pistas',
+              value: '`0 pistas`',
               inline: true,
             })
             .setFooter({
-              text: `Created by ${interaction.user.tag}`,
+              text: `Creada por ${interaction.user.tag}`,
               iconURL: interaction.user.displayAvatarURL(),
             })
             .setTimestamp();
@@ -241,12 +241,12 @@ module.exports = {
           });
 
           if (!playlist) {
-            return await interaction.editReply('❌ Playlist not found!');
+            return await interaction.editReply('❌ ¡Playlist no encontrada!');
           }
 
           if (!interaction.member.voice.channel) {
             return await interaction.editReply(
-              '❌ You need to join a voice channel first!'
+              '❌ ¡Primero debes unirte a un canal de voz!'
             );
           }
 
@@ -265,9 +265,9 @@ module.exports = {
 
           const loadEmbed = new EmbedBuilder()
             .setColor('#F0E68C')
-            .setTitle('🎵 Loading Playlist')
+            .setTitle('🎵 Cargando Playlist')
             .setDescription(
-              `Loading **${playlist.tracks.length}** tracks from playlist: **${name}**`
+              `Cargando **${playlist.tracks.length}** pistas de la playlist: **${name}**`
             )
             .addFields([
               {
@@ -276,13 +276,13 @@ module.exports = {
                 inline: true,
               },
               {
-                name: '⌛ Total Duration',
+                name: '⌛ Duración Total',
                 value: `\`${formatTime(playlist.tracks.reduce((acc, track) => acc + track.duration, 0))}\``,
                 inline: true,
               },
             ])
             .setFooter({
-              text: `Loaded by ${interaction.user.tag}`,
+              text: `Cargada por ${interaction.user.tag}`,
               iconURL: interaction.user.displayAvatarURL(),
             })
             .setTimestamp();
@@ -306,7 +306,7 @@ module.exports = {
           if (!player.playing) await player.play();
 
           return await interaction.editReply(
-            `✅ Loaded ${playlist.tracks.length} tracks from playlist: ${name}`
+            `✅ Se cargaron ${playlist.tracks.length} pistas de la playlist: ${name}`
           );
         }
 
@@ -318,7 +318,7 @@ module.exports = {
 
           if (!player?.queue?.current) {
             return await interaction.editReply(
-              '❌ Nothing is playing right now!'
+              '❌ ¡No se está reproduciendo nada en este momento!'
             );
           }
 
@@ -328,7 +328,7 @@ module.exports = {
           });
 
           if (!playlist) {
-            return await interaction.editReply('❌ Playlist not found!');
+            return await interaction.editReply('❌ ¡Playlist no encontrada!');
           }
 
           const track = player.queue.current;
@@ -343,33 +343,33 @@ module.exports = {
 
           const embed = new EmbedBuilder()
             .setColor('#F0E68C')
-            .setTitle('🎵 Track Added to Playlist')
-            .setDescription(`Added track to playlist: **${name}**`)
+            .setTitle('🎵 Pista Agregada a la Playlist')
+            .setDescription(`Se agregó la pista a la playlist: **${name}**`)
             .setThumbnail(track.info.artworkUrl)
             .addFields([
               {
-                name: '🎵 Track',
+                name: '🎵 Pista',
                 value: `[${track.info.title}](${track.info.uri})`,
                 inline: true,
               },
               {
-                name: '👤 Artist',
+                name: '👤 Artista',
                 value: `\`${track.info.author}\``,
                 inline: true,
               },
               {
-                name: '⌛ Duration',
+                name: '⌛ Duración',
                 value: `\`${formatTime(track.info.duration)}\``,
                 inline: true,
               },
               {
-                name: '📑 Playlist Tracks',
-                value: `\`${playlist.tracks.length} tracks\``,
+                name: '📑 Pistas de la Playlist',
+                value: `\`${playlist.tracks.length} pistas\``,
                 inline: true,
               },
             ])
             .setFooter({
-              text: `Added by ${interaction.user.tag}`,
+              text: `Agregada por ${interaction.user.tag}`,
               iconURL: interaction.user.displayAvatarURL(),
             })
             .setTimestamp();
@@ -385,7 +385,7 @@ module.exports = {
 
           if (!player?.queue?.current) {
             return await interaction.editReply(
-              '❌ Nothing is playing right now!'
+              '❌ ¡No se está reproduciendo nada en este momento!'
             );
           }
 
@@ -395,7 +395,7 @@ module.exports = {
           });
 
           if (!playlist) {
-            return await interaction.editReply('❌ Playlist not found!');
+            return await interaction.editReply('❌ ¡Playlist no encontrada!');
           }
 
           playlist.tracks.push({
@@ -420,29 +420,29 @@ module.exports = {
 
           const embed = new EmbedBuilder()
             .setColor('#F0E68C')
-            .setTitle('🎵 Queue Added to Playlist')
+            .setTitle('🎵 Cola Agregada a la Playlist')
             .setDescription(
-              `Added **${player.queue.tracks.length + 1}** tracks to playlist: **${name}**`
+              `Se agregaron **${player.queue.tracks.length + 1}** pistas a la playlist: **${name}**`
             )
             .addFields([
               {
-                name: '📑 Added Tracks',
-                value: `\`${player.queue.tracks.length + 1} tracks\``,
+                name: '📑 Pistas Agregadas',
+                value: `\`${player.queue.tracks.length + 1} pistas\``,
                 inline: true,
               },
               {
-                name: '📝 Total Tracks',
-                value: `\`${playlist.tracks.length} tracks\``,
+                name: '📝 Total de Pistas',
+                value: `\`${playlist.tracks.length} pistas\``,
                 inline: true,
               },
               {
-                name: '⌛ Total Duration',
+                name: '⌛ Duración Total',
                 value: `\`${formatTime(playlist.tracks.reduce((acc, track) => acc + track.duration, 0))}\``,
                 inline: true,
               },
             ])
             .setFooter({
-              text: `Added by ${interaction.user.tag}`,
+              text: `Agregada por ${interaction.user.tag}`,
               iconURL: interaction.user.displayAvatarURL(),
             })
             .setTimestamp();
@@ -460,7 +460,7 @@ module.exports = {
           });
 
           if (!playlist) {
-            return await interaction.editReply('❌ Playlist not found!');
+            return await interaction.editReply('❌ ¡Playlist no encontrada!');
           }
 
           const player = interaction.client.lavalink.createPlayer({
@@ -474,7 +474,7 @@ module.exports = {
           });
 
           if (!results?.tracks?.length) {
-            return await interaction.editReply('❌ No tracks found!');
+            return await interaction.editReply('❌ ¡No se encontraron pistas!');
           }
 
           if (results.loadType === 'playlist') {
@@ -489,7 +489,7 @@ module.exports = {
             }
             await playlist.save();
             return await interaction.editReply(
-              `✅ Added ${results.tracks.length} tracks from playlist to: ${name}`
+              `✅ Se agregaron ${results.tracks.length} pistas de la playlist a: ${name}`
             );
           } else {
             const track = results.tracks[0];
@@ -502,7 +502,7 @@ module.exports = {
             });
             await playlist.save();
             return await interaction.editReply(
-              `✅ Added "${track.info.title}" to playlist: ${name}`
+              `✅ Se agregó "${track.info.title}" a la playlist: ${name}`
             );
           }
         }
@@ -517,11 +517,11 @@ module.exports = {
           });
 
           if (!playlist) {
-            return await interaction.editReply('❌ Playlist not found!');
+            return await interaction.editReply('❌ ¡Playlist no encontrada!');
           }
 
           if (position < 0 || position >= playlist.tracks.length) {
-            return await interaction.editReply('❌ Invalid track position!');
+            return await interaction.editReply('❌ ¡Posición de pista inválida!');
           }
 
           const removedTrack = playlist.tracks.splice(position, 1)[0];
@@ -529,27 +529,27 @@ module.exports = {
 
           const embed = new EmbedBuilder()
             .setColor('#F0E68C')
-            .setTitle('🎵 Track Removed from Playlist')
-            .setDescription(`Removed track from playlist: **${name}**`)
+            .setTitle('🎵 Pista Eliminada de la Playlist')
+            .setDescription(`Se eliminó la pista de la playlist: **${name}**`)
             .addFields([
               {
-                name: '🎵 Removed Track',
+                name: '🎵 Pista Eliminada',
                 value: `[${removedTrack.title}](${removedTrack.uri})`,
                 inline: false,
               },
               {
-                name: '📑 Remaining Tracks',
-                value: `\`${playlist.tracks.length} tracks\``,
+                name: '📑 Pistas Restantes',
+                value: `\`${playlist.tracks.length} pistas\``,
                 inline: true,
               },
               {
-                name: '⌛ Track Duration',
+                name: '⌛ Duración de la Pista',
                 value: `\`${formatTime(removedTrack.duration)}\``,
                 inline: true,
               },
             ])
             .setFooter({
-              text: `Removed by ${interaction.user.tag}`,
+              text: `Eliminada por ${interaction.user.tag}`,
               iconURL: interaction.user.displayAvatarURL(),
             })
             .setTimestamp();
@@ -565,7 +565,7 @@ module.exports = {
           });
 
           if (!playlist) {
-            return await interaction.editReply('❌ Playlist not found!');
+            return await interaction.editReply('❌ ¡Playlist no encontrada!');
           }
 
           const tracksPerPage = 10;
@@ -594,22 +594,22 @@ module.exports = {
                           `┗ 👤 \`${track.author}\` • ⌛ \`${formatTime(track.duration)}\``
                       )
                       .join('\n\n')
-                  : 'No tracks in this playlist'
+                  : 'No hay pistas en esta playlist'
               )
               .addFields([
                 {
-                  name: '📑 Total Tracks',
-                  value: `\`${playlist.tracks.length} tracks\``,
+                  name: '📑 Total de Pistas',
+                  value: `\`${playlist.tracks.length} pistas\``,
                   inline: true,
                 },
                 {
-                  name: '⌛ Total Duration',
+                  name: '⌛ Duración Total',
                   value: `\`${formatTime(totalDuration)}\``,
                   inline: true,
                 },
               ])
               .setFooter({
-                text: `Page ${page}/${totalPages} • Use the buttons below to navigate`,
+                text: `Página ${page}/${totalPages} • Usa los botones para navegar`,
                 iconURL: interaction.user.displayAvatarURL(),
               })
               .setTimestamp();
@@ -707,15 +707,15 @@ module.exports = {
           });
 
           if (!playlists.length) {
-            return await interaction.editReply('❌ You have no playlists!');
+            return await interaction.editReply('❌ ¡No tienes playlists!');
           }
 
           const embed = new EmbedBuilder()
             .setColor('#F0E68C')
-            .setTitle('📑 Your Playlists')
+            .setTitle('📑 Tus Playlists')
             .setDescription(
               playlists
-                .map((p) => `**${p.name}** - ${p.tracks.length} tracks`)
+                .map((p) => `**${p.name}** - ${p.tracks.length} pistas`)
                 .join('\n')
             )
             .setTimestamp();
@@ -731,27 +731,27 @@ module.exports = {
           });
 
           if (!playlist) {
-            return await interaction.editReply('❌ Playlist not found!');
+            return await interaction.editReply('❌ ¡Playlist no encontrada!');
           }
 
           const embed = new EmbedBuilder()
             .setColor('#F0E68C')
-            .setTitle('🎵 Playlist Deleted')
-            .setDescription(`Successfully deleted playlist: **${name}**`)
+            .setTitle('🎵 Playlist Eliminada')
+            .setDescription(`Se eliminó la playlist con éxito: **${name}**`)
             .addFields([
               {
-                name: '📑 Deleted Tracks',
-                value: `\`${playlist.tracks.length} tracks\``,
+                name: '📑 Pistas Eliminadas',
+                value: `\`${playlist.tracks.length} pistas\``,
                 inline: true,
               },
               {
-                name: '⌛ Total Duration',
+                name: '⌛ Duración Total',
                 value: `\`${formatTime(playlist.tracks.reduce((acc, track) => acc + track.duration, 0))}\``,
                 inline: true,
               },
             ])
             .setFooter({
-              text: `Deleted by ${interaction.user.tag}`,
+              text: `Eliminada por ${interaction.user.tag}`,
               iconURL: interaction.user.displayAvatarURL(),
             })
             .setTimestamp();
@@ -762,7 +762,7 @@ module.exports = {
     } catch (error) {
       console.error('Playlist command error:', error);
       return await interaction.editReply(
-        '❌ An error occurred while processing the command.'
+        '❌ Ocurrió un error al procesar el comando.'
       );
     }
   },

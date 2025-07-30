@@ -30,21 +30,21 @@ module.exports = {
       limit: 1,
     });
     const deletionLog = fetchedLogs.entries.first();
-    const deleter = deletionLog ? `<@${deletionLog.executor.id}>` : 'Unknown';
+    const deleter = deletionLog ? `<@${deletionLog.executor.id}>` : 'Desconocido';
 
     const embed = new EmbedBuilder()
       .setColor('Red')
-      .setTitle('Channel Deleted')
+      .setTitle('Canal Eliminado')
       .addFields(
-        { name: 'Name', value: channel.name, inline: true },
+        { name: 'Nombre', value: channel.name, inline: true },
         {
-          name: 'Type',
-          value: `${ChannelType[channel.type] || 'Unknown'}`,
+          name: 'Tipo',
+          value: `${ChannelType[channel.type] || 'Desconocido'}`,
           inline: true,
         },
-        { name: 'Deleted By', value: deleter, inline: true }
+        { name: 'Eliminado Por', value: deleter, inline: true }
       )
-      .setFooter({ text: `Channel ID: ${channel.id}` })
+      .setFooter({ text: `ID del Canal: ${channel.id}` })
       .setTimestamp();
 
     logChannel.send({ embeds: [embed] });

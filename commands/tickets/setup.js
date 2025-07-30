@@ -8,31 +8,31 @@ const TicketSettings = require('../../models/TicketSettings');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('ticketsetup')
-    .setDescription('Configure the ticket system')
+    .setDescription('Configurar el sistema de tickets')
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addRoleOption((option) =>
       option
         .setName('support_role')
-        .setDescription('Role that can see tickets')
+        .setDescription('Rol que puede ver los tickets')
         .setRequired(true)
     )
     .addChannelOption((option) =>
       option
         .setName('category')
-        .setDescription('Category for tickets')
+        .setDescription('Categoría para los tickets')
         .addChannelTypes(ChannelType.GuildCategory)
         .setRequired(true)
     )
     .addChannelOption((option) =>
       option
         .setName('logs')
-        .setDescription('Channel for ticket logs')
+        .setDescription('Canal para los logs de tickets')
         .setRequired(true)
     )
     .addIntegerOption((option) =>
       option
         .setName('limit')
-        .setDescription('Maximum tickets per user')
+        .setDescription('Máximo de tickets por usuario')
         .setMinValue(1)
         .setMaxValue(10)
         .setRequired(false)
@@ -41,7 +41,7 @@ module.exports = {
   async execute(interaction) {
     if (!interaction.member.permissions.has('Administrator')) {
       return interaction.reply({
-        content: 'You do not have `Administrator` permission to setup Tickets!',
+        content: '¡No tienes permisos de `Administrador` para configurar Tickets!',
         ephemeral: true,
       });
     }
@@ -65,13 +65,13 @@ module.exports = {
       );
 
       await interaction.reply({
-        content: '✅ Ticket system has been configured successfully!',
+        content: '✅ ¡El sistema de tickets ha sido configurado exitosamente!',
         ephemeral: true,
       });
     } catch (error) {
       console.error(error);
       await interaction.reply({
-        content: '❌ An error occurred while setting up the ticket system.',
+        content: '❌ Ocurrió un error al configurar el sistema de tickets.',
         ephemeral: true,
       });
     }

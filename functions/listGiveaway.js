@@ -19,7 +19,7 @@ async function listGiveaway(interaction) {
 
     if (giveaways.length === 0) {
       return interaction.editReply({
-        content: 'There are no ongoing giveaways in this server.',
+        content: 'No hay sorteos en curso en este servidor.',
         flags: [MessageFlags.Ephemeral],
       });
     }
@@ -34,9 +34,9 @@ async function listGiveaway(interaction) {
       const currentGiveaways = giveaways.slice(start, end);
 
       const embed = new EmbedBuilder()
-        .setTitle('🎉 Ongoing Giveaways 🎉')
+        .setTitle('🎉 Sorteos en Curso 🎉')
         .setColor('#FF0000')
-        .setDescription(`Page ${page + 1}/${totalPages}`)
+        .setDescription(`Página ${page + 1}/${totalPages}`)
         .setTimestamp();
 
       currentGiveaways.forEach((giveaway, index) => {
@@ -65,15 +65,15 @@ async function listGiveaway(interaction) {
               seconds > 0 ? `${seconds}s` : '',
             ]
               .filter(Boolean)
-              .join(' ') || 'Ended';
+              .join(' ') || 'Terminado';
 
           const requiredRole = giveaway.requiredRole
-            ? `\nRequired Role: <@&${giveaway.requiredRole}>`
+            ? `\nRol Requerido: <@&${giveaway.requiredRole}>`
             : '';
 
           embed.addFields({
-            name: `Giveaway #${start + index + 1}`,
-            value: `Prize: **${giveaway.prize}**\nWinners: **${giveaway.winners}**\nTime Left: **${timeString}**\nParticipants: **${giveaway.participants.length}**${requiredRole}\n[Go to Giveaway](https://discord.com/channels/${giveaway.guildId}/${giveaway.channelId}/${giveaway.messageId})`,
+            name: `Sorteo #${start + index + 1}`,
+            value: `Premio: **${giveaway.prize}**\nGanadores: **${giveaway.winners}**\nTiempo Restante: **${timeString}**\nParticipantes: **${giveaway.participants.length}**${requiredRole}\n[Ir al Sorteo](https://discord.com/channels/${giveaway.guildId}/${giveaway.channelId}/${giveaway.messageId})`,
             inline: false,
           });
         } catch (error) {
@@ -87,13 +87,13 @@ async function listGiveaway(interaction) {
 
     const previousButton = new ButtonBuilder()
       .setCustomId('previous_page')
-      .setLabel('Previous')
+      .setLabel('Anterior')
       .setStyle(ButtonStyle.Primary)
       .setDisabled(currentPage === 0);
 
     const nextButton = new ButtonBuilder()
       .setCustomId('next_page')
-      .setLabel('Next')
+      .setLabel('Siguiente')
       .setStyle(ButtonStyle.Primary)
       .setDisabled(currentPage === totalPages - 1);
 

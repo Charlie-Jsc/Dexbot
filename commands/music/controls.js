@@ -3,46 +3,46 @@ const { SlashCommandBuilder } = require('discord.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('controls')
-    .setDescription('Basic playback controls')
+    .setDescription('Controles básicos de reproducción')
     .addSubcommand((subcommand) =>
-      subcommand.setName('join').setDescription('Join the VC')
+      subcommand.setName('join').setDescription('Unirse al canal de voz')
     )
     .addSubcommand((subcommand) =>
-      subcommand.setName('pause').setDescription('Pause the current track')
+      subcommand.setName('pause').setDescription('Pausar la pista actual')
     )
     .addSubcommand((subcommand) =>
-      subcommand.setName('resume').setDescription('Resume playback')
+      subcommand.setName('resume').setDescription('Reanudar reproducción')
     )
     .addSubcommand((subcommand) =>
-      subcommand.setName('skip').setDescription('Skip to the next track')
+      subcommand.setName('skip').setDescription('Saltar a la siguiente pista')
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('stop')
-        .setDescription('Stop playback and clear the queue')
+        .setDescription('Detener reproducción y limpiar la cola')
     )
     .addSubcommand((subcommand) =>
-      subcommand.setName('leave').setDescription('Leave the voice channel')
+      subcommand.setName('leave').setDescription('Salir del canal de voz')
     )
     .addSubcommand((subcommand) =>
-      subcommand.setName('shuffle').setDescription('Randomize the Queue Order')
+      subcommand.setName('shuffle').setDescription('Mezclar aleatoriamente el orden de la cola')
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('seek')
-        .setDescription('Go to the desired position of the song')
+        .setDescription('Ir a la posición deseada de la canción')
         .addStringOption((option) =>
-          option.setName('time').setDescription('Time you want to seek to')
+          option.setName('time').setDescription('Tiempo al que quieres ir')
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('volume')
-        .setDescription('Changes the volume of the player')
+        .setDescription('Cambia el volumen del reproductor')
         .addIntegerOption((option) =>
           option
             .setName('set')
-            .setDescription('Volume')
+            .setDescription('Volumen')
             .setRequired(true)
             .setMaxValue(100)
             .setMinValue(0)
@@ -51,11 +51,11 @@ module.exports = {
     .addSubcommand((subcommand) =>
       subcommand
         .setName('skipto')
-        .setDescription('Skips to the specific song in the queue')
+        .setDescription('Salta a la canción específica en la cola')
         .addIntegerOption((option) =>
           option
             .setName('position')
-            .setDescription('The position you want to skip to')
+            .setDescription('La posición a la que quieres saltar')
             .setRequired(true)
             .setMinValue(1)
         )
@@ -67,7 +67,7 @@ module.exports = {
     if (subcommand != 'join') {
       if (!player) {
         return interaction.reply({
-          content: 'Nothing is playing!',
+          content: '¡No se está reproduciendo nada!',
           ephemeral: true,
         });
       }
@@ -85,72 +85,72 @@ module.exports = {
             })
             .connect();
           return interaction.reply(
-            `🎵 Joined <#${interaction.member.voice.channel.id}>`
+            `🎵 Se unió a <#${interaction.member.voice.channel.id}>`
           );
         } else {
           return interaction.reply(
-            `I'm already in the VC <#${player.voiceChannelId}>`
+            `Ya estoy en el canal de voz <#${player.voiceChannelId}>`
           );
         }
         break;
 
       case 'pause':
         await player.pause();
-        interaction.reply('⏸️ Paused');
+        interaction.reply('⏸️ Pausado');
         break;
       case 'resume':
         await player.resume();
-        interaction.reply('▶️ Resumed');
+        interaction.reply('▶️ Reanudado');
         break;
       case 'skip':
         if (!player.queue.tracks?.length) {
           return interaction.reply({
-            content: 'Queue is empty!',
+            content: '¡La cola está vacía!',
             ephemeral: true,
           });
         }
         await player.skip();
-        interaction.reply('⏭️ Skipped');
+        interaction.reply('⏭️ Saltado');
         break;
       case 'skipto':
         skipPos = interaction.options.getInteger('position');
         if (!player.queue.tracks?.length) {
           return interaction.reply({
-            content: 'Queue is empty!',
+            content: '¡La cola está vacía!',
             ephemeral: true,
           });
         }
         if (player.queue.tracks?.length < skipPos) {
           return interaction.reply({
-            content: "Can't skip more than the Queue size",
+            content: "No se puede saltar más que el tamaño de la cola",
             ephemeral: true,
           });
         }
         await player.skip(skipPos);
-        interaction.reply(`⏭️ Skipped to \`${skipPos}\``);
+        interaction.reply(`⏭️ Saltado a \`${skipPos}\``);
         break;
       case 'stop':
         await player.stopPlaying();
-        interaction.reply('⏹️ Stopped');
+        interaction.reply('⏹️ Detenido');
         break;
       case 'leave':
         await player.destroy();
-        interaction.reply('👋 Left the voice channel');
+        interaction.reply('👋 Salí del canal de voz');
         break;
       case 'shuffle':
         if (!player.queue.tracks?.length) {
           return interaction.reply({
-            content: 'Queue is empty!',
+            content: '¡La cola está vacía!',
             ephemeral: true,
           });
         }
         player.queue.shuffle();
-        interaction.reply('🔀 Queue shuffled');
+        interaction.reply('🔀 Cola mezclada');
         break;
       case 'volume':
         const vol = interaction.options.getInteger('set');
         player.setVolume(vol);
-        interaction.reply(`🔊 Volume set to \`${vol}\``);
+        interaction.reply(`🔊 Volumen establecido a \`${vol}\``);
         break;
       case 'seek':
         const timeInput = interaction.options.getString('time').trim();
@@ -165,7 +165,7 @@ module.exports = {
           seekTime = timeParts[0] * 3600 + timeParts[1] * 60 + timeParts[2];
         } else {
           return interaction.editReply(
-            '❌ Invalid time format. Use `hh:mm:ss`, `mm:ss`, or `ss`.'
+            '❌ Formato de tiempo inválido. Usa `hh:mm:ss`, `mm:ss`, o `ss`.'
           );
         }
 
@@ -174,13 +174,13 @@ module.exports = {
         const trackDuration = player.queue.current.duration;
         if (seekTime < 0 || seekTime > trackDuration) {
           return interaction.editReply(
-            `❌ Seek time is out of range. The track duration is **${formatDuration(trackDuration)}**.`
+            `❌ El tiempo de búsqueda está fuera de rango. La duración de la pista es **${formatDuration(trackDuration)}**.`
           );
         }
 
         await player.seek(seekTime);
         return interaction.reply(
-          `⏩ **Seeked to:** \`${formatDuration(seekTime)}\``
+          `⏩ **Buscado a:** \`${formatDuration(seekTime)}\``
         );
     }
   },

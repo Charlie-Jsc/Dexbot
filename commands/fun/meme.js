@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('meme')
-    .setDescription('Fetches a random meme from r/memes'),
+    .setDescription('Obtiene un meme aleatorio de r/memes'),
 
   async execute(interaction) {
     try {
@@ -27,17 +27,17 @@ module.exports = {
           .setURL(meme.postLink)
           .setImage(meme.url)
           .setFooter({
-            text: `Meme from r/${meme.subreddit} | Posted by ${meme.author} | Upvotes: ${meme.ups}`,
+            text: `Meme de r/${meme.subreddit} | Publicado por ${meme.author} | Votos positivos: ${meme.ups}`,
           });
 
         await interaction.reply({ embeds: [embed] });
       } else {
-        await interaction.reply("Sorry, I couldn't find a meme right now.");
+        await interaction.reply("Lo siento, no pude encontrar un meme en este momento.");
       }
     } catch (error) {
       console.error('Error fetching meme:', error);
       await interaction.reply(
-        'There was an error trying to fetch a meme. Please try again later.'
+        'Hubo un error al tratar de obtener un meme. Por favor, inténtalo de nuevo más tarde.'
       );
     }
   },

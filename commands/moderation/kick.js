@@ -3,24 +3,24 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('kick')
-    .setDescription('Kick a member from the server.')
+    .setDescription('Expulsar a un miembro del servidor.')
     .addUserOption((option) =>
       option
         .setName('user')
-        .setDescription('The user to kick')
+        .setDescription('El usuario a expulsar')
         .setRequired(true)
     )
     .addStringOption((option) =>
       option
         .setName('reason')
-        .setDescription('Reason for kicking the user')
+        .setDescription('Razón para expulsar al usuario')
         .setRequired(false)
     ),
 
   async execute(interaction) {
     const user = interaction.options.getUser('user');
     const reason =
-      interaction.options.getString('reason') || 'No reason provided.';
+      interaction.options.getString('reason') || 'No se proporcionó razón.';
     const member = interaction.guild.members.cache.get(user.id);
     const executor = interaction.member;
     const botMember = interaction.guild.members.cache.get(
@@ -29,7 +29,7 @@ module.exports = {
 
     if (!interaction.member.permissions.has('KickMembers')) {
       return interaction.reply({
-        content: 'You do not have `KickMembers` permission to kick members!',
+        content: 'No tienes el permiso `KickMembers` para expulsar miembros!',
         ephemeral: true,
       });
     }
@@ -37,7 +37,7 @@ module.exports = {
     if (!member.kickable) {
       return interaction.reply({
         content:
-          'I cannot kick this user. They might have a higher role than me or I lack permissions.',
+          'No puedo expulsar a este usuario. Podría tener un rol superior al mío o me faltan permisos.',
         ephemeral: true,
       });
     }
@@ -45,14 +45,14 @@ module.exports = {
     if (member.roles.highest.position >= executor.roles.highest.position) {
       return interaction.reply({
         content:
-          'You cannot kick this user as they have a higher or equal role.',
+          'No puedes expulsar a este usuario ya que tiene un rol superior o igual.',
         ephemeral: true,
       });
     }
     if (member.roles.highest.position >= botMember.roles.highest.position) {
       return interaction.reply({
         content:
-          'I cannot kick this user as they have a higher or equal role than me.',
+          'No puedo expulsar a este usuario ya que tiene un rol superior o igual al mío.',
         ephemeral: true,
       });
     }
@@ -61,11 +61,11 @@ module.exports = {
 
     const kickEmbed = new EmbedBuilder()
       .setColor(0xff0000)
-      .setTitle('Member Kicked')
-      .setDescription(`👢 ${user.tag} has been kicked from the server.`)
+      .setTitle('Miembro Expulsado')
+      .setDescription(`👢 ${user.tag} ha sido expulsado del servidor.`)
       .addFields(
-        { name: 'Reason', value: reason, inline: true },
-        { name: 'Kicked by', value: interaction.user.tag, inline: true }
+        { name: 'Razón', value: reason, inline: true },
+        { name: 'Expulsado por', value: interaction.user.tag, inline: true }
       )
       .setTimestamp();
 

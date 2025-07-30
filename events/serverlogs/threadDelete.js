@@ -21,12 +21,12 @@ module.exports = {
     if (!logChannel) return;
 
     const embed = new EmbedBuilder()
-      .setTitle('Thread Deleted')
+      .setTitle('Hilo Eliminado')
       .setColor('Red')
-      .setDescription(`A thread has been deleted from <#${thread.parentId}>`)
+      .setDescription(`Se ha eliminado un hilo de <#${thread.parentId}>`)
       .addFields(
-        { name: 'Thread Name', value: `${thread.name}`, inline: true },
-        { name: 'Thread ID', value: `${thread.id}`, inline: true }
+        { name: 'Nombre del Hilo', value: `${thread.name}`, inline: true },
+        { name: 'ID del Hilo', value: `${thread.id}`, inline: true }
       )
       .setTimestamp();
 

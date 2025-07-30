@@ -24,9 +24,9 @@ module.exports = {
         name: member.user.tag,
         iconURL: member.user.displayAvatarURL(),
       })
-      .setTitle('Member Left')
-      .setDescription(`<@${member.id}> has left the server.`)
-      .setFooter({ text: `User ID: ${member.id}` })
+      .setTitle('Miembro Se Fue')
+      .setDescription(`<@${member.id}> ha dejado el servidor.`)
+      .setFooter({ text: `ID del Usuario: ${member.id}` })
       .setTimestamp();
 
     logChannel.send({ embeds: [embed] });

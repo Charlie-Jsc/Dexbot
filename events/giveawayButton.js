@@ -24,7 +24,7 @@ module.exports = {
 
       if (!giveaway) {
         return interaction.editReply({
-          content: 'This giveaway has ended or does not exist.',
+          content: 'Este sorteo ha terminado o no existe.',
           flags: MessageFlags.Ephemeral,
         });
       }
@@ -34,7 +34,7 @@ module.exports = {
         !interaction.member.roles.cache.has(giveaway.requiredRole)
       ) {
         return interaction.editReply({
-          content: `You need the role <@&${giveaway.requiredRole}> to join this giveaway.`,
+          content: `Necesitas el rol <@&${giveaway.requiredRole}> para unirte a este sorteo.`,
           flags: MessageFlags.Ephemeral,
         });
       }
@@ -45,7 +45,7 @@ module.exports = {
 
       if (giveaway.participants.includes(interaction.user.id)) {
         return interaction.editReply({
-          content: 'You are already participating in this giveaway!',
+          content: '¡Ya estás participando en este sorteo!',
           flags: MessageFlags.Ephemeral,
         });
       }
@@ -74,7 +74,7 @@ module.exports = {
 
       // Edit the deferred reply
       await interaction.editReply({
-        content: 'You have successfully joined the giveaway!',
+        content: '¡Te has unido exitosamente al sorteo!',
         flags: MessageFlags.Ephemeral,
       });
     } catch (error) {
@@ -84,7 +84,7 @@ module.exports = {
         try {
           await interaction.reply({
             content:
-              'An error occurred while processing your request. Please try again later.',
+              'Ocurrió un error al procesar tu solicitud. Por favor intenta de nuevo más tarde.',
             flags: MessageFlags.Ephemeral,
           });
         } catch (replyError) {

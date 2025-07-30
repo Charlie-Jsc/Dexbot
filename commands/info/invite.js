@@ -9,21 +9,21 @@ const {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('invite')
-    .setDescription('Get the invite link for the bot.'),
+    .setDescription('Obtén el enlace de invitación para el bot.'),
 
   async execute(interaction) {
     const inviteLink = `https://discord.com/oauth2/authorize?client_id=${interaction.client.user.id}&permissions=8&scope=bot%20applications.commands`;
 
     const embed = new EmbedBuilder()
-      .setTitle('🔹 Invite Link')
+      .setTitle('🔹 Enlace de Invitación')
       .setDescription(
-        'Click the button below to invite the bot to your server!'
+        '¡Haz clic en el botón de abajo para invitar el bot a tu servidor!'
       )
       .setColor('#3498db')
       .setTimestamp();
 
     const button = new ButtonBuilder()
-      .setLabel('Invite Bot')
+      .setLabel('Invitar Bot')
       .setStyle(ButtonStyle.Link)
       .setURL(inviteLink);
 

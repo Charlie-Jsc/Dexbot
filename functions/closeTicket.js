@@ -10,10 +10,10 @@ const TicketSettings = require('../models/TicketSettings');
  * @param {String} reason - Optional reason for closing the ticket
  * @returns {Promise<Object>} Result of the operation
  */
-async function closeTicket(channel, closer, reason = 'No reason provided') {
+async function closeTicket(channel, closer, reason = 'No se proporcionó razón') {
   try {
     if (!channel.name.startsWith('ticket-')) {
-      throw new Error('This is not a ticket channel');
+      throw new Error('Este no es un canal de ticket');
     }
 
     const settings = await TicketSettings.findOne({
@@ -25,7 +25,7 @@ async function closeTicket(channel, closer, reason = 'No reason provided') {
     });
 
     if (!ticket) {
-      throw new Error('No active ticket found for this channel');
+      throw new Error('No se encontró un ticket activo para este canal');
     }
 
     const { transcript, attachments } =
@@ -33,16 +33,16 @@ async function closeTicket(channel, closer, reason = 'No reason provided') {
 
     const transcriptEmbed = new EmbedBuilder()
       .setColor('#DDA0DD')
-      .setTitle('Ticket Transcript')
+      .setTitle('Transcripción del Ticket')
       .addFields([
         { name: 'Ticket', value: channel.name, inline: true },
         {
-          name: 'Opened By',
+          name: 'Abierto Por',
           value: `<@${ticket.userId}>`,
           inline: true,
         },
-        { name: 'Closed By', value: closer.tag, inline: true },
-        { name: 'Reason', value: reason, inline: true },
+        { name: 'Cerrado Por', value: closer.tag, inline: true },
+        { name: 'Razón', value: reason, inline: true },
       ])
       .setTimestamp();
 
@@ -74,7 +74,7 @@ async function closeTicket(channel, closer, reason = 'No reason provided') {
     ticket.closeReason = reason;
     await ticket.save();
 
-    await channel.send('🔒 Closing ticket in 5 seconds...');
+    await channel.send('🔒 Cerrando ticket en 5 segundos...');
 
     setTimeout(async () => {
       try {

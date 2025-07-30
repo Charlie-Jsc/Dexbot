@@ -4,7 +4,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('autoplay')
     .setDescription(
-      'Toggle autoplay to play recommended tracks when the queue is empty.'
+      'Alternar autoplay para reproducir pistas recomendadas cuando la cola esté vacía.'
     ),
   async execute(interaction) {
     const client = interaction.client;
@@ -12,21 +12,21 @@ module.exports = {
 
     if (!player.playing) {
       return interaction.reply({
-        content: '❌ Nothing is playing!',
+        content: '❌ ¡No se está reproduciendo nada!',
         ephemeral: true,
       });
     }
 
     if (!interaction.member.voice.channel) {
       return interaction.reply({
-        content: '❌ You must be in a voice channel!',
+        content: '❌ ¡Debes estar en un canal de voz!',
         ephemeral: true,
       });
     }
 
     if (player.voiceChannelId !== interaction.member.voice.channelId) {
       return interaction.reply({
-        content: '❌ You must be in the same voice channel as me!',
+        content: '❌ ¡Debes estar en el mismo canal de voz que yo!',
         ephemeral: true,
       });
     }
@@ -36,7 +36,7 @@ module.exports = {
       player.queue.current.info.sourceName !== 'youtubemusic'
     ) {
       return interaction.reply({
-        content: `Autoplay doesn't support the source \`${player.queue.current.info.sourceName}\``,
+        content: `El autoplay no soporta la fuente \`${player.queue.current.info.sourceName}\``,
       });
     }
 
@@ -44,7 +44,7 @@ module.exports = {
     player.set('autoplay', !autoplay);
 
     return interaction.reply(
-      `✅ **Autoplay is now ${autoplay ? 'disabled' : 'enabled'}!**`
+      `✅ **¡Autoplay está ahora ${autoplay ? 'deshabilitado' : 'habilitado'}!**`
     );
   },
 };

@@ -13,32 +13,32 @@ const TicketCategory = require('../../models/TicketCategory');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('createpanel')
-    .setDescription('Creates a ticket panel')
+    .setDescription('Crear un panel de tickets')
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
     .addChannelOption((option) =>
       option
         .setName('channel')
-        .setDescription('Channel to send the ticket panel to')
+        .setDescription('Canal donde enviar el panel de tickets')
         .setRequired(true)
     )
     .addStringOption((option) =>
       option
         .setName('style')
-        .setDescription('Panel style')
+        .setDescription('Estilo del panel')
         .setRequired(true)
         .addChoices(
-          { name: 'Buttons', value: 'buttons' },
-          { name: 'Select Menu', value: 'select' }
+          { name: 'Botones', value: 'buttons' },
+          { name: 'Menú de Selección', value: 'select' }
         )
     )
     .addStringOption((option) =>
-      option.setName('title').setDescription('Panel title').setRequired(true)
+      option.setName('title').setDescription('Título del panel').setRequired(true)
     )
     .addStringOption((option) =>
       option
         .setName('messageid')
         .setDescription(
-          'ID of message to use as description (must be in same channel as panel)'
+          'ID del mensaje a usar como descripción (debe estar en el mismo canal que el panel)'
         )
         .setRequired(true)
     )
@@ -46,14 +46,14 @@ module.exports = {
       option
         .setName('categories')
         .setDescription(
-          'Category names separated by comma (e.g: support,billing,help)'
+          'Nombres de categorías separados por coma (ej: soporte,facturación,ayuda)'
         )
         .setRequired(true)
     )
     .addStringOption((option) =>
       option
         .setName('color')
-        .setDescription('Panel color (hex)')
+        .setDescription('Color del panel (hex)')
         .setRequired(false)
     ),
 
@@ -64,13 +64,13 @@ module.exports = {
     if (!interaction.member.permissions.has('Administrator')) {
       return interaction.reply({
         content:
-          'You do not have `Administrator` permission to create a ticket panel!',
+          '¡No tienes permisos de `Administrador` para crear un panel de tickets!',
         ephemeral: true,
       });
     }
     if (!settings?.enabled) {
       return interaction.reply({
-        content: '❌ Ticket system is not set up! Use `/ticketsetup` first.',
+        content: '❌ ¡El sistema de tickets no está configurado! Usa `/ticketsetup` primero.',
         ephemeral: true,
       });
     }
@@ -87,7 +87,7 @@ module.exports = {
       if (!descriptionMessage) {
         return interaction.reply({
           content:
-            '❌ Could not find message with that ID in the specified channel.',
+            '❌ No se pudo encontrar un mensaje con esa ID en el canal especificado.',
           ephemeral: true,
         });
       }
@@ -101,7 +101,7 @@ module.exports = {
       if (categories.length === 0) {
         return interaction.reply({
           content:
-            '❌ None of the specified categories were found! Create them using `/ticketcategory add` first.',
+            '❌ ¡No se encontró ninguna de las categorías especificadas! Créalas usando `/ticketcategory add` primero.',
           ephemeral: true,
         });
       }
@@ -111,7 +111,7 @@ module.exports = {
         .setDescription(descriptionMessage.content)
         .setColor(color)
         .setTimestamp()
-        .setFooter({ text: 'Lanya Ticket System' });
+        .setFooter({ text: 'Sistema de Tickets Lanya' });
 
       let components = [];
 
@@ -145,7 +145,7 @@ module.exports = {
       } else {
         const selectMenu = new StringSelectMenuBuilder()
           .setCustomId('ticket_category')
-          .setPlaceholder('Select a category')
+          .setPlaceholder('Selecciona una categoría')
           .addOptions(
             categories.map((cat) => ({
               label: cat.name,
@@ -164,13 +164,13 @@ module.exports = {
       });
 
       await interaction.reply({
-        content: `✅ Ticket panel created in ${channel}!`,
+        content: `✅ ¡Panel de tickets creado en ${channel}!`,
         ephemeral: true,
       });
     } catch (error) {
       console.error('Error creating panel:', error);
       await interaction.reply({
-        content: '❌ An error occurred while creating the panel.',
+        content: '❌ Ocurrió un error al crear el panel.',
         ephemeral: true,
       });
     }

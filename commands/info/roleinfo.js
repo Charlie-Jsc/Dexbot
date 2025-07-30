@@ -3,11 +3,11 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('roleinfo')
-    .setDescription('Displays information about a specific role.')
+    .setDescription('Muestra información sobre un rol específico.')
     .addRoleOption((option) =>
       option
         .setName('role')
-        .setDescription('The role to get information about')
+        .setDescription('El rol del cual obtener información')
         .setRequired(true)
     ),
 
@@ -16,28 +16,28 @@ module.exports = {
 
     const embed = new EmbedBuilder()
       .setColor(role.color === '0' ? 0x5865f2 : role.color)
-      .setTitle(`${role.name} Info`)
+      .setTitle(`Información de ${role.name}`)
       .addFields(
         { name: 'ID', value: role.id, inline: true },
         { name: 'Color', value: role.hexColor, inline: true },
         {
-          name: 'Members',
+          name: 'Miembros',
           value: role.members.size.toString(),
           inline: true,
         },
         {
-          name: 'Position',
+          name: 'Posición',
           value: role.position.toString(),
           inline: true,
         },
         {
-          name: 'Created At',
+          name: 'Creado el',
           value: role.createdAt.toDateString(),
           inline: true,
         }
       )
       .setFooter({
-        text: `Requested by ${interaction.user.tag}`,
+        text: `Solicitado por ${interaction.user.tag}`,
         iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
       })
       .setTimestamp();

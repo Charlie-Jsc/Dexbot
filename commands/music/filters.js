@@ -21,26 +21,26 @@ const FILTER_NAMES = {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('filters')
-    .setDescription('Toggle audio filters for the current song')
+    .setDescription('Alternar filtros de audio para la canción actual')
     .addStringOption((option) =>
       option
         .setName('filter')
-        .setDescription('Select a filter to toggle')
+        .setDescription('Selecciona un filtro para alternar')
         .setRequired(true)
         .addChoices(
-          { name: '🔄 Clear', value: 'clear' },
+          { name: '🔄 Limpiar', value: 'clear' },
           { name: '🌙 Nightcore', value: 'nightcore' },
           { name: '🌊 Vaporwave', value: 'vaporwave' },
           { name: '⬇️ Lowpass', value: 'lowpass' },
           { name: '🎤 Karaoke', value: 'karaoke' },
-          { name: '🔄 Rotation', value: 'rotation' },
+          { name: '🔄 Rotación', value: 'rotation' },
           { name: '〰️ Tremolo', value: 'tremolo' },
           { name: '📳 Vibrato', value: 'vibrato' },
-          { name: '⚡ Speed', value: 'speed' },
-          { name: '🎼 Pitch', value: 'pitch' },
-          { name: '⏱️ Rate', value: 'rate' },
-          { name: '🎚️ Volume', value: 'volume' },
-          { name: '🎛️ Bass', value: 'bass' },
+          { name: '⚡ Velocidad', value: 'speed' },
+          { name: '🎼 Tono', value: 'pitch' },
+          { name: '⏱️ Tasa', value: 'rate' },
+          { name: '🎚️ Volumen', value: 'volume' },
+          { name: '🎛️ Bajos', value: 'bass' },
           { name: '🎧 8D', value: '8d' },
           { name: '🎸 Rock', value: 'rock' }
         )
@@ -49,7 +49,7 @@ module.exports = {
       option
         .setName('value')
         .setDescription(
-          'Value for the filter (only for speed, pitch, rate, volume, bass)'
+          'Valor para el filtro (solo para velocidad, tono, tasa, volumen, bajos)'
         )
         .setMinValue(0)
         .setMaxValue(5)
@@ -58,7 +58,7 @@ module.exports = {
   async execute(interaction) {
     if (!interaction.member.voice.channel) {
       return interaction.reply({
-        content: '❌ You need to join a voice channel first!',
+        content: '❌ ¡Necesitas unirte a un canal de voz primero!',
         ephemeral: true,
       });
     }
@@ -68,14 +68,14 @@ module.exports = {
     );
     if (!player) {
       return interaction.reply({
-        content: '❌ There is no music playing!',
+        content: '❌ ¡No se está reproduciendo música!',
         ephemeral: true,
       });
     }
 
     if (player.voiceChannelId !== interaction.member.voice.channelId) {
       return interaction.reply({
-        content: '❌ You need to be in the same voice channel as me!',
+        content: '❌ ¡Necesitas estar en el mismo canal de voz que yo!',
         ephemeral: true,
       });
     }
@@ -88,56 +88,56 @@ module.exports = {
       switch (filter) {
         case 'clear':
           await player.filterManager.resetFilters();
-          description = '🔄 Disabled all filters';
+          description = '🔄 Deshabilitados todos los filtros';
           break;
 
         case 'nightcore':
           await player.filterManager.toggleNightcore();
           description = player.filterManager.filters.nightcore
-            ? '🌙 Applied Nightcore filter (disabled Vaporwave if active)'
-            : '🌙 Disabled Nightcore filter';
+            ? '🌙 Filtro Nightcore aplicado (deshabilitado Vaporwave si estaba activo)'
+            : '🌙 Filtro Nightcore deshabilitado';
           break;
 
         case 'vaporwave':
           await player.filterManager.toggleVaporwave();
           description = player.filterManager.filters.vaporwave
-            ? '🌊 Applied Vaporwave filter (disabled Nightcore if active)'
-            : '🌊 Disabled Vaporwave filter';
+            ? '🌊 Filtro Vaporwave aplicado (deshabilitado Nightcore si estaba activo)'
+            : '🌊 Filtro Vaporwave deshabilitado';
           break;
 
         case 'lowpass':
           await player.filterManager.toggleLowPass();
           description = player.filterManager.filters.lowPass
-            ? '⬇️ Applied Lowpass filter'
-            : '⬇️ Disabled Lowpass filter';
+            ? '⬇️ Filtro Lowpass aplicado'
+            : '⬇️ Filtro Lowpass deshabilitado';
           break;
 
         case 'karaoke':
           await player.filterManager.toggleKaraoke();
           description = player.filterManager.filters.karaoke
-            ? '🎤 Applied Karaoke filter'
-            : '🎤 Disabled Karaoke filter';
+            ? '🎤 Filtro Karaoke aplicado'
+            : '🎤 Filtro Karaoke deshabilitado';
           break;
 
         case 'rotation':
           await player.filterManager.toggleRotation();
           description = player.filterManager.filters.rotation
-            ? '🔄 Applied Rotation filter'
-            : '🔄 Disabled Rotation filter';
+            ? '🔄 Filtro de Rotación aplicado'
+            : '🔄 Filtro de Rotación deshabilitado';
           break;
 
         case 'tremolo':
           await player.filterManager.toggleTremolo();
           description = player.filterManager.filters.tremolo
-            ? '〰️ Applied Tremolo filter'
-            : '〰️ Disabled Tremolo filter';
+            ? '〰️ Filtro Tremolo aplicado'
+            : '〰️ Filtro Tremolo deshabilitado';
           break;
 
         case 'vibrato':
           await player.filterManager.toggleVibrato();
           description = player.filterManager.filters.vibrato
-            ? '📳 Applied Vibrato filter'
-            : '📳 Disabled Vibrato filter';
+            ? '📳 Filtro Vibrato aplicado'
+            : '📳 Filtro Vibrato deshabilitado';
           break;
 
         case 'speed':
@@ -145,13 +145,13 @@ module.exports = {
           if (speedValue) {
             const speed = Math.max(0.5, Math.min(3, speedValue));
             await player.filterManager.setSpeed(speed);
-            description = `⚡ Applied Speed filter (${speed}x)`;
+            description = `⚡ Filtro de Velocidad aplicado (${speed}x)`;
           } else if (player.filterManager.filters.timescale?.speed !== 1) {
             await player.filterManager.setSpeed(1);
-            description = '⚡ Disabled Speed filter';
+            description = '⚡ Filtro de Velocidad deshabilitado';
           } else {
             await player.filterManager.setSpeed(1.5);
-            description = '⚡ Applied Speed filter (1.5x)';
+            description = '⚡ Filtro de Velocidad aplicado (1.5x)';
           }
           break;
 
@@ -160,13 +160,13 @@ module.exports = {
           if (pitchValue) {
             const pitch = Math.max(0.5, Math.min(2, pitchValue));
             await player.filterManager.setPitch(pitch);
-            description = `🎼 Applied Pitch filter (${pitch}x)`;
+            description = `🎼 Filtro de Tono aplicado (${pitch}x)`;
           } else if (player.filterManager.filters.timescale?.pitch !== 1) {
             await player.filterManager.setPitch(1);
-            description = '🎼 Disabled Pitch filter';
+            description = '🎼 Filtro de Tono deshabilitado';
           } else {
             await player.filterManager.setPitch(1.2);
-            description = '🎼 Applied Pitch filter (1.2x)';
+            description = '🎼 Filtro de Tono aplicado (1.2x)';
           }
           break;
 
@@ -175,13 +175,13 @@ module.exports = {
           if (rateValue) {
             const rate = Math.max(0.5, Math.min(2, rateValue));
             await player.filterManager.setRate(rate);
-            description = `⏱️ Applied Rate filter (${rate}x)`;
+            description = `⏱️ Filtro de Tasa aplicado (${rate}x)`;
           } else if (player.filterManager.filters.timescale?.rate !== 1) {
             await player.filterManager.setRate(1);
-            description = '⏱️ Disabled Rate filter';
+            description = '⏱️ Filtro de Tasa deshabilitado';
           } else {
             await player.filterManager.setRate(1.25);
-            description = '⏱️ Applied Rate filter (1.25x)';
+            description = '⏱️ Filtro de Tasa aplicado (1.25x)';
           }
           break;
 
@@ -190,13 +190,13 @@ module.exports = {
           if (volumeValue) {
             const volume = Math.max(0.1, Math.min(5, volumeValue));
             await player.filterManager.setVolume(volume);
-            description = `🎚️ Applied Volume boost (${Math.round(volume * 100)}%)`;
+            description = `🎚️ Refuerzo de Volumen aplicado (${Math.round(volume * 100)}%)`;
           } else if (player.filterManager.filters.volume !== 1) {
             await player.filterManager.setVolume(1);
-            description = '🎚️ Disabled Volume boost';
+            description = '🎚️ Refuerzo de Volumen deshabilitado';
           } else {
             await player.filterManager.setVolume(1.5);
-            description = '🎚️ Applied Volume boost (150%)';
+            description = '🎚️ Refuerzo de Volumen aplicado (150%)';
           }
           break;
 
@@ -210,10 +210,10 @@ module.exports = {
               { band: 2, gain: gain * 0.6 },
               { band: 3, gain: gain * 0.4 },
             ]);
-            description = `🎛️ Applied Bass boost (${Math.round(gain * 100)}%)`;
+            description = `🎛️ Refuerzo de Bajos aplicado (${Math.round(gain * 100)}%)`;
           } else if (player.filterManager.equalizerBands.length > 0) {
             await player.filterManager.clearEQ();
-            description = '🎛️ Disabled Bass boost';
+            description = '🎛️ Refuerzo de Bajos deshabilitado';
           } else {
             await player.filterManager.setEQ([
               { band: 0, gain: 0.6 },
@@ -221,7 +221,7 @@ module.exports = {
               { band: 2, gain: 0.8 },
               { band: 3, gain: 0.5 },
             ]);
-            description = '🎛️ Applied Bass boost';
+            description = '🎛️ Refuerzo de Bajos aplicado';
           }
           break;
 
@@ -229,10 +229,10 @@ module.exports = {
           const filterEnabled = player.filterManager.filters.rotation;
           if (filterEnabled) {
             await player.filterManager.toggleRotation();
-            description = '🎧 Disabled 8D filter';
+            description = '🎧 Filtro 8D deshabilitado';
           } else {
             await player.filterManager.toggleRotation(0.2);
-            description = '🎧 Applied 8D filter';
+            description = '🎧 Filtro 8D aplicado';
           }
           break;
 
@@ -243,7 +243,7 @@ module.exports = {
 
           if (rockEnabled) {
             await player.filterManager.clearEQ();
-            description = '🎸 Disabled Rock filter';
+            description = '🎸 Filtro Rock deshabilitado';
           } else {
             await player.filterManager.setEQ([
               { band: 0, gain: 0.3 },
@@ -262,17 +262,17 @@ module.exports = {
               { band: 13, gain: 0.25 },
               { band: 14, gain: 0.2 },
             ]);
-            description = '🎸 Applied Rock filter';
+            description = '🎸 Filtro Rock aplicado';
           }
           break;
       }
 
       const embed = new EmbedBuilder()
         .setColor('#DDA0DD')
-        .setTitle('🎵 Filter Manager')
+        .setTitle('🎵 Gestor de Filtros')
         .setDescription(description)
         .setFooter({
-          text: `Requested by ${interaction.user.tag}`,
+          text: `Solicitado por ${interaction.user.tag}`,
           iconURL: interaction.user.displayAvatarURL(),
         })
         .setTimestamp();
@@ -281,7 +281,7 @@ module.exports = {
     } catch (error) {
       console.error('Error applying filter:', error);
       await interaction.editReply({
-        content: '❌ An error occurred while applying the filter.',
+        content: '❌ Ocurrió un error al aplicar el filtro.',
         ephemeral: true,
       });
     }

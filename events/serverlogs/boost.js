@@ -22,17 +22,17 @@ module.exports = {
 
     if (!oldMember.premiumSince && newMember.premiumSince) {
       const embed = new EmbedBuilder()
-        .setTitle('Server Boost')
+        .setTitle('Impulso del Servidor')
         .setColor('Purple')
-        .setDescription(`<@${newMember.id}> has boosted the server!`)
+        .setDescription(`<@${newMember.id}> ha impulsado el servidor!`)
         .setTimestamp();
 
       logChannel.send({ embeds: [embed] });
     } else if (oldMember.premiumSince && !newMember.premiumSince) {
       const embed = new EmbedBuilder()
-        .setTitle('Boost Removed')
+        .setTitle('Impulso Removido')
         .setColor('Red')
-        .setDescription(`<@${newMember.id}> has removed their server boost.`)
+        .setDescription(`<@${newMember.id}> ha removido su impulso del servidor.`)
         .setTimestamp();
 
       logChannel.send({ embeds: [embed] });

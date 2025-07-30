@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('dadjoke')
-    .setDescription('Get a random dad joke!'),
+    .setDescription('¡Obtén un chiste de papá aleatorio!'),
 
   async execute(interaction) {
     try {
@@ -17,15 +17,15 @@ module.exports = {
 
       const embed = new EmbedBuilder()
         .setColor(0x5865f2)
-        .setTitle("Here's a Dad Joke for You!")
+        .setTitle("¡Aquí tienes un Chiste de Papá!")
         .setDescription(jokeData.joke)
-        .setFooter({ text: 'Want to hear another one? Use /dadjoke!' });
+        .setFooter({ text: '¿Quieres escuchar otro? ¡Usa /dadjoke!' });
 
       await interaction.reply({ embeds: [embed] });
     } catch (error) {
       console.error('Error fetching dad joke:', error);
       await interaction.reply(
-        "Sorry, I couldn't fetch a dad joke at the moment. Please try again later."
+        "Lo siento, no pude obtener un chiste de papá en este momento. Por favor, inténtalo más tarde."
       );
     }
   },

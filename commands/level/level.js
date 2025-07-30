@@ -7,9 +7,9 @@ const fetch = require('node-fetch');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('level')
-    .setDescription('Check your level and XP.')
+    .setDescription('Verifica tu nivel y XP.')
     .addUserOption((option) =>
-      option.setName('user').setDescription('The user to check.')
+      option.setName('user').setDescription('El usuario a verificar.')
     ),
   async execute(interaction) {
     if (!interaction.deferred && !interaction.replied) {
@@ -23,14 +23,14 @@ module.exports = {
     if (!guildData) {
       return interaction.editReply({
         content:
-          'Leveling system is not configured for this server yet. Please ask an admin to set it up.',
+          'El sistema de niveles aún no está configurado para este servidor. Por favor, pide a un administrador que lo configure.',
         flags: 64,
       });
     }
 
     if (!guildData.levelingEnabled) {
       return interaction.editReply({
-        content: 'Leveling system is not enabled in this Server',
+        content: 'El sistema de niveles no está habilitado en este servidor',
         flags: 64,
       });
     }
@@ -46,7 +46,7 @@ module.exports = {
 
     if (!memberData) {
       return interaction.editReply({
-        content: `${targetUser.username} has no level data.`,
+        content: `${targetUser.username} no tiene datos de nivel.`,
         flags: 64,
       });
     }

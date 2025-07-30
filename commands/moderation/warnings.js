@@ -5,14 +5,14 @@ const warnings = require('../../models/warnings');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('warnings')
-    .setDescription('Get warnings of user')
+    .setDescription('Obtener advertencias de usuario')
     .addUserOption((option) =>
-      option.setName('user').setDescription('The user to ban').setRequired(true)
+      option.setName('user').setDescription('El usuario a banear').setRequired(true)
     )
     .addIntegerOption((option) =>
       option
         .setName('page')
-        .setDescription('The page to display if there are more than 1')
+        .setDescription('La página a mostrar si hay más de 1')
         .setMinValue(2)
         .setMaxValue(20)
     ),
@@ -20,7 +20,7 @@ module.exports = {
   async execute(interaction) {
     if (!interaction.member.permissions.has('KickMembers')) {
       return interaction.reply({
-        content: 'You do not have `KickMembers` permission to view warnings',
+        content: 'No tienes el permiso `KickMembers` para ver advertencias',
         ephemeral: true,
       });
     }
@@ -36,14 +36,14 @@ module.exports = {
       return interaction.reply({
         embeds: [
           new EmbedBuilder()
-            .setTitle('User Warn Logs')
-            .setDescription(`${user} has no warn logs`)
+            .setTitle('Registros de Advertencias del Usuario')
+            .setDescription(`${user} no tiene registros de advertencias`)
             .setColor(0xff0000),
         ],
       });
 
     const embed = new EmbedBuilder()
-      .setTitle(`${user.tag}'s warn logs`)
+      .setTitle(`Registros de advertencias de ${user.tag}`)
       .setColor(16705372);
 
     if (page) {
@@ -51,7 +51,7 @@ module.exports = {
 
       if (userWarnings.length >= 6) {
         embed.setFooter({
-          text: `page ${page} of ${Math.ceil(userWarnings.length / 5)}`,
+          text: `página ${page} de ${Math.ceil(userWarnings.length / 5)}`,
         });
       }
 
@@ -63,10 +63,10 @@ module.exports = {
         embed.addFields({
           name: `id: ${warnings._id}`,
           value: `
-            👷🏼 Moderator: ${moderator || 'Moderator left'}
-            👤 User: <@${warnings.userId}>
-            📄 Reason: ${warnings.warnReason}
-            📅 Date: ${warnings.warnDate}
+            👷🏼 Moderador: ${moderator || 'Moderador se fue'}
+            👤 Usuario: <@${warnings.userId}>
+            📄 Razón: ${warnings.warnReason}
+            📅 Fecha: ${warnings.warnDate}
             `,
         });
       }
@@ -76,7 +76,7 @@ module.exports = {
 
     if (userWarnings.length >= 6) {
       embed.setFooter({
-        text: `page 1 of ${Math.ceil(userWarnings.length / 5)}`,
+        text: `página 1 de ${Math.ceil(userWarnings.length / 5)}`,
       });
     }
 
@@ -86,10 +86,10 @@ module.exports = {
       embed.addFields({
         name: `id: ${warnings._id}`,
         value: `
-        👷🏼 Moderator: ${moderator || 'Moderator left'}
-        👤 User: <@${warnings.userId}>
-        📄 Reason: ${warnings.warnReason}
-        📅 Date: ${warnings.warnDate}
+        👷🏼 Moderador: ${moderator || 'Moderador se fue'}
+        👤 Usuario: <@${warnings.userId}>
+        📄 Razón: ${warnings.warnReason}
+        📅 Fecha: ${warnings.warnDate}
         `,
       });
     }

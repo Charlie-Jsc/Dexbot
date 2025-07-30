@@ -3,19 +3,19 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('coinflip')
-    .setDescription('Flips a coin and shows the result.'),
+    .setDescription('Lanza una moneda y muestra el resultado.'),
 
   async execute(interaction) {
-    const result = Math.random() < 0.5 ? 'Heads' : 'Tails';
+    const result = Math.random() < 0.5 ? 'Cara' : 'Cruz';
 
     const embed = new EmbedBuilder()
       .setColor(0x5865f2)
-      .setTitle('🪙 Coin Flip')
-      .setDescription(`You flipped a coin!`)
+      .setTitle('🪙 Lanzamiento de Moneda')
+      .setDescription(`¡Lanzaste una moneda!`)
       .addFields(
-        { name: 'Result', value: result, inline: true },
+        { name: 'Resultado', value: result, inline: true },
         {
-          name: 'Requested by',
+          name: 'Solicitado por',
           value: `${interaction.user.tag}`,
           inline: true,
         }

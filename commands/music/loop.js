@@ -3,16 +3,16 @@ const { SlashCommandBuilder } = require('discord.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('loop')
-    .setDescription('Set the loop mode')
+    .setDescription('Establecer el modo de repetición')
     .addStringOption((option) =>
       option
         .setName('mode')
-        .setDescription('Loop mode')
+        .setDescription('Modo de repetición')
         .setRequired(true)
         .addChoices(
-          { name: 'Off', value: 'off' },
-          { name: 'Track', value: 'track' },
-          { name: 'Queue', value: 'queue' }
+          { name: 'Desactivado', value: 'off' },
+          { name: 'Pista', value: 'track' },
+          { name: 'Cola', value: 'queue' }
         )
     ),
   async execute(interaction) {
@@ -21,7 +21,7 @@ module.exports = {
 
     if (!player) {
       return interaction.reply({
-        content: 'Nothing is playing!',
+        content: '¡No se está reproduciendo nada!',
         ephemeral: true,
       });
     }
@@ -29,6 +29,6 @@ module.exports = {
     const mode = interaction.options.getString('mode');
     player.setRepeatMode(mode);
 
-    interaction.reply(`🔄 Loop mode set to: **${mode}**`);
+    interaction.reply(`🔄 Modo de repetición establecido a: **${mode}**`);
   },
 };

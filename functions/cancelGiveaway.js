@@ -8,7 +8,7 @@ async function cancelGiveaway(interaction) {
 
     if (!giveaway) {
       return interaction.reply({
-        content: 'Giveaway not found or has already ended.',
+        content: 'Sorteo no encontrado o ya ha terminado.',
         flags: MessageFlags.Ephemeral,
       });
     }
@@ -19,14 +19,14 @@ async function cancelGiveaway(interaction) {
       .catch(() => null);
     if (!channel) {
       return interaction.reply({
-        content: 'Could not find the giveaway channel.',
+        content: 'No se pudo encontrar el canal del sorteo.',
         flags: MessageFlags.Ephemeral,
       });
     }
 
     if (!channel.permissionsFor(interaction.member).has(['ManageMessages'])) {
       return interaction.reply({
-        content: 'You need `ManageMessages` permission to cancel a giveaway!',
+        content: '¡Necesitas el permiso `ManageMessages` para cancelar un sorteo!',
         flags: MessageFlags.Ephemeral,
       });
     }
@@ -39,7 +39,7 @@ async function cancelGiveaway(interaction) {
     ) {
       return interaction.reply({
         content:
-          'I need `SendMessages` and `EmbedLinks` permissions in the giveaway channel!',
+          '¡Necesito los permisos `SendMessages` y `EmbedLinks` en el canal del sorteo!',
         flags: MessageFlags.Ephemeral,
       });
     }
@@ -50,7 +50,7 @@ async function cancelGiveaway(interaction) {
       .catch(() => null);
     if (!message) {
       return interaction.reply({
-        content: 'Could not find the giveaway message.',
+        content: 'No se pudo encontrar el mensaje del sorteo.',
         flags: MessageFlags.Ephemeral,
       });
     }
@@ -63,30 +63,30 @@ async function cancelGiveaway(interaction) {
     let embed = message.embeds[0];
     if (embed) {
       embed = EmbedBuilder.from(embed);
-      embed.setTitle('❌ Giveaway Cancelled ❌');
+      embed.setTitle('❌ Sorteo Cancelado ❌');
       embed.setDescription(
-        `Prize: **${giveaway.prize}**\nStatus: **Cancelled**\nHosted by: ${interaction.user}\nParticipants: ${giveaway.participants.length}`
+        `Premio: **${giveaway.prize}**\nEstado: **Cancelado**\nOrganizado por: ${interaction.user}\nParticipantes: ${giveaway.participants.length}`
       );
       embed.setColor('#FF0000');
       await message.edit({ embeds: [embed], components: [] }).catch(() => null);
     }
 
     await interaction.reply({
-      content: 'Giveaway has been cancelled successfully!',
+      content: '¡El sorteo ha sido cancelado exitosamente!',
       flags: MessageFlags.Ephemeral,
     });
 
     // Announce cancellation in the channel
     await channel
       .send(
-        `❌ The giveaway for **${giveaway.prize}** has been cancelled by ${interaction.user}.`
+        `❌ El sorteo de **${giveaway.prize}** ha sido cancelado por ${interaction.user}.`
       )
       .catch(() => null);
   } catch (error) {
     console.error('Error cancelling giveaway:', error);
     await interaction.reply({
       content:
-        'An error occurred while cancelling the giveaway. Please try again later.',
+        'Ocurrió un error al cancelar el sorteo. Por favor intenta de nuevo más tarde.',
       flags: MessageFlags.Ephemeral,
     });
   }

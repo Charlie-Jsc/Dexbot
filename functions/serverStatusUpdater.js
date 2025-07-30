@@ -32,19 +32,19 @@ module.exports = async (client) => {
         // Build the embed
         const embed = new EmbedBuilder()
           .setColor(data.offline ? '#FF0000' : '#008080')
-          .setTitle(data.offline ? '❌ Server Offline' : serverName)
+          .setTitle(data.offline ? '❌ Servidor Desconectado' : serverName)
           .setDescription(
             data.offline
-              ? `The server \`${serverIp}\` is currently offline.`
-              : '**Server Online** 🟢'
+              ? `El servidor \`${serverIp}\` está actualmente desconectado.`
+              : '**Servidor En Línea** 🟢'
           )
           .addFields({
-            name: '⏱ Next Update',
+            name: '⏱ Próxima Actualización',
             value: formattedTimestamp,
             inline: true,
           })
           .setFooter({
-            text: 'Last updated',
+            text: 'Última actualización',
             iconURL: `https://api.mcstatus.io/v2/icon/${serverIp}`,
           })
           .setThumbnail(`https://api.mcstatus.io/v2/icon/${serverIp}`)
@@ -53,30 +53,30 @@ module.exports = async (client) => {
         if (!data.offline) {
           embed.addFields(
             {
-              name: '🖥 IP Address',
+              name: '🖥 Dirección IP',
               value: `↳ \`${data.ip}\``,
               inline: true,
             },
             {
-              name: '🛜 Port',
+              name: '🛜 Puerto',
               value: `↳ \`${data.port}\``,
               inline: true,
             },
             {
-              name: '🗺 Hostname',
-              value: '↳ `' + data.hostname + '`' || 'Unknown',
+              name: '🗺 Nombre de Host',
+              value: '↳ `' + data.hostname + '`' || 'Desconocido',
               inline: false,
             },
             {
-              name: '📊 Players Online',
+              name: '📊 Jugadores En Línea',
               value: `↳ \`${data.players?.online || 0}\` / **${
                 data.players?.max || 0
               }**`,
               inline: false,
             },
             {
-              name: '🔧 Version',
-              value: '↳ **' + data.version + '**' || 'Unknown',
+              name: '🔧 Versión',
+              value: '↳ **' + data.version + '**' || 'Desconocido',
               inline: false,
             },
             {
@@ -118,7 +118,7 @@ module.exports = async (client) => {
           .setColor('#FF0000')
           .setTitle('❌ Error')
           .setDescription(
-            `An error occurred while fetching the status of server \`${serverIp}\`.`
+            `Ocurrió un error al obtener el estado del servidor \`${serverIp}\`.`
           )
           .setTimestamp();
 

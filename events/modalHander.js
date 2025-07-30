@@ -46,7 +46,7 @@ module.exports = {
     } catch (error) {
       console.error('Error creating embed:', error);
       await interaction.reply({
-        content: 'Error creating embed. Check your inputs and try again.',
+        content: 'Error creando el embed. Revisa tus entradas e intenta de nuevo.',
         ephemeral: true,
       });
     }

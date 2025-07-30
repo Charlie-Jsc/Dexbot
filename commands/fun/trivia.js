@@ -11,7 +11,7 @@ const { decode } = require('html-entities');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('trivia')
-    .setDescription('Fetches a random trivia question.'),
+    .setDescription('Obtiene una pregunta de trivia aleatoria.'),
 
   async execute(interaction) {
     const response = await fetch(
@@ -38,10 +38,10 @@ module.exports = {
 
     const embed = new EmbedBuilder()
       .setColor(0x0099ff)
-      .setTitle('Trivia Question')
+      .setTitle('Pregunta de Trivia')
       .setDescription(decodedQuestion)
       .addFields(answerFields)
-      .setFooter({ text: 'Choose your answer by clicking a button' });
+      .setFooter({ text: 'Elige tu respuesta haciendo clic en un botón' });
 
     const buttons = answerLabels.map((label, index) =>
       new ButtonBuilder()
@@ -73,12 +73,12 @@ module.exports = {
       const responseEmbed = new EmbedBuilder()
         .setColor(selectedAnswer === correctAnswerLabel ? 0x00ff00 : 0xff0000)
         .setTitle(
-          selectedAnswer === correctAnswerLabel ? 'Correct!' : 'Incorrect!'
+          selectedAnswer === correctAnswerLabel ? '¡Correcto!' : '¡Incorrecto!'
         )
         .setDescription(
           selectedAnswer === correctAnswerLabel
-            ? 'Great job! 🎉'
-            : `Oops! The correct answer was: **${correctAnswerLabel}) ${decodedCorrectAnswer}**`
+            ? '¡Buen trabajo! 🎉'
+            : `¡Oops! La respuesta correcta era: **${correctAnswerLabel}) ${decodedCorrectAnswer}**`
         );
 
       // Disable all buttons after an answer is selected
@@ -103,7 +103,7 @@ module.exports = {
 
         interaction.editReply({
           content:
-            'Time is up! The correct answer was: **' +
+            '¡Se acabó el tiempo! La respuesta correcta era: **' +
             correctAnswerLabel +
             ') ' +
             decodedCorrectAnswer +

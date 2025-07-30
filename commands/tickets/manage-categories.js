@@ -8,44 +8,44 @@ const TicketCategory = require('../../models/TicketCategory');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('ticketcategory')
-    .setDescription('Manage ticket categories')
+    .setDescription('Gestionar categorías de tickets')
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
     .addSubcommand((subcommand) =>
       subcommand
         .setName('add')
-        .setDescription('Add a new ticket category')
+        .setDescription('Agregar una nueva categoría de tickets')
         .addStringOption((option) =>
           option
             .setName('name')
-            .setDescription('Name of the category')
+            .setDescription('Nombre de la categoría')
             .setRequired(true)
         )
         .addStringOption((option) =>
           option
             .setName('description')
-            .setDescription('Description of the category')
+            .setDescription('Descripción de la categoría')
             .setRequired(true)
         )
         .addStringOption((option) =>
           option
             .setName('emoji')
-            .setDescription('Emoji for the category')
+            .setDescription('Emoji para la categoría')
             .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('remove')
-        .setDescription('Remove a ticket category')
+        .setDescription('Eliminar una categoría de tickets')
         .addStringOption((option) =>
           option
             .setName('name')
-            .setDescription('Name of the category to remove')
+            .setDescription('Nombre de la categoría a eliminar')
             .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
-      subcommand.setName('list').setDescription('List all ticket categories')
+      subcommand.setName('list').setDescription('Listar todas las categorías de tickets')
     ),
 
   async execute(interaction) {
@@ -53,7 +53,7 @@ module.exports = {
       if (!interaction.member.permissions.has('Administrator')) {
         return interaction.reply({
           content:
-            'You do not have `Administrator` permission to manage ticket categories!',
+            '¡No tienes permisos de `Administrador` para gestionar categorías de tickets!',
           ephemeral: true,
         });
       }
@@ -72,7 +72,7 @@ module.exports = {
 
           if (existingCategory) {
             return interaction.reply({
-              content: '❌ A category with that name already exists!',
+              content: '❌ ¡Ya existe una categoría con ese nombre!',
               ephemeral: true,
             });
           }
@@ -85,7 +85,7 @@ module.exports = {
           });
 
           await interaction.reply({
-            content: `✅ Added ticket category: ${emoji} ${name}`,
+            content: `✅ Se agregó la categoría de tickets: ${emoji} ${name}`,
             ephemeral: true,
           });
           break;
@@ -99,13 +99,13 @@ module.exports = {
 
           if (!result) {
             return interaction.reply({
-              content: '❌ Category not found!',
+              content: '❌ ¡Categoría no encontrada!',
               ephemeral: true,
             });
           }
 
           await interaction.reply({
-            content: `✅ Removed ticket category: ${name}`,
+            content: `✅ Se eliminó la categoría de tickets: ${name}`,
             ephemeral: true,
           });
           break;
@@ -118,13 +118,13 @@ module.exports = {
           if (categories.length === 0) {
             return interaction.reply({
               content:
-                '❌ No ticket categories found! Create some using `/ticketcategory add`',
+                '❌ ¡No se encontraron categorías de tickets! Crea algunas usando `/ticketcategory add`',
               ephemeral: true,
             });
           }
 
           const embed = new EmbedBuilder()
-            .setTitle('Ticket Categories')
+            .setTitle('Categorías de Tickets')
             .setColor('#DDA0DD')
             .setDescription(
               categories
@@ -144,7 +144,7 @@ module.exports = {
     } catch (error) {
       console.error('Error managing ticket categories:', error);
       await interaction.reply({
-        content: '❌ An error occurred while managing ticket categories.',
+        content: '❌ Ocurrió un error al gestionar las categorías de tickets.',
         ephemeral: true,
       });
     }

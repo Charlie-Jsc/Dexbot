@@ -9,21 +9,21 @@ const {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('support')
-    .setDescription('Get the support server link.'),
+    .setDescription('Obtén el enlace del servidor de soporte.'),
 
   async execute(interaction) {
     const supportServerLink = 'https://discord.gg/kAYpdenZ8b'; // Replace with your actual support server link
 
     const embed = new EmbedBuilder()
-      .setTitle('🔹 Support Server')
+      .setTitle('🔹 Servidor de Soporte')
       .setDescription(
-        'Need help? Join our support server using the button below!'
+        '¿Necesitas ayuda? ¡Únete a nuestro servidor de soporte usando el botón de abajo!'
       )
       .setColor('#ffcc00')
       .setTimestamp();
 
     const button = new ButtonBuilder()
-      .setLabel('Join Support Server')
+      .setLabel('Unirse al Servidor de Soporte')
       .setStyle(ButtonStyle.Link)
       .setURL(supportServerLink);
 

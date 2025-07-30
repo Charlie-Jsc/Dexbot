@@ -6,19 +6,19 @@ const autocompleteMap = new Map();
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('play')
-    .setDescription('Play a song or playlist from different Sources')
+    .setDescription('Reproducir una canción o playlist de diferentes fuentes')
 
     .addStringOption((option) =>
       option
         .setName('query')
-        .setDescription('Song name or URL')
+        .setDescription('Nombre de la canción o URL')
         .setRequired(true)
         .setAutocomplete(true)
     )
     .addStringOption((option) =>
       option
         .setName('source')
-        .setDescription('The source you want to play the music from')
+        .setDescription('La fuente desde la que quieres reproducir música')
         .addChoices(
           { name: 'Youtube', value: 'ytsearch' },
           { name: 'Youtube Music', value: 'ytmsearch' },
@@ -35,7 +35,7 @@ module.exports = {
       if (!member.voice.channel) {
         return await interaction.respond([
           {
-            name: '⚠️ Join a voice channel first!',
+            name: '⚠️ ¡Únete a un canal de voz primero!',
             value: 'join_vc',
           },
         ]);
@@ -43,7 +43,7 @@ module.exports = {
       if (!query.trim()) {
         return await interaction.respond([
           {
-            name: 'Start typing to search for songs...',
+            name: 'Comienza a escribir para buscar canciones...',
             value: 'start_typing',
           },
         ]);
@@ -63,7 +63,7 @@ module.exports = {
 
         if (!results?.tracks?.length) {
           return await interaction.respond([
-            { name: 'No results found', value: 'no_results' },
+            { name: 'No se encontraron resultados', value: 'no_results' },
           ]);
         }
 
@@ -72,7 +72,7 @@ module.exports = {
         if (results.loadType === 'playlist') {
           options = [
             {
-              name: `📑 Playlist: ${results.playlist?.title || 'Unknown'} (${results.tracks.length} tracks)`,
+              name: `📑 Playlist: ${results.playlist?.title || 'Desconocida'} (${results.tracks.length} pistas)`,
               value: `${query}`,
             },
           ];
@@ -87,13 +87,13 @@ module.exports = {
       } catch (searchError) {
         console.error('Search error:', searchError);
         return await interaction.respond([
-          { name: 'Error searching for tracks', value: 'error' },
+          { name: 'Error buscando pistas', value: 'error' },
         ]);
       }
     } catch (error) {
       console.error('Autocomplete error:', error);
       return await interaction.respond([
-        { name: 'An error occurred', value: 'error' },
+        { name: 'Ocurrió un error', value: 'error' },
       ]);
     }
   },
@@ -106,21 +106,21 @@ module.exports = {
 
     if (query === 'join_vc' || query === 'start_typing' || query === 'error') {
       return interaction.reply({
-        content: '❌ Please join a voice channel and select a valid song!',
+        content: '❌ ¡Por favor únete a un canal de voz y selecciona una canción válida!',
         ephemeral: true,
       });
     }
 
     if (query === 'no_results') {
       return interaction.reply({
-        content: '❌ No results found! Try a different search term.',
+        content: '❌ ¡No se encontraron resultados! Prueba con un término de búsqueda diferente.',
         ephemeral: true,
       });
     }
 
     if (!member.voice.channel) {
       return interaction.reply({
-        content: '❌ You need to join a voice channel first!',
+        content: '❌ ¡Necesitas unirte a un canal de voz primero!',
         ephemeral: true,
       });
     }

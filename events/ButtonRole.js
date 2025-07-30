@@ -7,8 +7,8 @@ module.exports = {
     if (interaction.isModalSubmit()) {
       if (interaction.customId === 'embed_setup') {
         const embed = new EmbedBuilder()
-          .setTitle('Embed Setup Completed')
-          .setDescription('Your embed message was setup successfully!')
+          .setTitle('Configuración de Embed Completada')
+          .setDescription('¡Tu mensaje embed fue configurado exitosamente!')
           .setColor('Green');
         await interaction.reply({ embeds: [embed], ephemeral: true });
       }
@@ -28,9 +28,9 @@ module.exports = {
 
       if (!role) {
         const embed = new EmbedBuilder()
-          .setTitle('Role Not Found')
+          .setTitle('Rol No Encontrado')
           .setDescription(
-            'The role associated with this button could not be found or no longer exists.'
+            'El rol asociado con este botón no pudo ser encontrado o ya no existe.'
           )
           .setColor('Red');
         return interaction.reply({ embeds: [embed], ephemeral: true });
@@ -42,17 +42,17 @@ module.exports = {
       if (member.roles.cache.has(role.id)) {
         await member.roles.remove(role);
         embed
-          .setTitle('Role Removed')
+          .setTitle('Rol Removido')
           .setDescription(
-            `You have successfully removed the role **${role.name}**.`
+            `Has removido exitosamente el rol **${role.name}**.`
           )
           .setColor('Red');
       } else {
         await member.roles.add(role);
         embed
-          .setTitle('Role Added')
+          .setTitle('Rol Agregado')
           .setDescription(
-            `You have successfully added the role **${role.name}**.`
+            `Has agregado exitosamente el rol **${role.name}**.`
           )
           .setColor('Green');
       }

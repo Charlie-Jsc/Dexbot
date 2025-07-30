@@ -27,9 +27,9 @@ module.exports = {
         iconURL: message.author.displayAvatarURL(),
       })
       .setDescription(
-        `**Message deleted in ${message.channel}:**\n${message.content || '*Message content not available*'}`
+        `**Mensaje eliminado en ${message.channel}:**\n${message.content || '*Contenido del mensaje no disponible*'}`
       )
-      .setFooter({ text: `User ID: ${message.author.id}` })
+      .setFooter({ text: `ID del Usuario: ${message.author.id}` })
       .setTimestamp();
 
     logChannel.send({ embeds: [embed] });

@@ -4,17 +4,17 @@ const ServerStatus = require('../../models/ServerStatus');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('removeserverstatus')
-    .setDescription('Remove a Minecraft server from tracking.')
+    .setDescription('Remover un servidor de Minecraft del rastreo.')
     .addStringOption((option) =>
       option
         .setName('servername')
-        .setDescription('The name of the server to remove.')
+        .setDescription('El nombre del servidor a remover.')
         .setRequired(true)
     )
     .addStringOption((option) =>
       option
         .setName('serverip')
-        .setDescription('The IP address of the server to remove.')
+        .setDescription('La dirección IP del servidor a remover.')
         .setRequired(true)
     ),
 
@@ -22,7 +22,7 @@ module.exports = {
     if (!interaction.member.permissions.has('ManageGuild')) {
       return interaction.reply({
         content:
-          'You do not have `ManageGuild` permission to remove server status!',
+          'No tienes el permiso `ManageGuild` para remover el estado del servidor!',
         ephemeral: true,
       });
     }
@@ -36,7 +36,7 @@ module.exports = {
 
     if (!server) {
       return interaction.reply({
-        content: `No server found with the name **${serverName}** and IP **${serverIp}**.`,
+        content: `No se encontró ningún servidor con el nombre **${serverName}** e IP **${serverIp}**.`,
         ephemeral: true,
       });
     }
@@ -54,7 +54,7 @@ module.exports = {
     }
 
     return interaction.reply({
-      content: `Successfully removed server status tracking for **${serverName}** (\`${serverIp}\`).`,
+      content: `Se removió exitosamente el rastreo de estado del servidor para **${serverName}** (\`${serverIp}\`).`,
       ephemeral: true,
     });
   },

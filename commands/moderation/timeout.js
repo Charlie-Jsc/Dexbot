@@ -7,23 +7,23 @@ const {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('timeout')
-    .setDescription('Put a member in timeout for a specified duration.')
+    .setDescription('Poner a un miembro en timeout por una duración específica.')
     .addUserOption((option) =>
       option
         .setName('user')
-        .setDescription('The user to timeout')
+        .setDescription('El usuario al que poner en timeout')
         .setRequired(true)
     )
     .addStringOption((option) =>
       option
         .setName('duration')
-        .setDescription('Duration for the timeout (e.g., 2d1h30m40s)')
+        .setDescription('Duración para el timeout (ej. 2d1h30m40s)')
         .setRequired(true)
     )
     .addStringOption((option) =>
       option
         .setName('reason')
-        .setDescription('Reason for the timeout')
+        .setDescription('Razón para el timeout')
         .setRequired(false)
     )
     .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers),
@@ -34,35 +34,35 @@ module.exports = {
     const user = interaction.options.getUser('user');
     const duration = interaction.options.getString('duration');
     const reason =
-      interaction.options.getString('reason') || 'No reason provided.';
+      interaction.options.getString('reason') || 'No se proporcionó razón.';
     const member = interaction.guild.members.cache.get(user.id);
     const executor = interaction.member;
     const botMember = interaction.guild.members.me;
 
     if (!executor.permissions.has(PermissionFlagsBits.ModerateMembers)) {
       return interaction.reply({
-        content: '❌ You do not have permission to timeout members.',
+        content: '❌ No tienes permiso para poner miembros en timeout.',
         ephemeral: true,
       });
     }
 
     if (!member) {
       return interaction.reply({
-        content: '❌ That member is not in this server.',
+        content: '❌ Ese miembro no está en este servidor.',
         ephemeral: true,
       });
     }
 
     if (!member.moderatable) {
       return interaction.reply({
-        content: '❌ I cannot timeout this user.',
+        content: '❌ No puedo poner a este usuario en timeout.',
         ephemeral: true,
       });
     }
 
     if (member.id === executor.id) {
       return interaction.reply({
-        content: '❌ You cannot timeout yourself.',
+        content: '❌ No puedes ponerte en timeout a ti mismo.',
         ephemeral: true,
       });
     }
@@ -70,14 +70,14 @@ module.exports = {
     if (member.roles.highest.position >= executor.roles.highest.position) {
       return interaction.reply({
         content:
-          '❌ You cannot timeout this user as they have a higher or equal role.',
+          '❌ No puedes poner en timeout a este usuario ya que tiene un rol superior o igual.',
         ephemeral: true,
       });
     }
 
     if (member.roles.highest.position >= botMember.roles.highest.position) {
       return interaction.reply({
-        content: '❌ I cannot timeout this user due to role hierarchy.',
+        content: '❌ No puedo poner en timeout a este usuario debido a la jerarquía de roles.',
         ephemeral: true,
       });
     }
@@ -85,7 +85,7 @@ module.exports = {
     const durationRegex = /^(\d+d)?(\d+h)?(\d+m)?(\d+s)?$/;
     if (!durationRegex.test(duration)) {
       return interaction.reply({
-        content: '❌ Invalid duration format! Use something like `1d2h30m40s`.',
+        content: '❌ Formato de duración inválido! Usa algo como `1d2h30m40s`.',
         ephemeral: true,
       });
     }
@@ -93,7 +93,7 @@ module.exports = {
     const durationMs = parseDuration(duration);
     if (durationMs < 5000 || durationMs > 2.419e9) {
       return interaction.reply({
-        content: '❌ Timeout must be between 5 seconds and 28 days.',
+        content: '❌ El timeout debe estar entre 5 segundos y 28 días.',
         ephemeral: true,
       });
     }
@@ -103,13 +103,13 @@ module.exports = {
 
       const timeoutEmbed = new EmbedBuilder()
         .setColor(0xffa500)
-        .setTitle('🚫 Member Timed Out')
+        .setTitle('🚫 Miembro Puesto en Timeout')
         .setDescription(
-          `⏳ **${user.tag}** has been timed out for **${prettyMs(durationMs, { verbose: true })}**.`
+          `⏳ **${user.tag}** ha sido puesto en timeout por **${prettyMs(durationMs, { verbose: true })}**.`
         )
         .addFields(
-          { name: 'Reason', value: reason, inline: true },
-          { name: 'Timed Out By', value: `<@${executor.id}>`, inline: true }
+          { name: 'Razón', value: reason, inline: true },
+          { name: 'Puesto en Timeout por', value: `<@${executor.id}>`, inline: true }
         )
         .setTimestamp();
 
@@ -118,7 +118,7 @@ module.exports = {
       console.error(error);
       return interaction.reply({
         content:
-          '❌ Failed to timeout the user. Please ensure I have the correct permissions.',
+          '❌ Falló al poner en timeout al usuario. Por favor asegúrate de que tengo los permisos correctos.',
         ephemeral: true,
       });
     }

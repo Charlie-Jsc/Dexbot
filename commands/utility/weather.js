@@ -5,11 +5,11 @@ require('dotenv').config();
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('weather')
-    .setDescription('Get the current weather for a location.')
+    .setDescription('Obtener el clima actual de una ubicación.')
     .addStringOption((option) =>
       option
         .setName('location')
-        .setDescription('The location to get the weather for')
+        .setDescription('La ubicación para obtener el clima')
         .setRequired(true)
     ),
   async execute(interaction) {
@@ -18,7 +18,7 @@ module.exports = {
     const apiKey = process.env.WEATHER_API;
 
     if (!apiKey) {
-      return await interaction.reply('Weather API key is not configured.');
+      return await interaction.reply('La clave API del clima no está configurada.');
     }
 
     const weatherResponse = await fetch(
@@ -27,7 +27,7 @@ module.exports = {
 
     if (!weatherResponse.ok) {
       return await interaction.reply(
-        'Could not fetch the weather. Please check the location and try again.'
+        'No se pudo obtener el clima. Por favor revisa la ubicación e intenta de nuevo.'
       );
     }
 
@@ -35,18 +35,18 @@ module.exports = {
 
     if (data.error) {
       return await interaction.reply(
-        'Could not find any location matching that name. Please try a different one.'
+        'No se pudo encontrar ninguna ubicación con ese nombre. Por favor intenta con una diferente.'
       );
     }
 
     const weatherEmbed = new EmbedBuilder()
       .setColor('#0099ff')
       .setTitle(
-        `Current Weather in ${data.location.name}, ${data.location.region}, ${data.location.country}`
+        `Clima Actual en ${data.location.name}, ${data.location.region}, ${data.location.country}`
       )
       .addFields(
         {
-          name: 'Temperature',
+          name: 'Temperatura',
           value: `${data.current.temp_c}°C`,
           inline: true,
         },

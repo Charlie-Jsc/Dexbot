@@ -3,9 +3,9 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('userinfo')
-    .setDescription('Displays information about a user.')
+    .setDescription('Muestra información sobre un usuario.')
     .addUserOption((option) =>
-      option.setName('target').setDescription('Select a user')
+      option.setName('target').setDescription('Selecciona un usuario')
     ),
 
   async execute(interaction) {
@@ -14,17 +14,17 @@ module.exports = {
 
     const embed = new EmbedBuilder()
       .setColor(0x5865f2)
-      .setTitle(`${user.username}'s Info`)
+      .setTitle(`Información de ${user.username}`)
       .setThumbnail(user.displayAvatarURL({ dynamic: true }))
       .addFields(
         { name: 'ID', value: user.id, inline: true },
         {
-          name: 'Joined Server On',
+          name: 'Se Unió al Servidor el',
           value: member.joinedAt.toDateString(),
           inline: true,
         },
         {
-          name: 'Account Created On',
+          name: 'Cuenta Creada el',
           value: user.createdAt.toDateString(),
           inline: true,
         },
@@ -34,12 +34,12 @@ module.exports = {
             member.roles.cache
               .filter((role) => role.id !== interaction.guild.id)
               .map((role) => role.toString())
-              .join(', ') || 'None',
+              .join(', ') || 'Ninguno',
           inline: false,
         }
       )
       .setFooter({
-        text: `Requested by ${interaction.user.tag}`,
+        text: `Solicitado por ${interaction.user.tag}`,
         iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
       })
       .setTimestamp();

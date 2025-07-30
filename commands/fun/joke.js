@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('joke')
-    .setDescription('Tells a random joke'),
+    .setDescription('Cuenta un chiste aleatorio'),
 
   async execute(interaction) {
     const response = await fetch(
@@ -14,10 +14,10 @@ module.exports = {
 
     const embed = new EmbedBuilder()
       .setColor(0x5865f2)
-      .setTitle('🎭 Joke')
+      .setTitle('🎭 Chiste')
       .addFields(
-        { name: 'Setup', value: joke.setup, inline: false },
-        { name: 'Punchline', value: joke.punchline, inline: false }
+        { name: 'Preparación', value: joke.setup, inline: false },
+        { name: 'Remate', value: joke.punchline, inline: false }
       )
       .setTimestamp();
 

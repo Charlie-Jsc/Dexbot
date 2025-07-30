@@ -23,8 +23,8 @@ module.exports = {
     if (!logChannel) return;
 
     if (oldMember.nickname !== newMember.nickname) {
-      const oldNickname = oldMember.nickname || 'None';
-      const newNickname = newMember.nickname || 'None';
+      const oldNickname = oldMember.nickname || 'Ninguno';
+      const newNickname = newMember.nickname || 'Ninguno';
 
       const embed = new EmbedBuilder()
         .setColor('Blue')
@@ -32,13 +32,13 @@ module.exports = {
           name: newMember.user.tag,
           iconURL: newMember.user.displayAvatarURL(),
         })
-        .setTitle('Nickname Changed')
+        .setTitle('Apodo Cambiado')
         .setDescription(
-          `**User:** <@${newMember.id}>\n` +
-            `**Old Nickname:** ${oldNickname}\n` +
-            `**New Nickname:** ${newNickname}`
+          `**Usuario:** <@${newMember.id}>\n` +
+            `**Apodo Anterior:** ${oldNickname}\n` +
+            `**Apodo Nuevo:** ${newNickname}`
         )
-        .setFooter({ text: `User ID: ${newMember.id}` })
+        .setFooter({ text: `ID del Usuario: ${newMember.id}` })
         .setTimestamp();
 
       logChannel.send({ embeds: [embed] });

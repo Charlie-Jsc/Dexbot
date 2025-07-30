@@ -13,18 +13,18 @@ const ButtonRole = require('../../models/ButtonRole');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('buttonrole')
-    .setDescription('Manage button role panels')
+    .setDescription('Gestiona paneles de roles con botones')
     .addSubcommand((subcommand) =>
-      subcommand.setName('setup').setDescription('Create a button role panel')
+      subcommand.setName('setup').setDescription('Crea un panel de roles con botones')
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('send')
-        .setDescription('Send a button role panel to a channel')
+        .setDescription('Envía un panel de roles con botones a un canal')
         .addStringOption((option) =>
           option
             .setName('panel_name')
-            .setDescription('The name of the panel')
+            .setDescription('El nombre del panel')
             .setRequired(true)
         )
     ),
@@ -42,7 +42,7 @@ module.exports = {
 async function handleSetup(interaction) {
   if (!interaction.member.permissions.has('ManageRoles')) {
     return interaction.reply({
-      content: 'You need the Manage Roles permission to use this command.',
+      content: 'Necesitas el permiso de Gestionar Roles para usar este comando.',
       ephemeral: true,
     });
   }
@@ -50,26 +50,26 @@ async function handleSetup(interaction) {
 
   if (panels.length >= 25) {
     return await interaction.reply({
-      content: `You have reached the maximum limit of ${maxButtonRoles} button roles in this server.`,
+      content: `Has alcanzado el límite máximo de ${maxButtonRoles} roles con botones en este servidor.`,
       ephemeral: true,
     });
   }
 
   const setupEmbed = new EmbedBuilder()
-    .setTitle('Button Role Panel Setup')
+    .setTitle('Configuración del Panel de Roles con Botones')
     .setDescription(
-      'Choose whether you want to create a **normal message** or an **embed message** for your button role panel.'
+      'Elige si quieres crear un **mensaje normal** o un **mensaje embed** para tu panel de roles con botones.'
     )
     .setColor('Blue');
 
   const setupButtons = new ActionRowBuilder().addComponents(
     new ButtonBuilder()
       .setCustomId('normal_message')
-      .setLabel('Normal Message')
+      .setLabel('Mensaje Normal')
       .setStyle(ButtonStyle.Primary),
     new ButtonBuilder()
       .setCustomId('embed_message')
-      .setLabel('Embed Message')
+      .setLabel('Mensaje Embed')
       .setStyle(ButtonStyle.Success)
   );
 
@@ -84,7 +84,7 @@ async function handleSetup(interaction) {
   collector.on('collect', async (buttonInteraction) => {
     if (buttonInteraction.user.id !== interaction.user.id) {
       return buttonInteraction.reply({
-        content: 'This setup is not for you.',
+        content: 'Esta configuración no es para ti.',
         ephemeral: true,
       });
     }
@@ -105,8 +105,8 @@ async function handleNormalMessageSetup(interaction, buttonInteraction) {
   await buttonInteraction.deferUpdate();
 
   const messagePrompt = new EmbedBuilder()
-    .setTitle('Normal Message Setup')
-    .setDescription('Please type the message content for your panel.')
+    .setTitle('Configuración de Mensaje Normal')
+    .setDescription('Por favor, escribe el contenido del mensaje para tu panel.')
     .setColor('Blue');
 
   await interaction.channel.send({ embeds: [messagePrompt] });
@@ -126,34 +126,34 @@ async function handleNormalMessageSetup(interaction, buttonInteraction) {
 async function handleEmbedMessageSetup(interaction, buttonInteraction) {
   const modal = new ModalBuilder()
     .setCustomId('embed_setup')
-    .setTitle('Embed Setup');
+    .setTitle('Configuración de Embed');
 
   const titleInput = new TextInputBuilder()
     .setCustomId('embed_title')
-    .setLabel('Title (optional)')
+    .setLabel('Título (opcional)')
     .setStyle(TextInputStyle.Short)
-    .setPlaceholder('Enter the embed title')
+    .setPlaceholder('Introduce el título del embed')
     .setRequired(false);
 
   const descriptionInput = new TextInputBuilder()
     .setCustomId('embed_description')
-    .setLabel('Description (required)')
+    .setLabel('Descripción (requerida)')
     .setStyle(TextInputStyle.Paragraph)
-    .setPlaceholder('Enter the embed description')
+    .setPlaceholder('Introduce la descripción del embed')
     .setRequired(true);
 
   const footerInput = new TextInputBuilder()
     .setCustomId('embed_footer')
-    .setLabel('Footer (optional)')
+    .setLabel('Pie de página (opcional)')
     .setStyle(TextInputStyle.Short)
-    .setPlaceholder('Enter the embed footer')
+    .setPlaceholder('Introduce el pie de página del embed')
     .setRequired(false);
 
   const imageUriInput = new TextInputBuilder()
     .setCustomId('embed_image_uri')
-    .setLabel('Image URI (optional)')
+    .setLabel('URI de Imagen (opcional)')
     .setStyle(TextInputStyle.Short)
-    .setPlaceholder('Enter the image URL')
+    .setPlaceholder('Introduce la URL de la imagen')
     .setRequired(false);
 
   const modalActionRow1 = new ActionRowBuilder().addComponents(titleInput);
@@ -196,8 +196,8 @@ async function savePanel(interaction, panelData) {
 
   while (panelExists) {
     const panelNamePrompt = new EmbedBuilder()
-      .setTitle('Panel Name')
-      .setDescription('What will the panel be called?')
+      .setTitle('Nombre del Panel')
+      .setDescription('¿Cómo se llamará el panel?')
       .setColor('Blue');
     await interaction.channel.send({ embeds: [panelNamePrompt] });
 
@@ -215,7 +215,7 @@ async function savePanel(interaction, panelData) {
 
     if (existingPanel) {
       await interaction.channel.send({
-        content: `A panel with the name **${panelName}** already exists. Please choose another name.`,
+        content: `Ya existe un panel con el nombre **${panelName}**. Por favor, elige otro nombre.`,
       });
     } else {
       panelExists = false;
@@ -227,8 +227,8 @@ async function savePanel(interaction, panelData) {
 
   while (addingButtons) {
     const buttonLabelPrompt = new EmbedBuilder()
-      .setTitle('Button Label')
-      .setDescription('Enter a button label:')
+      .setTitle('Etiqueta del Botón')
+      .setDescription('Introduce una etiqueta para el botón:')
       .setColor('Blue');
     await interaction.channel.send({ embeds: [buttonLabelPrompt] });
 
@@ -240,8 +240,8 @@ async function savePanel(interaction, panelData) {
     const label = labelResponse.first().content;
 
     const buttonRolePrompt = new EmbedBuilder()
-      .setTitle('Button Role')
-      .setDescription('Mention the role or provide the role ID:')
+      .setTitle('Rol del Botón')
+      .setDescription('Menciona el rol o proporciona el ID del rol:')
       .setColor('Blue');
     await interaction.channel.send({ embeds: [buttonRolePrompt] });
 
@@ -255,9 +255,9 @@ async function savePanel(interaction, panelData) {
       roleResponse.first().content;
 
     const buttonStylePrompt = new EmbedBuilder()
-      .setTitle('Button Style')
+      .setTitle('Estilo del Botón')
       .setDescription(
-        'Choose a button style: `Primary`, `Secondary`, `Success`, `Danger`'
+        'Elige un estilo de botón: `Primary`, `Secondary`, `Success`, `Danger`'
       )
       .setColor('Blue');
     await interaction.channel.send({ embeds: [buttonStylePrompt] });
@@ -274,8 +274,8 @@ async function savePanel(interaction, panelData) {
     buttons.push({ label, roleId, style, customId });
 
     const continuePrompt = new EmbedBuilder()
-      .setTitle('Add Another Button?')
-      .setDescription('Do you want to add another button? (yes/no)')
+      .setTitle('¿Añadir Otro Botón?')
+      .setDescription('¿Quieres añadir otro botón? (yes/no)')
       .setColor('Blue');
     await interaction.channel.send({ embeds: [continuePrompt] });
 
@@ -289,8 +289,8 @@ async function savePanel(interaction, panelData) {
   }
 
   const targetChannelPrompt = new EmbedBuilder()
-    .setTitle('Target Channel')
-    .setDescription('Mention the channel to send the panel to:')
+    .setTitle('Canal de Destino')
+    .setDescription('Menciona el canal al que enviar el panel:')
     .setColor('Blue');
   await interaction.channel.send({ embeds: [targetChannelPrompt] });
 
@@ -314,8 +314,8 @@ async function savePanel(interaction, panelData) {
   await buttonRole.save();
 
   const successEmbed = new EmbedBuilder()
-    .setTitle('Panel Saved')
-    .setDescription(`Your panel **${panelName}** has been saved successfully.`)
+    .setTitle('Panel Guardado')
+    .setDescription(`Tu panel **${panelName}** ha sido guardado exitosamente.`)
     .setColor('Green');
 
   await interaction.channel.send({ embeds: [successEmbed] });
@@ -324,7 +324,7 @@ async function savePanel(interaction, panelData) {
 async function handleSend(interaction) {
   if (!interaction.member.permissions.has('ManageRoles')) {
     return interaction.reply({
-      content: 'You need the Manage Roles permission to use this command.',
+      content: 'Necesitas el permiso de Gestionar Roles para usar este comando.',
       ephemeral: true,
     });
   }
@@ -337,7 +337,7 @@ async function handleSend(interaction) {
 
   if (!buttonRole) {
     return interaction.reply({
-      content: `Panel **${panelName}** not found.`,
+      content: `Panel **${panelName}** no encontrado.`,
       ephemeral: true,
     });
   }
@@ -345,7 +345,7 @@ async function handleSend(interaction) {
   const channel = interaction.guild.channels.cache.get(buttonRole.channelId);
   if (!channel) {
     return interaction.reply({
-      content: `The channel for panel **${panelName}** could not be found.`,
+      content: `El canal para el panel **${panelName}** no pudo ser encontrado.`,
       ephemeral: true,
     });
   }
@@ -380,7 +380,7 @@ async function handleSend(interaction) {
   await channel.send({ embeds: [embed], components: [row] });
 
   await interaction.reply({
-    content: `Panel **${panelName}** sent to <#${buttonRole.channelId}>.`,
+    content: `Panel **${panelName}** enviado a <#${buttonRole.channelId}>.`,
     ephemeral: true,
   });
 }

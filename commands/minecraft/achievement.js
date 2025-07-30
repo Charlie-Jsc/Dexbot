@@ -8,50 +8,50 @@ const {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('achievement')
-    .setDescription('Generate a Minecraft-style achievement')
+    .setDescription('Generar un logro estilo Minecraft')
     .addStringOption((option) =>
       option
         .setName('icon')
-        .setDescription('Select an achievement icon for your Minecraft server.')
+        .setDescription('Selecciona un icono de logro para tu servidor de Minecraft.')
         .setRequired(true)
         .addChoices(
-          { name: 'Grass', value: '1' },
-          { name: 'Diamond', value: '2' },
-          { name: 'Diamond Sword', value: '3' },
+          { name: 'Césped', value: '1' },
+          { name: 'Diamante', value: '2' },
+          { name: 'Espada de Diamante', value: '3' },
           { name: 'Creeper', value: '4' },
-          { name: 'Pig', value: '5' },
+          { name: 'Cerdo', value: '5' },
           { name: 'TNT', value: '6' },
-          { name: 'Cookie', value: '7' },
-          { name: 'Heart', value: '8' },
-          { name: 'Bed', value: '9' },
-          { name: 'Cake', value: '10' },
-          { name: 'Sign', value: '11' },
-          { name: 'Rail', value: '12' },
-          { name: 'Crafting Table', value: '13' },
+          { name: 'Galleta', value: '7' },
+          { name: 'Corazón', value: '8' },
+          { name: 'Cama', value: '9' },
+          { name: 'Pastel', value: '10' },
+          { name: 'Letrero', value: '11' },
+          { name: 'Riel', value: '12' },
+          { name: 'Mesa de Trabajo', value: '13' },
           { name: 'Redstone', value: '14' },
-          { name: 'Fire', value: '15' },
-          { name: 'Cobweb', value: '16' },
-          { name: 'Chest', value: '17' },
-          { name: 'Furnace', value: '18' },
-          { name: 'Book', value: '19' },
-          { name: 'Stone', value: '20' },
-          { name: 'Wooden Plank', value: '21' },
-          { name: 'Iron', value: '22' },
-          { name: 'Gold', value: '23' },
-          { name: 'Wooden Door', value: '24' },
-          { name: 'Iron Door', value: '25' }
+          { name: 'Fuego', value: '15' },
+          { name: 'Telaraña', value: '16' },
+          { name: 'Cofre', value: '17' },
+          { name: 'Horno', value: '18' },
+          { name: 'Libro', value: '19' },
+          { name: 'Piedra', value: '20' },
+          { name: 'Tablón de Madera', value: '21' },
+          { name: 'Hierro', value: '22' },
+          { name: 'Oro', value: '23' },
+          { name: 'Puerta de Madera', value: '24' },
+          { name: 'Puerta de Hierro', value: '25' }
         )
     )
     .addStringOption((option) =>
       option
         .setName('head')
-        .setDescription('Header for the achievement')
+        .setDescription('Encabezado para el logro')
         .setRequired(true)
     )
     .addStringOption((option) =>
       option
         .setName('text')
-        .setDescription('Body for the achievement')
+        .setDescription('Cuerpo para el logro')
         .setRequired(true)
     ),
 
@@ -63,7 +63,7 @@ module.exports = {
 
     const downloadButton = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
-        .setLabel('Download Achievement')
+        .setLabel('Descargar Logro')
         .setStyle(ButtonStyle.Link)
         .setURL(achievementUrl)
     );
@@ -71,10 +71,10 @@ module.exports = {
     await interaction.reply({
       embeds: [
         {
-          title: `🏆 Minecraft Achievement`,
+          title: `🏆 Logro de Minecraft`,
           image: { url: achievementUrl },
           color: 0xffaa00,
-          description: `Custom achievement unlocked!`,
+          description: `¡Logro personalizado desbloqueado!`,
         },
       ],
       components: [downloadButton],

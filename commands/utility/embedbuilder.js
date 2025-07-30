@@ -10,43 +10,43 @@ const {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('embedbuilder')
-    .setDescription('Create a custom embed using an interactive modal'),
+    .setDescription('Crear un embed personalizado usando un modal interactivo'),
 
   async execute(interaction) {
     const modal = new ModalBuilder()
       .setCustomId('embed_builder')
-      .setTitle('Embed Builder');
+      .setTitle('Constructor de Embed');
 
     const titleInput = new TextInputBuilder()
       .setCustomId('embed_title')
-      .setLabel('Title (optional)')
+      .setLabel('Título (opcional)')
       .setStyle(TextInputStyle.Short)
-      .setPlaceholder('Enter the embed title')
+      .setPlaceholder('Ingresa el título del embed')
       .setRequired(false)
       .setMaxLength(256);
 
     const descriptionInput = new TextInputBuilder()
       .setCustomId('embed_description')
-      .setLabel('Description (required)')
+      .setLabel('Descripción (requerida)')
       .setStyle(TextInputStyle.Paragraph)
-      .setPlaceholder('Enter the embed description')
+      .setPlaceholder('Ingresa la descripción del embed')
       .setRequired(true)
       .setMaxLength(4000);
 
     const colorInput = new TextInputBuilder()
       .setCustomId('embed_color')
-      .setLabel('Color (optional, hex value)')
+      .setLabel('Color (opcional, valor hex)')
       .setStyle(TextInputStyle.Short)
-      .setPlaceholder('#FF0000 for red')
+      .setPlaceholder('#FF0000 para rojo')
       .setRequired(false)
       .setMaxLength(7);
 
     const authorInput = new TextInputBuilder()
       .setCustomId('embed_author')
-      .setLabel('Author (optional, format: name|url|icon_url)')
+      .setLabel('Autor (opcional, formato: nombre|url|icono_url)')
       .setStyle(TextInputStyle.Short)
       .setPlaceholder(
-        'John Doe|https://example.com|https://example.com/icon.png'
+        'Juan Pérez|https://ejemplo.com|https://ejemplo.com/icono.png'
       )
       .setRequired(false)
       .setMaxLength(300);

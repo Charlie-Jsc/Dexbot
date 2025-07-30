@@ -23,41 +23,41 @@ module.exports = {
 
     if (!oldState.channelId && newState.channelId) {
       embed
-        .setTitle('User Joined Voice Channel')
+        .setTitle('Usuario Se Unió a Canal de Voz')
         .setColor('Green')
         .addFields(
-          { name: 'User', value: `<@${newState.id}>`, inline: true },
+          { name: 'Usuario', value: `<@${newState.id}>`, inline: true },
           {
-            name: 'Channel',
+            name: 'Canal',
             value: `${newState.channel.name}`,
             inline: true,
           }
         );
     } else if (oldState.channelId && !newState.channelId) {
       embed
-        .setTitle('User Left Voice Channel')
+        .setTitle('Usuario Salió del Canal de Voz')
         .setColor('Red')
         .addFields(
-          { name: 'User', value: `<@${newState.id}>`, inline: true },
+          { name: 'Usuario', value: `<@${newState.id}>`, inline: true },
           {
-            name: 'Channel',
+            name: 'Canal',
             value: `${oldState.channel.name}`,
             inline: true,
           }
         );
     } else if (oldState.channelId !== newState.channelId) {
       embed
-        .setTitle('User Switched Voice Channels')
+        .setTitle('Usuario Cambió de Canal de Voz')
         .setColor('Blue')
         .addFields(
-          { name: 'User', value: `<@${newState.id}>`, inline: true },
+          { name: 'Usuario', value: `<@${newState.id}>`, inline: true },
           {
-            name: 'Old Channel',
+            name: 'Canal Anterior',
             value: `${oldState.channel.name}`,
             inline: true,
           },
           {
-            name: 'New Channel',
+            name: 'Canal Nuevo',
             value: `${newState.channel.name}`,
             inline: true,
           }

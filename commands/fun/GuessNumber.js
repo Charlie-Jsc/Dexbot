@@ -8,32 +8,32 @@ const activeGames = new Map();
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('guessnumber')
-    .setDescription('Start a guessing game in a specific channel.')
+    .setDescription('Inicia un juego de adivinanza en un canal específico.')
     .addSubcommand((subcommand) =>
       subcommand
         .setName('start')
-        .setDescription('Start a new guessing game.')
+        .setDescription('Inicia un nuevo juego de adivinanza.')
         .addChannelOption((option) =>
           option
             .setName('channel')
-            .setDescription('The channel where the game will be hosted.')
+            .setDescription('El canal donde se realizará el juego.')
             .setRequired(true)
         )
         .addIntegerOption((option) =>
           option
             .setName('number')
-            .setDescription('The number to guess.')
+            .setDescription('El número a adivinar.')
             .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('stop')
-        .setDescription('Stop an ongoing guessing game.')
+        .setDescription('Detiene un juego de adivinanza en curso.')
         .addChannelOption((option) =>
           option
             .setName('channel')
-            .setDescription('The channel where the game is running.')
+            .setDescription('El canal donde se está ejecutando el juego.')
             .setRequired(true)
         )
     ),
@@ -42,7 +42,7 @@ module.exports = {
     if (!interaction.member.permissions.has('ManageServer')) {
       return interaction.reply({
         content:
-          'You do not have `ManageServer` permission to manage guess the number game!',
+          '¡No tienes el permiso de `Gestionar Servidor` para gestionar el juego de adivinar números!',
         ephemeral: true,
       });
     }

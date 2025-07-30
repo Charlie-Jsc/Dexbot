@@ -30,21 +30,21 @@ module.exports = {
       limit: 1,
     });
     const creationLog = fetchedLogs.entries.first();
-    const creator = creationLog ? `<@${creationLog.executor.id}>` : 'Unknown';
+    const creator = creationLog ? `<@${creationLog.executor.id}>` : 'Desconocido';
 
     const embed = new EmbedBuilder()
       .setColor('Green')
-      .setTitle('Channel Created')
+      .setTitle('Canal Creado')
       .addFields(
-        { name: 'Name', value: channel.name, inline: true },
+        { name: 'Nombre', value: channel.name, inline: true },
         {
-          name: 'Type',
-          value: `${ChannelType[channel.type] || 'Unknown'}`,
+          name: 'Tipo',
+          value: `${ChannelType[channel.type] || 'Desconocido'}`,
           inline: true,
         },
-        { name: 'Created By', value: creator, inline: true }
+        { name: 'Creado Por', value: creator, inline: true }
       )
-      .setFooter({ text: `Channel ID: ${channel.id}` })
+      .setFooter({ text: `ID del Canal: ${channel.id}` })
       .setTimestamp();
 
     logChannel.send({ embeds: [embed] });

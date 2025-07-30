@@ -8,22 +8,22 @@ const {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('headavatar')
-    .setDescription('Generate a Minecraft player head avatar')
+    .setDescription('Generar un avatar de cabeza de jugador de Minecraft')
     .addStringOption((option) =>
       option
         .setName('username')
-        .setDescription('Minecraft username to fetch player head for')
+        .setDescription('Nombre de usuario de Minecraft para obtener la cabeza del jugador')
         .setRequired(true)
     )
 
     .addStringOption((option) =>
       option
         .setName('direction')
-        .setDescription('direction of the avatar')
+        .setDescription('dirección del avatar')
         .setRequired(false)
         .addChoices(
-          { name: 'Left', value: 'left' },
-          { name: 'Right', value: 'right' }
+          { name: 'Izquierda', value: 'left' },
+          { name: 'Derecha', value: 'right' }
         )
     ),
 
@@ -34,7 +34,7 @@ module.exports = {
 
     const downloadButton = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
-        .setLabel('Download Player Head Avatar')
+        .setLabel('Descargar Avatar de Cabeza del Jugador')
         .setStyle(ButtonStyle.Link)
         .setURL(headUrl)
     );
@@ -42,10 +42,10 @@ module.exports = {
     await interaction.reply({
       embeds: [
         {
-          title: `👤 Minecraft Player Head Avatar`,
+          title: `👤 Avatar de Cabeza de Jugador de Minecraft`,
           image: { url: headUrl },
           color: 0xff5555,
-          description: `Minecraft head avatar for: ${username}`,
+          description: `Avatar de cabeza de Minecraft para: ${username}`,
         },
       ],
       components: [downloadButton],
