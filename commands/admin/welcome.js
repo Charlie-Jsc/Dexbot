@@ -2,6 +2,10 @@ const {
   SlashCommandBuilder,
   ChannelType,
   EmbedBuilder,
+  ModalBuilder,
+  TextInputBuilder,
+  TextInputStyle,
+  ActionRowBuilder,
 } = require('discord.js');
 const Welcome = require('../../models/welcome');
 
@@ -34,14 +38,14 @@ module.exports = {
     .addSubcommand((subcommand) =>
       subcommand
         .setName('test')
-        .setDescription('Preview the current welcome message')
+        .setDescription('Vista previa del mensaje de bienvenida actual')
     ),
 
   async execute(interaction) {
     if (!interaction.member.permissions.has('Administrator')) {
       return interaction.reply({
         content:
-          'You do not have the `Administrator` permission to manage the welcome system!',
+          '¡No tienes el permiso de `Administrador` para gestionar el sistema de bienvenida!',
         ephemeral: true,
       });
     }
@@ -61,9 +65,9 @@ module.exports = {
       await welcome.save();
       const toggleEmbed = new EmbedBuilder()
         .setColor(welcome.enabled ? '#4CAF50' : '#FF5733')
-        .setTitle('Welcome System')
+        .setTitle('Sistema de Bienvenida')
         .setDescription(
-          `The welcome system is now ${welcome.enabled ? 'enabled' : 'disabled'}. \n\n __**Note:** Please set the channel for sending the welcome greetings by using \`/welcome setchannel\`__`
+          `El sistema de bienvenida está ahora ${welcome.enabled ? 'habilitado' : 'deshabilitado'}. \n\n __**Nota:** Por favor establece el canal para enviar las bienvenidas usando \`/welcome setchannel\`__`
         )
         .setTimestamp();
       return interaction.reply({ embeds: [toggleEmbed] });
@@ -72,79 +76,98 @@ module.exports = {
     if (subcommand === 'description') {
       if (!welcome.enabled) {
         return interaction.reply({
-          content: 'The Welcome System is not enabled in this server!',
+          content: '¡El sistema de bienvenida no está habilitado en este servidor!',
         });
       }
-      const descriptionEmbed = new EmbedBuilder()
-        .setColor('#FFD700')
-        .setTitle('Set Custom Welcome Message')
-        .setDescription(
-          '**Please provide your custom welcome message. You can use the following placeholders:**\n\n' +
-            "`{member}` - Member's username\n" +
-            '`{server}` - Server name\n' +
-            '`{serverid}` - Server ID\n' +
-            '`{userid}` - User ID\n' +
-            '`{joindate}` - Join date\n' +
-            '`{accountage}` - Account age\n' +
-            '`{membercount}` - Member count\n' +
-            '`{serverage}` - Server age (in days)\n\n' +
-            '__**Note:** This command will expire in 5 minutes__'
-        )
-        .setTimestamp();
 
-      await interaction.reply({
-        embeds: [descriptionEmbed],
-        ephemeral: true,
-      });
+      const modal = new ModalBuilder()
+        .setCustomId('welcome_description_modal')
+        .setTitle('Configurar Mensaje de Bienvenida');
 
-      const filter = (response) => response.author.id === user.id;
-      const collector = interaction.channel.createMessageCollector({
-        filter,
-        time: 300000,
-      });
+      const descriptionInput = new TextInputBuilder()
+        .setCustomId('welcome_message_input')
+        .setLabel('Mensaje de Bienvenida Personalizado')
+        .setStyle(TextInputStyle.Paragraph)
+        .setPlaceholder('Ejemplo: ¡Bienvenido {member} a {server}! 🎉')
+        .setRequired(true)
+        .setMaxLength(2000)
+        .setValue(welcome.description || 'Bienvenido {member} a {server}');
 
-      collector.on('collect', async (message) => {
-        const customDescription = message.content;
+      const actionRow = new ActionRowBuilder().addComponents(descriptionInput);
+      modal.addComponents(actionRow);
+
+      await interaction.showModal(modal);
+
+      try {
+        const modalSubmit = await interaction.awaitModalSubmit({
+          time: 300000, // 5 minutos
+          filter: (i) => i.customId === 'welcome_description_modal' && i.user.id === interaction.user.id,
+        });
+
+        const customDescription = modalSubmit.fields.getTextInputValue('welcome_message_input');
 
         welcome.description = customDescription;
         await welcome.save();
 
         const successEmbed = new EmbedBuilder()
           .setColor('#4CAF50')
-          .setTitle('Custom Welcome Message Set')
+          .setTitle('✅ Mensaje de Bienvenida Actualizado')
           .setDescription(
-            `Your welcome message has been updated to:\n${customDescription}`
+            `**Nuevo mensaje de bienvenida:**\n\`\`\`${customDescription}\`\`\`\n\n**Variables disponibles:**\n` +
+            "`{member}` - Menciona al usuario\n" +
+            '`{server}` - Nombre del servidor\n' +
+            '`{serverid}` - ID del servidor\n' +
+            '`{userid}` - ID del usuario\n' +
+            '`{joindate}` - Fecha de unión\n' +
+            '`{accountage}` - Antigüedad de la cuenta\n' +
+            '`{membercount}` - Cantidad de miembros\n' +
+            '`{serverage}` - Antigüedad del servidor\n\n' +
+            '💡 **Tip:** Usa `/welcome test` para previsualizar el mensaje'
           )
           .setTimestamp();
-        interaction.followUp({
+
+        await modalSubmit.reply({
           embeds: [successEmbed],
           ephemeral: true,
         });
 
-        collector.stop();
-      });
-
-      collector.on('end', (collected, reason) => {
-        if (reason === 'time') {
+      } catch (error) {
+        if (error.code === 'InteractionCollectorError') {
+          // El modal expiró
           const timeoutEmbed = new EmbedBuilder()
             .setColor('#FF5733')
-            .setTitle('Timeout')
+            .setTitle('⏰ Tiempo Agotado')
             .setDescription(
-              'You took too long to provide a description. Please try again.'
+              'El modal para configurar el mensaje de bienvenida expiró. Por favor inténtalo de nuevo.'
             )
             .setTimestamp();
-          interaction.followUp({
-            embeds: [timeoutEmbed],
-            ephemeral: true,
-          });
+          
+          try {
+            await interaction.followUp({
+              embeds: [timeoutEmbed],
+              ephemeral: true,
+            });
+          } catch (followUpError) {
+            console.error('Error sending timeout message:', followUpError);
+          }
+        } else {
+          console.error('Error in welcome description modal:', error);
+          try {
+            await interaction.followUp({
+              content: '❌ Ocurrió un error al configurar el mensaje de bienvenida. Por favor inténtalo de nuevo.',
+              ephemeral: true,
+            });
+          } catch (followUpError) {
+            console.error('Error sending error message:', followUpError);
+          }
         }
-      });
+      }
     }
 
     if (subcommand === 'setchannel') {
       if (!welcome.enabled) {
         return interaction.reply({
-          content: 'The Welcome System is not enabled in this server!',
+          content: '¡El sistema de bienvenida no está habilitado en este servidor!',
         });
       }
       const channel = interaction.options.getChannel('channel');
@@ -154,8 +177,8 @@ module.exports = {
 
       const channelEmbed = new EmbedBuilder()
         .setColor('#4CAF50')
-        .setTitle('Welcome Channel Set')
-        .setDescription(`The welcome channel has been set to ${channel}.`)
+        .setTitle('Canal de Bienvenida Establecido')
+        .setDescription(`El canal de bienvenida ha sido establecido a ${channel}.`)
         .setTimestamp();
       return interaction.reply({
         embeds: [channelEmbed],
@@ -166,12 +189,12 @@ module.exports = {
     if (subcommand === 'test') {
       if (!welcome.enabled) {
         return interaction.reply({
-          content: 'The Welcome System is not enabled in this server!',
+          content: '¡El sistema de bienvenida no está habilitado en este servidor!',
         });
       }
       const memberCount = guild.memberCount;
 
-      let description = welcome.description || 'Welcome {member} to {server}';
+      let description = welcome.description || 'Bienvenido {member} a {server}';
       description = description
         .replace(/{member}/g, interaction.user)
         .replace(/{server}/g, guild.name)
@@ -184,10 +207,10 @@ module.exports = {
 
       const testEmbed = new EmbedBuilder()
         .setColor('#00BFFF')
-        .setTitle('Welcome Message Preview')
+        .setTitle('Vista Previa del Mensaje de Bienvenida')
         .setDescription(description)
         .setFooter({
-          text: 'This is how the welcome message will look like when a member joins.',
+          text: 'Así es como se verá el mensaje de bienvenida cuando un miembro se una.',
         })
         .setTimestamp();
 

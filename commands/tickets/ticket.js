@@ -171,7 +171,7 @@ module.exports = {
 
         if (!hasPermission) {
           return interaction.editReply(
-            '❌ You can only transfer tickets to support staff members!'
+            '❌ {server} only transfer tickets to support staff members!'
           );
         }
 

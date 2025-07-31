@@ -40,62 +40,62 @@ module.exports = {
     .addSubcommand((subcommand) =>
       subcommand
         .setName('addlevel')
-        .setDescription('Añade un nivel a un usuario')
+        .setDescription('Añade niveles a un usuario')
         .addUserOption((option) =>
           option
             .setName('user')
-            .setDescription('Usuario al que añadir un nivel')
+            .setDescription('Usuario al que añadir niveles')
             .setRequired(true)
         )
         .addIntegerOption((option) =>
           option
             .setName('level')
-            .setDescription('Level to add')
+            .setDescription('Niveles a añadir')
             .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('setlevel')
-        .setDescription("Set a user's level")
+        .setDescription('Establece el nivel de un usuario')
         .addUserOption((option) =>
           option
             .setName('user')
-            .setDescription('User to set the level for')
+            .setDescription('Usuario al que establecer el nivel')
             .setRequired(true)
         )
         .addIntegerOption((option) =>
           option
             .setName('level')
-            .setDescription('Level to set')
+            .setDescription('Nivel a establecer')
             .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('removelevel')
-        .setDescription('Remove a level from a user')
+        .setDescription('Quita niveles a un usuario')
         .addUserOption((option) =>
           option
             .setName('user')
-            .setDescription('User to remove a level from')
+            .setDescription('Usuario al que quitar niveles')
             .setRequired(true)
         )
         .addIntegerOption((option) =>
           option
             .setName('level')
-            .setDescription('Level to remove')
+            .setDescription('Niveles a quitar')
             .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('setlevelupchannel')
-        .setDescription('Set the channel for level-up announcements')
+        .setDescription('Establece el canal para anuncios de subida de nivel')
         .addChannelOption((option) =>
           option
             .setName('channel')
-            .setDescription('The channel to send announcements')
+            .setDescription('El canal donde enviar los anuncios')
             .addChannelTypes(ChannelType.GuildText)
             .setRequired(true)
         )
@@ -103,25 +103,25 @@ module.exports = {
     .addSubcommand((subcommand) =>
       subcommand
         .setName('setxprate')
-        .setDescription('Set the XP growth rate')
+        .setDescription('Establece la tasa de crecimiento de XP')
         .addNumberOption((option) =>
           option
             .setName('rate')
-            .setDescription('The XP rate multiplier')
+            .setDescription('El multiplicador de tasa de XP')
             .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('toggle')
-        .setDescription('Turn the level system on or off')
+        .setDescription('Activa o desactiva el sistema de niveles')
         .addStringOption((option) =>
           option
             .setName('state')
-            .setDescription('Turn the leveling system on or off')
+            .setDescription('Activar o desactivar el sistema de niveles')
             .addChoices(
-              { name: 'on', value: 'on' },
-              { name: 'off', value: 'off' }
+              { name: 'activar', value: 'on' },
+              { name: 'desactivar', value: 'off' }
             )
             .setRequired(true)
         )
@@ -129,13 +129,14 @@ module.exports = {
     .addSubcommand((subcommand) =>
       subcommand
         .setName('listlevelroles')
-        .setDescription('List all level roles for this guild')
+        .setDescription('Lista todos los roles de nivel para este servidor')
     ),
   async execute(interaction) {
     const guildData = await GuildSettings.findOne({
       guildId: interaction.guild.id,
     });
     const subcommand = interaction.options.getSubcommand();
+    
     if (!interaction.member.permissions.has('Administrator')) {
       return interaction.reply({
         content: '¡No tienes el permiso de `Administrador` para gestionar niveles!',
@@ -147,7 +148,7 @@ module.exports = {
       case 'addlevelrole': {
         if (!guildData.levelingEnabled) {
           return interaction.reply({
-            content: 'Leveling system is not enabled in this Server',
+            content: 'El sistema de niveles no está habilitado en este servidor',
           });
         }
 
@@ -161,9 +162,9 @@ module.exports = {
         });
 
         const embed = new EmbedBuilder()
-          .setTitle('Level Role Added')
+          .setTitle('Rol de Nivel Añadido')
           .setDescription(
-            `Role **${role.name}** will be given at level **${level}**.`
+            `El rol **${role.name}** será otorgado en el nivel **${level}**.`
           )
           .setColor('Green');
 
@@ -173,7 +174,7 @@ module.exports = {
       case 'removelevelrole': {
         if (!guildData.levelingEnabled) {
           return interaction.reply({
-            content: 'Leveling system is not enabled in this Server',
+            content: 'El sistema de niveles no está habilitado en este servidor',
           });
         }
         const level = interaction.options.getInteger('level');
@@ -183,8 +184,8 @@ module.exports = {
         });
 
         const embed = new EmbedBuilder()
-          .setTitle('Level Role Removed')
-          .setDescription(`Role for level **${level}** has been removed.`)
+          .setTitle('Rol de Nivel Eliminado')
+          .setDescription(`El rol del nivel **${level}** ha sido eliminado.`)
           .setColor('Red');
 
         await interaction.reply({ embeds: [embed] });
@@ -193,7 +194,7 @@ module.exports = {
       case 'addlevel': {
         if (!guildData.levelingEnabled) {
           return interaction.reply({
-            content: 'Leveling system is not enabled in this Server',
+            content: 'El sistema de niveles no está habilitado en este servidor',
           });
         }
         const user = interaction.options.getUser('user');
@@ -215,9 +216,9 @@ module.exports = {
         await memberData.save();
 
         const embed = new EmbedBuilder()
-          .setTitle('Level Added')
+          .setTitle('Niveles Añadidos')
           .setDescription(
-            `${user.username} has been given **${levelToAdd}** level(s).`
+            `${user.username} ha recibido **${levelToAdd}** nivel(es).`
           )
           .setColor('Blue');
 
@@ -227,7 +228,7 @@ module.exports = {
       case 'setlevel': {
         if (!guildData.levelingEnabled) {
           return interaction.reply({
-            content: 'Leveling system is not enabled in this Server',
+            content: 'El sistema de niveles no está habilitado en este servidor',
           });
         }
         const user = interaction.options.getUser('user');
@@ -250,9 +251,9 @@ module.exports = {
         await memberData.save();
 
         const embed = new EmbedBuilder()
-          .setTitle('Level Set')
+          .setTitle('Nivel Establecido')
           .setDescription(
-            `${user.username}'s level has been set to **${newLevel}**.`
+            `El nivel de ${user.username} ha sido establecido a **${newLevel}**.`
           )
           .setColor('Yellow');
 
@@ -262,7 +263,7 @@ module.exports = {
       case 'removelevel': {
         if (!guildData.levelingEnabled) {
           return interaction.reply({
-            content: 'Leveling system is not enabled in this Server',
+            content: 'El sistema de niveles no está habilitado en este servidor',
           });
         }
         const user = interaction.options.getUser('user');
@@ -274,7 +275,7 @@ module.exports = {
 
         if (!memberData || memberData.level <= 1) {
           return interaction.reply({
-            content: `${user.username} does not have enough levels to remove.`,
+            content: `${user.username} no tiene suficientes niveles para quitar.`,
             ephemeral: true,
           });
         }
@@ -282,9 +283,9 @@ module.exports = {
         await memberData.save();
 
         const embed = new EmbedBuilder()
-          .setTitle('Level Removed')
+          .setTitle('Niveles Removidos')
           .setDescription(
-            `${levelToRemove} level(s) have been removed from ${user.username}.`
+            `Se han quitado **${levelToRemove}** nivel(es) a ${user.username}.`
           )
           .setColor('Orange');
 
@@ -294,7 +295,7 @@ module.exports = {
       case 'setlevelupchannel': {
         if (!guildData.levelingEnabled) {
           return interaction.reply({
-            content: 'Leveling system is not enabled in this Server',
+            content: 'El sistema de niveles no está habilitado en este servidor',
           });
         }
         const channel = interaction.options.getChannel('channel');
@@ -305,8 +306,8 @@ module.exports = {
         );
 
         const embed = new EmbedBuilder()
-          .setTitle('Level-Up Channel Set')
-          .setDescription(`Level-up announcements will be sent to ${channel}.`)
+          .setTitle('Canal de Subida de Nivel Establecido')
+          .setDescription(`Los anuncios de subida de nivel se enviarán a ${channel}.`)
           .setColor('Purple');
 
         await interaction.reply({ embeds: [embed] });
@@ -315,7 +316,7 @@ module.exports = {
       case 'setxprate': {
         if (!guildData.levelingEnabled) {
           return interaction.reply({
-            content: 'Leveling system is not enabled in this Server',
+            content: 'El sistema de niveles no está habilitado en este servidor',
           });
         }
         const rate = interaction.options.getNumber('rate');
@@ -326,8 +327,8 @@ module.exports = {
         );
 
         const embed = new EmbedBuilder()
-          .setTitle('XP Rate Set')
-          .setDescription(`XP rate has been set to **${rate}**.`)
+          .setTitle('Tasa de XP Establecida')
+          .setDescription(`La tasa de XP ha sido establecida a **${rate}**.`)
           .setColor('Aqua');
 
         await interaction.reply({ embeds: [embed] });
@@ -342,9 +343,10 @@ module.exports = {
           { upsert: true }
         );
 
+        const stateText = isEnabled ? 'activado' : 'desactivado';
         const embed = new EmbedBuilder()
-          .setTitle('Leveling System Toggled')
-          .setDescription(`Leveling system has been turned **${state}**.`)
+          .setTitle('Sistema de Niveles Modificado')
+          .setDescription(`El sistema de niveles ha sido **${stateText}**.`)
           .setColor(isEnabled ? 'Green' : 'Red');
 
         await interaction.reply({ embeds: [embed] });
@@ -353,12 +355,12 @@ module.exports = {
       case 'listlevelroles': {
         if (!guildData.levelingEnabled) {
           return interaction.reply({
-            content: 'Leveling system is not enabled in this Server',
+            content: 'El sistema de niveles no está habilitado en este servidor',
           });
         }
         if (!interaction.guild) {
           return interaction.reply({
-            content: 'This command can only be used in a server.',
+            content: 'Este comando solo puede ser usado en un servidor.',
             ephemeral: true,
           });
         }
@@ -369,17 +371,17 @@ module.exports = {
 
         if (levelRoles.length === 0) {
           return interaction.reply({
-            content: 'No level roles found for this guild.',
+            content: 'No se encontraron roles de nivel para este servidor.',
             ephemeral: true,
           });
         }
 
         const rolesList = levelRoles
-          .map((role) => `Level ${role.level}: <@&${role.roleId}>`)
+          .map((role) => `Nivel ${role.level}: <@&${role.roleId}>`)
           .join('\n');
 
         await interaction.reply({
-          content: `**Level Roles for this guild:**\n${rolesList}`,
+          content: `**Roles de Nivel para este servidor:**\n${rolesList}`,
           ephemeral: true,
         });
       }

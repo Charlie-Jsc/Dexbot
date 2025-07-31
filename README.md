@@ -2,7 +2,7 @@
 
   <h1>🎵 Dexbot - Bot de Discord Multifuncional</h1>
   <br>
-  <p><strong>Un bot de Discord de código abierto diseñado para mejorar la interacción comunitaria con una variedad de características útiles y entretenidas.</strong></p>
+  <p><strong>🚀 Bot de Discord todo-en-uno con música de alta calidad, moderación avanzada, entretenimiento y herramientas de administración. ¡Transforma tu servidor en una experiencia única!</strong></p>
   
   [![Discord](https://img.shields.io/discord/1342840214573416458?color=5865F2&logo=discord&logoColor=white)](https://discord.gg/kAYpdenZ8b)
   [![License](https://img.shields.io/github/license/Charlie-Jsc/Dexbot)](LICENSE)
@@ -11,21 +11,28 @@
 
 ## ✨ Acerca de Dexbot
 
-Dexbot es un bot de Discord construido para mejorar la participación del servidor y proporcionar herramientas útiles tanto para administradores como para miembros. Con comandos que van desde interacciones divertidas hasta potentes herramientas de moderación y música.
+**Dexbot** es el bot de Discord definitivo que combina entretenimiento, productividad y administración en una sola herramienta poderosa. 
+
+🎵 **Música sin límites**: Reproduce desde YouTube, Spotify, SoundCloud y más con filtros de audio profesionales  
+🛡️ **Moderación inteligente**: Herramientas completas para mantener tu servidor seguro y organizado  
+🎮 **Entretenimiento épico**: Juegos, trivias, memes y integración con Minecraft  
+📊 **Sistema de niveles**: Gamifica tu comunidad con XP y recompensas automáticas  
+⚙️ **Administración simplificada**: Sorteos, bienvenidas automáticas y configuración flexible
 
 ## 📝 Créditos
 
 Este proyecto está basado en [Lanya 2.0](https://github.com/gaurav87565/Lanya-2.0) por [gaurav87565](https://github.com/gaurav87565). Agradecemos al equipo original por su excelente trabajo.
 
-## 🚀 Features
+## 🚀 Características Principales
 
-- **🎉 Fun Commands** - Keep your community engaged with trivia, jokes, games, and more
-- **🛠️ Moderation Tools** - Maintain server order with comprehensive moderation capabilities
-- **🔧 Utility Functions** - Provide practical tools like calculators, translators, and weather reports
-- **🎮 Minecraft Integration** - Connect your Discord server with Minecraft through server status monitoring and skin visualization
-- **📈 Leveling System** - Encourage engagement with an XP-based leveling system
-- **🎁 Giveaways** - Host and manage giveaways with customizable requirements
-- **👋 Welcome System** - Greet new members with customizable welcome messages
+- **� Sistema de Música Premium** - Reproduce desde múltiples plataformas con filtros de audio profesionales y playlists personalizadas
+- **�️ Moderación Avanzada** - Herramientas completas de administración con logs automáticos y sistema de advertencias
+- **🎮 Entretenimiento Interactivo** - Juegos, trivias, memes y comandos divertidos para mantener activa tu comunidad
+- **⚙️ Minecraft Integration** - Monitoreo de servidores, skins, logros y herramientas personalizadas para gamers
+- **� Sistema de Niveles** - Gamifica tu servidor con XP automático, rankings y recompensas por actividad
+- **🎁 Gestión de Eventos** - Sorteos automáticos con múltiples opciones de participación y requisitos
+- **👋 Bienvenidas Personalizadas** - Mensajes automáticos con imágenes y roles para nuevos miembros
+- **🔧 Herramientas de Utilidad** - Calculadora, traductor, clima y gestión de tareas personales
 
 ## 🔍 Command Categories
 
