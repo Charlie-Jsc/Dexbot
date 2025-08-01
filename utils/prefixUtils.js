@@ -11,6 +11,15 @@ function parseMessageArgs(args, commandData, message) {
   const parsedOptions = {};
   const options = commandData.options || [];
   
+  // Manejo especial para comandos específicos
+  if (commandData.name === 'play') {
+    return parsePlayCommand(args, message);
+  }
+  
+  if (commandData.name === 'search') {
+    return parseSearchCommand(args, message);
+  }
+  
   // Si el comando tiene subcomandos
   if (options.some(opt => opt.type === 1)) { // ApplicationCommandOptionType.Subcommand = 1
     const subcommandName = args[0];
@@ -29,6 +38,65 @@ function parseMessageArgs(args, commandData, message) {
   }
   
   return parsedOptions;
+}
+
+/**
+ * Parseador especial para el comando play
+ */
+function parsePlayCommand(args, message) {
+  const parsed = {};
+  
+  if (args.length === 0) {
+    return parsed;
+  }
+  
+  // Unir todos los argumentos como query (búsqueda)
+  const fullQuery = args.join(' ');
+  
+  // Detectar si es una URL
+  const urlRegex = /(https?:\/\/[^\s]+)/;
+  const isUrl = urlRegex.test(fullQuery);
+  
+  parsed.query = fullQuery;
+  
+  // Si no es URL, usar búsqueda por defecto de YouTube
+  if (!isUrl) {
+    parsed.source = 'ytsearch'; // YouTube por defecto para búsquedas de texto
+  }
+  
+  // Detectar fuente basada en la URL
+  if (isUrl) {
+    if (fullQuery.includes('spotify.com')) {
+      parsed.source = 'spsearch';
+    } else if (fullQuery.includes('soundcloud.com')) {
+      parsed.source = 'scsearch';
+    } else if (fullQuery.includes('deezer.com')) {
+      parsed.source = 'dzsearch';
+    } else if (fullQuery.includes('music.youtube.com')) {
+      parsed.source = 'ytmsearch';
+    } else {
+      parsed.source = 'ytsearch'; // YouTube por defecto
+    }
+  }
+  
+  return parsed;
+}
+
+/**
+ * Parseador especial para el comando search
+ */
+function parseSearchCommand(args, message) {
+  const parsed = {};
+  
+  if (args.length === 0) {
+    return parsed;
+  }
+  
+  // Unir todos los argumentos como query
+  parsed.query = args.join(' ');
+  parsed.source = 'ytsearch'; // YouTube por defecto para búsquedas
+  
+  return parsed;
 }
 
 /**
@@ -111,7 +179,22 @@ function createFakeInteraction(message, commandName, parsedOptions, command) {
     
     // Objeto options mejorado
     options: {
-      getString: (name) => parsedOptions[name] || null,
+      getString: (name) => {
+        // Manejo especial para comandos de música
+        if (command.data.name === 'play' && name === 'query') {
+          return parsedOptions.query || null;
+        }
+        if (command.data.name === 'play' && name === 'source') {
+          return parsedOptions.source || null;
+        }
+        if (command.data.name === 'search' && name === 'query') {
+          return parsedOptions.query || null;
+        }
+        if (command.data.name === 'search' && name === 'source') {
+          return parsedOptions.source || null;
+        }
+        return parsedOptions[name] || null;
+      },
       getUser: (name) => parsedOptions[name] || null,
       getChannel: (name) => parsedOptions[name] || null,
       getRole: (name) => parsedOptions[name] || null,

@@ -912,9 +912,23 @@ El sistema de prefix personalizado permite a los usuarios configurar su propio p
 - Caracteres especiales: `@!`, `#cmd`, `` `test` ``
 
 #### 🔄 **Comandos Compatibles**
-- ✅ **Totalmente Compatible**: ping, help, botinfo, serverinfo, play, queue, etc.
-- ⚠️ **Parcialmente Compatible**: Comandos con opciones múltiples
+- ✅ **Totalmente Compatible**: ping, help, botinfo, serverinfo, skip, stop, pause, resume
+- ✅ **Compatible con Adaptaciones**: play, search, queue (búsqueda directa sin autocompletado)
+- ⚠️ **Parcialmente Compatible**: Comandos con opciones múltiples complejas
 - ❌ **No Compatible**: Comandos que requieren modales o interacciones complejas
+
+#### 🎵 **Comandos de Música - Diferencias Importantes**
+
+| Comando | Con `/` (Slash) | Con Prefix Personalizado |
+|---------|----------------|---------------------------|
+| **play** | `/play query:bohemian` + autocompletado | `!play bohemian rhapsody queen` |
+| **search** | `/search query:rock` + menú | `!search imagine dragons` |
+| **queue** | `/queue view` | `!queue view` |
+| **skip** | `/skip` | `!skip` |
+
+**🔍 Búsqueda de Música:**
+- **Slash commands**: Autocompletado inteligente mientras escribes
+- **Prefix commands**: Búsqueda directa completa, más rápida para usuarios experimentados
 
 ### 🛠️ **Ejemplos de Uso Avanzado**
 
@@ -923,12 +937,24 @@ El sistema de prefix personalizado permite a los usuarios configurar su propio p
 # Configurar prefix musical
 /prefix set nuevo:♪
 
-# Usar comandos de música
-♪play bohemian rhapsody
+# Usar comandos de música (búsqueda directa, sin autocompletado)
+♪play bohemian rhapsody queen
+♪play https://www.youtube.com/watch?v=fJ9rUzIMcZQ
+♪search imagine dragons
 ♪queue view
 ♪skip
 ♪stop
 ```
+
+**🎵 Ventajas del prefix en música:**
+- **Búsqueda directa**: Escribe el nombre completo de la canción
+- **URLs completas**: Pega URLs de YouTube, Spotify, etc.
+- **Más rápido**: No necesitas navegar por menús
+- **Detección automática**: El bot detecta la fuente automáticamente
+
+**📝 Diferencias con `/play`:**
+- **Con `/`**: Autocompletado mientras escribes → `/play query:bohemian`
+- **Con prefix**: Búsqueda directa completa → `!play bohemian rhapsody queen`
 
 #### **Administración con Prefix**
 ```bash

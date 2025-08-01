@@ -91,8 +91,13 @@ module.exports = {
             `Tu prefix personalizado ha sido configurado como: \`${nuevoPrefix}\`\n\n` +
             `**¿Cómo funciona?**\n` +
             `• Ahora puedes usar \`${nuevoPrefix}comando\` en lugar de \`/comando\`\n` +
-            `• Ejemplo: \`${nuevoPrefix}help\`, \`${nuevoPrefix}play música\`\n` +
+            `• Ejemplo: \`${nuevoPrefix}help\`, \`${nuevoPrefix}play bohemian rhapsody\`\n` +
             `• Los comandos con \`/\` seguirán funcionando normalmente\n\n` +
+            `**🎵 Comandos de música populares:**\n` +
+            `• \`${nuevoPrefix}play nombre de canción\` - Reproducir música\n` +
+            `• \`${nuevoPrefix}search artista\` - Buscar canciones\n` +
+            `• \`${nuevoPrefix}queue view\` - Ver cola de reproducción\n` +
+            `• \`${nuevoPrefix}skip\` - Saltar canción\n\n` +
             `**💡 Nota:** El prefix personalizado solo funciona para ti en todos los servidores.`
           )
           .setFooter({ 
@@ -123,7 +128,9 @@ module.exports = {
             `**Prefix configurado:** \`${currentPrefix}\`\n\n` +
             `**Ejemplos de uso:**\n` +
             `• \`${currentPrefix}help\` - Ver comandos disponibles\n` +
-            `• \`${currentPrefix}play canción\` - Reproducir música\n` +
+            `• \`${currentPrefix}play bohemian rhapsody\` - Reproducir música\n` +
+            `• \`${currentPrefix}search imagine dragons\` - Buscar canciones\n` +
+            `• \`${currentPrefix}queue view\` - Ver cola de reproducción\n` +
             `• \`${currentPrefix}ping\` - Verificar latencia\n\n` +
             `**Configuración:**\n` +
             `• Configurado: ${userPrefix ? `<t:${Math.floor(userPrefix.createdAt / 1000)}:R>` : 'Predeterminado'}\n` +
