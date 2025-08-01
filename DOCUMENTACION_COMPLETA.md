@@ -9,6 +9,7 @@
 - [Comandos de Administración](#comandos-de-administración)
 - [Comandos de Minecraft](#comandos-de-minecraft)
 - [Comandos de Niveles](#comandos-de-niveles)
+- [Sistema de Prefix Personalizado](#sistema-de-prefix-personalizado)
 - [Eventos del Bot](#eventos-del-bot)
 - [Configuración](#configuración)
 
@@ -642,6 +643,45 @@ Gestiona tu lista personal de tareas pendientes.
 
 ---
 
+### `/prefix` - Prefix Personalizado
+Configura un prefix personalizado para usar comandos con texto normal en lugar de slash commands.
+
+**Subcomandos:**
+- `set nuevo:[prefix]` - Establecer nuevo prefix
+- `view` - Ver tu prefix actual
+- `reset` - Restablecer al predeterminado (/)
+
+**Ejemplos:**
+```
+/prefix set nuevo:!
+/prefix set nuevo:>>
+/prefix view
+/prefix reset
+```
+
+**Características:**
+- Prefix personalizado por usuario (no por servidor)
+- Funciona en todos los servidores donde esté el bot
+- Máximo 3 caracteres
+- No permite espacios ni caracteres especiales (@, #, `)
+- Compatible con la mayoría de comandos del bot
+
+**Uso del prefix personalizado:**
+Una vez configurado, puedes usar comandos como:
+```
+!help               (en lugar de /help)
+!play despacito     (en lugar de /play query:despacito)
+>>queue view        (en lugar de /queue view)
+!ping              (en lugar de /ping)
+```
+
+**Limitaciones:**
+- Algunos comandos avanzados con modales solo funcionan con `/`
+- Los parámetros se pasan de forma simplificada
+- Autocompletado no disponible con prefix personalizado
+
+---
+
 ## ⚙️ Comandos de Administración
 
 ### `/giveaway` - Sorteos
@@ -822,7 +862,125 @@ Ve la tabla de líderes del servidor.
 
 ---
 
-## 📡 Eventos del Bot
+## � Sistema de Prefix Personalizado
+
+El sistema de prefix personalizado permite a los usuarios configurar su propio prefix para usar comandos mediante mensajes de texto normal en lugar de slash commands.
+
+### 🎯 **Características Principales**
+
+- **Personalización por Usuario**: Cada usuario puede configurar su propio prefix
+- **Persistencia Global**: El prefix funciona en todos los servidores donde esté el bot
+- **Compatibilidad**: Funciona con la mayoría de comandos del bot
+- **Validación Robusta**: Sistema de validación para evitar conflictos
+
+### 🚀 **Cómo Usar**
+
+1. **Configurar tu prefix:**
+   ```
+   /prefix set nuevo:!
+   ```
+
+2. **Ver tu prefix actual:**
+   ```
+   /prefix view
+   ```
+
+3. **Usar comandos con tu prefix:**
+   ```
+   !help
+   !play despacito
+   !queue view
+   !ping
+   ```
+
+4. **Restablecer al predeterminado:**
+   ```
+   /prefix reset
+   ```
+
+### ⚙️ **Configuración y Limitaciones**
+
+#### ✅ **Prefijos Válidos**
+- Máximo 3 caracteres
+- Sin espacios
+- Sin caracteres especiales: `@`, `#`, `` ` ``
+- Ejemplos válidos: `!`, `>>`, `?`, `$`, `~`
+
+#### ❌ **Prefijos No Válidos**
+- Prefijos reservados: `/`, `\`, `<`, `>`, `{`, `}`, `[`, `]`, `(`, `)`
+- Con espacios: `! `, ` !`
+- Caracteres especiales: `@!`, `#cmd`, `` `test` ``
+
+#### 🔄 **Comandos Compatibles**
+- ✅ **Totalmente Compatible**: ping, help, botinfo, serverinfo, play, queue, etc.
+- ⚠️ **Parcialmente Compatible**: Comandos con opciones múltiples
+- ❌ **No Compatible**: Comandos que requieren modales o interacciones complejas
+
+### 🛠️ **Ejemplos de Uso Avanzado**
+
+#### **Música con Prefix Personalizado**
+```bash
+# Configurar prefix musical
+/prefix set nuevo:♪
+
+# Usar comandos de música
+♪play bohemian rhapsody
+♪queue view
+♪skip
+♪stop
+```
+
+#### **Administración con Prefix**
+```bash
+# Configurar prefix administrativo
+/prefix set nuevo:>>
+
+# Comandos de administración
+>>kick @usuario
+>>ban @usuario spam
+>>clear 10
+>>welcome toggle
+```
+
+#### **Comandos de Diversión**
+```bash
+# Prefix para diversión
+/prefix set nuevo:?
+
+# Comandos divertidos
+?8ball ¿tendré suerte hoy?
+?joke
+?meme
+?coinflip
+```
+
+### 📊 **Ventajas del Sistema**
+
+1. **Velocidad**: Más rápido que escribir slash commands
+2. **Familiaridad**: Similar a bots tradicionales
+3. **Flexibilidad**: Cada usuario elige su estilo
+4. **Compatibilidad**: Los slash commands siguen funcionando
+
+### 🔍 **Resolución de Problemas**
+
+#### **El comando no funciona con mi prefix**
+- Verifica que escribiste el comando correctamente
+- Algunos comandos complejos solo funcionan con `/`
+- Usa `/prefix view` para confirmar tu prefix
+
+#### **Error al establecer prefix**
+- Verifica que cumple las reglas de validación
+- Intenta con un prefix más simple (ej: `!`)
+- El prefix no puede estar vacío
+
+#### **Recuperar funcionalidad completa**
+- Los slash commands (`/`) siempre funcionan
+- Usa `/prefix reset` para volver al predeterminado
+- Para comandos complejos, usa siempre slash commands
+
+---
+
+## �📡 Eventos del Bot
 
 ### 🎵 Eventos de Música
 
