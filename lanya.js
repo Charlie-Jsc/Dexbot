@@ -81,4 +81,26 @@ for (const file of handlerFiles) {
 console.log(
   global.styles.successColor(`✅ Successfully loaded ${counter} handlers`)
 );
+
+// Auto-deploy commands when bot is ready (ideal for production deployments)
+client.once('ready', async () => {
+  console.log(global.styles.successColor(`🤖 Bot ${client.user.tag} is now online!`));
+  
+  // Only deploy commands in production or when AUTO_DEPLOY_COMMANDS is true
+  const shouldDeployCommands = process.env.NODE_ENV === 'production' || process.env.AUTO_DEPLOY_COMMANDS === 'true';
+  
+  if (shouldDeployCommands) {
+    try {
+      console.log(global.styles.infoColor('🔄 Auto-deploying slash commands...'));
+      const deployCommands = require('./handlers/deployCommands');
+      await deployCommands();
+      console.log(global.styles.successColor('✅ Slash commands auto-deployed successfully!'));
+    } catch (error) {
+      console.error(global.styles.errorColor('❌ Error auto-deploying commands:'), error);
+    }
+  } else {
+    console.log(global.styles.warningColor('⚠️ Command auto-deploy skipped. Set AUTO_DEPLOY_COMMANDS=true or NODE_ENV=production to enable.'));
+  }
+});
+
 client.login(process.env.DISCORD_TOKEN);
