@@ -7,6 +7,7 @@
 - [Comandos de Moderación](#comandos-de-moderación)
 - [Comandos de Utilidad](#comandos-de-utilidad)
 - [Comandos de Administración](#comandos-de-administración)
+- [Comandos de Propietario](#comandos-de-propietario)
 - [Comandos de Minecraft](#comandos-de-minecraft)
 - [Comandos de Niveles](#comandos-de-niveles)
 - [Sistema de Prefix Personalizado](#sistema-de-prefix-personalizado)
@@ -742,6 +743,109 @@ Configura el sistema de niveles del servidor.
 - `set` - Establecer nivel de usuario
 - `reset` - Resetear progreso
 - `multiplier` - Configurar multiplicador de XP
+
+---
+
+## 🔒 Comandos de Propietario
+
+*Comandos exclusivos para los propietarios autorizados del bot. Solo aparecen en el servidor de soporte configurado.*
+
+### `/broadcast` - Sistema de anuncios
+Envía anuncios oficiales a todos los servidores donde está el bot mediante un formulario interactivo.
+
+**Uso:** `/broadcast`
+
+**Proceso:**
+1. Ejecuta el comando `/broadcast`
+2. Se abre un formulario modal con los siguientes campos:
+   - **Título**: Título del anuncio (máximo 256 caracteres)
+   - **Descripción**: Contenido del mensaje con soporte para saltos de línea (máximo 4000 caracteres)
+   - **Imagen/GIF**: URL opcional de imagen o GIF (.png, .jpg, .jpeg, .gif)
+   - **Configuración**: Campos opcionales para thumbnail y color
+3. Vista previa del anuncio con estadísticas
+4. Confirmación y envío
+
+**Formato de Configuración Adicional:**
+```
+Thumbnail: https://ejemplo.com/miniatura.png
+Color: #FF5733
+```
+
+**Ejemplos de uso:**
+```
+Título: Nueva Actualización de Dexbot
+Descripción: 
+¡Hemos lanzado Dexbot v2.0! 🎉
+
+Nuevas características:
+• Sistema de broadcast mejorado
+• Soporte para GIFs animados  
+• Interface de modal intuitiva
+
+¡Disfruta las nuevas funciones!
+
+Imagen: https://ejemplo.com/update.gif
+```
+
+**Ventajas del Modal:**
+- ✅ **Saltos de línea**: Formato de texto completo con párrafos
+- ✅ **Vista previa**: Previsualización antes del envío
+- ✅ **Validación**: Verificación automática de URLs
+- ✅ **Interfaz intuitiva**: Formulario fácil de usar
+- ✅ **Soporte de markdown**: Texto enriquecido en la descripción
+
+**Características:**
+- 🔒 **Seguridad**: Solo propietarios autorizados pueden usar este comando
+- 🚦 **Rate Limiting**: Límites de uso para prevenir spam
+- 📊 **Estadísticas**: Seguimiento detallado de envíos
+- 🎯 **Alcance Inteligente**: Encuentra automáticamente el mejor canal en cada servidor
+- 📈 **Progreso en Tiempo Real**: Muestra el progreso del envío
+- 💾 **Logs Completos**: Registro detallado en base de datos
+
+**Proceso de Envío:**
+1. Vista previa del anuncio con estadísticas
+2. Confirmación de envío
+3. Progreso en tiempo real
+4. Reporte final con estadísticas
+
+**Tipos de Canales Priorizados:**
+- Canales de anuncios/announcements
+- Canales generales/chat
+- Canales de bienvenida
+- Primer canal disponible con permisos
+
+---
+
+### `/broadcaststats` - Estadísticas de broadcast
+Ve estadísticas detalladas del sistema de broadcast.
+
+**Subcomandos:**
+- `general` - Estadísticas generales del sistema
+- `history` - Historial de broadcasts enviados
+- `details id:[id]` - Detalles de un broadcast específico
+- `limits` - Estado actual del rate limiting
+
+**Ejemplos:**
+```
+/broadcaststats general
+/broadcaststats history
+/broadcaststats details id:507f1f77bcf86cd799439011
+/broadcaststats limits
+```
+
+**Información mostrada:**
+- 📊 Total de broadcasts enviados
+- 📈 Tasas de éxito promedio
+- ⏱️ Tiempos de ejecución
+- 🎯 Servidores alcanzados
+- 🚦 Estado de rate limits
+- 📋 Historial detallado
+
+**Rate Limiting:**
+- **Por hora**: 3 broadcasts máximo
+- **Por día**: 10 broadcasts máximo
+- **Cooldown**: 5 minutos entre broadcasts
+- **Exemption**: Propietarios del bot pueden estar exentos
 
 ---
 

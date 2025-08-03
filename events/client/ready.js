@@ -2,6 +2,7 @@ const { Events, ActivityType } = require('discord.js');
 const startGiveawayScheduler = require('../../functions/giveawayScheduler');
 const serverStatusUpdater = require('../../functions/serverStatusUpdater');
 const updateStatus = require('../../functions/statusRotation');
+const { deployOwnerCommands } = require('../../handlers/deployCommands');
 const fs = require('fs');
 const path = require('path');
 
@@ -14,6 +15,12 @@ module.exports = {
     updateStatus(client);
     client.lavalink.init({ id: client.user.id });
     client.on('raw', (packet) => client.lavalink.sendRawData(packet));
+
+    // 🔒 Desplegar comandos de propietario en servidor de soporte
+    if (process.env.AUTO_DEPLOY_COMMANDS === 'true') {
+      await deployOwnerCommands(client);
+    }
+
     const commandFolderPath = path.join(__dirname, '../../commands');
     const categories = fs
       .readdirSync(commandFolderPath)
@@ -23,7 +30,9 @@ module.exports = {
 
     let categoryText = `${global.styles.accentColor('📂 Categories:')}\n`;
     categories.forEach((category) => {
-      categoryText += `    ${global.styles.primaryColor('🔸')} ${global.styles.commandColor(category)}\n`;
+      if (category !== 'owner') { // No mostrar carpeta owner en el log
+        categoryText += `    ${global.styles.primaryColor('🔸')} ${global.styles.commandColor(category)}\n`;
+      }
     });
 
     const startTime = new Date().toLocaleString();

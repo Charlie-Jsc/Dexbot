@@ -7,6 +7,7 @@
   [![Discord](https://img.shields.io/discord/1342840214573416458?color=5865F2&logo=discord&logoColor=white)](https://discord.gg/kAYpdenZ8b)
   [![License](https://img.shields.io/github/license/Charlie-Jsc/Dexbot)](LICENSE)
   [![Stars](https://img.shields.io/github/stars/Charlie-Jsc/Dexbot?style=social)](https://github.com/Charlie-Jsc/Dexbot/stargazers)
+  [![Version](https://img.shields.io/badge/Version-3.4.3-blue)](https://github.com/Charlie-Jsc/Dexbot)
 </div>
 
 ## ✨ Acerca de Dexbot
@@ -17,7 +18,9 @@
 🛡️ **Moderación inteligente**: Herramientas completas para mantener tu servidor seguro y organizado  
 🎮 **Entretenimiento épico**: Juegos, trivias, memes y integración con Minecraft  
 📊 **Sistema de niveles**: Gamifica tu comunidad con XP y recompensas automáticas  
-⚙️ **Administración simplificada**: Sorteos, bienvenidas automáticas y configuración flexible
+⚙️ **Administración simplificada**: Sorteos, bienvenidas automáticas y configuración flexible  
+🔒 **Sistema de Broadcast**: Envío de anuncios profesionales a múltiples servidores  
+🎯 **Prefix Personalizado**: Comandos personalizables por usuario
 
 ## 📝 Créditos
 
@@ -25,29 +28,322 @@ Este proyecto está basado en [Lanya 2.0](https://github.com/gaurav87565/Lanya-2
 
 ## 🚀 Características Principales
 
-- **� Sistema de Música Premium** - Reproduce desde múltiples plataformas con filtros de audio profesionales y playlists personalizadas
-- **�️ Moderación Avanzada** - Herramientas completas de administración con logs automáticos y sistema de advertencias
+- **🎵 Sistema de Música Premium** - Reproduce desde múltiples plataformas con filtros de audio profesionales y playlists personalizadas
+- **🛡️ Moderación Avanzada** - Herramientas completas de administración con logs automáticos y sistema de advertencias
 - **🎮 Entretenimiento Interactivo** - Juegos, trivias, memes y comandos divertidos para mantener activa tu comunidad
 - **⚙️ Minecraft Integration** - Monitoreo de servidores, skins, logros y herramientas personalizadas para gamers
-- **� Sistema de Niveles** - Gamifica tu servidor con XP automático, rankings y recompensas por actividad
+- **📊 Sistema de Niveles** - Gamifica tu servidor con XP automático, rankings y recompensas por actividad
 - **🎁 Gestión de Eventos** - Sorteos automáticos con múltiples opciones de participación y requisitos
 - **👋 Bienvenidas Personalizadas** - Mensajes automáticos con imágenes y roles para nuevos miembros
 - **🔧 Herramientas de Utilidad** - Calculadora, traductor, clima y gestión de tareas personales
+- **📢 Sistema de Broadcast** - Anuncios oficiales con interfaz modal y soporte multimedia
+- **🎯 Prefix Personalizado** - Sistema único de comandos por usuario con persistencia global
 
-## 🔍 Command Categories
+## 🎵 Sistema de Música
 
-<details>
-<summary>ℹ️ <strong>Info Commands</strong></summary>
-<br>
+### 🎧 Fuentes Soportadas
+- **YouTube** - Videos, playlists, YouTube Music, streams en vivo
+- **Spotify** - Canciones, álbumes, playlists, artistas
+- **SoundCloud** - Tracks, sets, usuarios, contenido privado
+- **Deezer** - Canciones, álbumes, playlists
+- **URLs Directas** - MP3, WAV, OGG, streams de radio
 
-| Command       | Description                            |
-| ------------- | -------------------------------------- |
-| `/botinfo`    | Display information about the bot      |
-| `/help`       | Show help menu with all commands       |
-| `/ping`       | Check the bot's response time          |
-| `/roleinfo`   | View detailed information about a role |
-| `/serverinfo` | Display information about the server   |
-| `/userinfo`   | Show information about a user          |
+### 🎛️ Filtros de Audio Profesionales
+- **Nightcore** - Aumenta velocidad y tono
+- **Vaporwave** - Reduce velocidad para efecto retro
+- **8D Audio** - Simula audio espacial rotatorio
+- **Bass Boost** - Refuerzo de frecuencias graves
+- **Karaoke** - Reduce voces centrales
+- **Tremolo/Vibrato** - Efectos de modulación
+- **Equalizer** - Control de 15 bandas de frecuencia
+
+### 🎵 Comandos de Música
+
+| Comando | Descripción | Ejemplo |
+|---------|-------------|---------|
+| `/play` | Reproduce música desde múltiples fuentes | `/play query:bohemian rhapsody source:YouTube` |
+| `/search` | Busca y selecciona desde una lista | `/search query:imagine dragons` |
+| `/queue` | Gestiona la cola de reproducción | `/queue view`, `/queue remove song:3` |
+| `/playlist` | Crea y gestiona playlists personales | `/playlist create name:"Mi Rock"` |
+| `/controls` | Controles básicos de reproducción | `/controls pause`, `/controls volume set:75` |
+| `/nowplaying` | Información de la canción actual | `/nowplaying` |
+| `/filters` | Aplica filtros de audio | `/filters filter:bassboost` |
+| `/loop` | Configura modo de repetición | `/loop mode:queue` |
+| `/lyrics` | Obtiene letras de canciones | `/lyrics` |
+| `/autoplay` | Reproducción automática inteligente | `/autoplay` |
+
+## 🛡️ Sistema de Moderación
+
+### 🔨 Comandos de Moderación
+
+| Comando | Descripción | Ejemplo |
+|---------|-------------|---------|
+| `/ban` | Banea a un usuario del servidor | `/ban usuario:@troll razón:"Spam continuo"` |
+| `/kick` | Expulsa a un usuario | `/kick usuario:@problemático` |
+| `/timeout` | Aplica tiempo fuera temporal | `/timeout usuario:@spam duración:10m` |
+| `/warn` | Sistema de advertencias | `/warn usuario:@nuevo razón:"Lenguaje inapropiado"` |
+| `/clear` | Limpia mensajes masivamente | `/clear cantidad:50 usuario:@spam` |
+| `/lock` | Bloquea canales temporalmente | `/lock canal:#general` |
+
+## 🎮 Entretenimiento y Diversión
+
+### 🎈 Comandos de Diversión
+
+| Comando | Descripción | Ejemplo |
+|---------|-------------|---------|
+| `/8ball` | Bola mágica 8 para preguntas | `/8ball pregunta:¿Lloverá mañana?` |
+| `/trivia` | Preguntas de cultura general | `/trivia` |
+| `/meme` | Memes aleatorios | `/meme` |
+| `/joke` | Chistes y bromas | `/joke` |
+| `/coinflip` | Lanza una moneda | `/coinflip` |
+| `/randomnumber` | Número aleatorio en rango | `/randomnumber min:1 max:100` |
+| `/catfact` | Datos curiosos de gatos | `/catfact` |
+| `/dogfact` | Datos curiosos de perros | `/dogfact` |
+
+## ⚙️ Integración con Minecraft
+
+### 🌎 Comandos de Minecraft
+
+| Comando | Descripción | Ejemplo |
+|---------|-------------|---------|
+| `/skin` | Muestra la skin de un jugador | `/skin jugador:Notch` |
+| `/achievement` | Genera logros personalizados | `/achievement texto:"¡Primer diamante!" icono:diamond` |
+| `/serverstatus` | Estado de servidores de Minecraft | `/serverstatus ip:mc.hypixel.net` |
+| `/headavatar` | Avatar de cabeza del jugador | `/headavatar jugador:Steve` |
+| `/bodyavatar` | Avatar de cuerpo completo | `/bodyavatar jugador:Steve` |
+
+## 📊 Sistema de Niveles y XP
+
+### 🏆 Características del Sistema
+
+- **XP Automático**: 15-25 puntos por mensaje (cooldown 60s)
+- **Rankings**: Leaderboard del servidor con top usuarios
+- **Recompensas**: Roles automáticos por nivel (configurable)
+- **Progreso Visual**: Barras de progreso y estadísticas detalladas
+
+### 📈 Comandos de Niveles
+
+| Comando | Descripción | Ejemplo |
+|---------|-------------|---------|
+| `/level` | Ver tu nivel y progreso | `/level @usuario` |
+| `/leaderboard` | Tabla de líderes del servidor | `/leaderboard` |
+
+## 🔒 Sistema de Broadcast (Propietarios)
+
+### 📢 Características Exclusivas
+
+- **Modal Interactivo**: Formulario intuitivo con campos separados
+- **Soporte Multimedia**: Imágenes, GIFs animados, thumbnails
+- **Rate Limiting**: 3/hora, 10/día, cooldown 5 minutos
+- **Analytics**: Estadísticas detalladas y logs completos
+- **Preview System**: Vista previa antes del envío
+- **Smart Channel Detection**: Encuentra automáticamente el mejor canal
+
+### 🎯 Comandos de Propietario
+
+| Comando | Descripción | Uso |
+|---------|-------------|-----|
+| `/broadcast` | Sistema de anuncios masivos | Abre modal interactivo |
+| `/broadcaststats` | Estadísticas del sistema | `/broadcaststats general` |
+
+## 🎯 Sistema de Prefix Personalizado
+
+### ⚙️ Características Únicas
+
+- **Personalización por Usuario**: Cada usuario configura su propio prefix
+- **Persistencia Global**: Funciona en todos los servidores del bot
+- **Compatibilidad**: Soporte para mayoría de comandos
+- **Validación Robusta**: Previene conflictos y caracteres reservados
+
+### 🔧 Configuración y Uso
+
+| Comando | Descripción | Ejemplo |
+|---------|-------------|---------|
+| `/prefix set` | Configurar nuevo prefix | `/prefix set nuevo:!` |
+| `/prefix view` | Ver prefix actual | `/prefix view` |
+| `/prefix reset` | Restablecer a predeterminado | `/prefix reset` |
+
+**Ejemplos de uso con prefix personalizado:**
+```bash
+# Configurar prefix
+/prefix set nuevo:!
+
+# Usar comandos con prefix personalizado
+!help
+!play bohemian rhapsody queen
+!queue view
+!ping
+!serverinfo
+```
+
+### 📋 Limitaciones y Reglas
+
+- **Máximo 3 caracteres**
+- **Sin espacios ni caracteres especiales** (`@`, `#`, `` ` ``)
+- **Prefijos reservados**: `/`, `\`, `<`, `>`, `{`, `}`, `[`, `]`, `(`, `)`
+- **Algunos comandos complejos** solo funcionan con slash commands
+
+## 🔧 Instalación y Configuración
+
+### 📋 Requisitos Previos
+
+- **Node.js** v18.x o superior
+- **MongoDB** para base de datos
+- **Lavalink** para funcionalidad de música
+- **Token de Discord Bot**
+
+### ⚙️ Variables de Entorno (.env)
+
+Crea un archivo `.env` en la raíz del proyecto:
+
+```env
+# Discord Bot Configuration
+DISCORD_TOKEN=tu_token_del_bot_aqui
+DISCORD_CLIENT_ID=tu_client_id_aqui
+
+# Bot Owners (separados por comas para múltiples propietarios)
+BOT_OWNERS=123456789012345678,987654321098765432
+
+# Support Server (donde aparecerán comandos de propietario)
+SUPPORT_SERVER_ID=1400597416272597005
+
+# Database
+MONGODB_URI=mongodb://localhost:27017/dexbot
+
+# Lavalink Music Server
+LAVALINK_HOST=localhost
+LAVALINK_PORT=2333
+LAVALINK_PASSWORD=youshallnotpass
+
+# Optional APIs
+WEATHER_API_KEY=tu_weather_api_key
+SPOTIFY_CLIENT_ID=tu_spotify_client_id
+SPOTIFY_CLIENT_SECRET=tu_spotify_client_secret
+```
+
+### 🚀 Pasos de Instalación
+
+1. **Clonar el repositorio**
+```bash
+git clone https://github.com/Charlie-Jsc/Dexbot.git
+cd Dexbot
+```
+
+2. **Instalar dependencias**
+```bash
+npm install
+```
+
+3. **Configurar variables de entorno**
+```bash
+cp .env.example .env
+# Edita el archivo .env con tus valores
+```
+
+4. **Configurar Lavalink**
+```bash
+# Descargar y configurar Lavalink server
+# Ver documentación oficial: https://github.com/freyacodes/Lavalink
+```
+
+5. **Iniciar el bot**
+```bash
+npm start
+```
+
+### 🔑 Obtener Tokens y IDs
+
+#### Discord Bot Token:
+1. Ve a [Discord Developer Portal](https://discord.com/developers/applications)
+2. Crea una nueva aplicación
+3. Ve a la sección "Bot"
+4. Copia el token y pégalo en `DISCORD_TOKEN`
+5. Copia el Application ID y pégalo en `DISCORD_CLIENT_ID`
+
+#### Bot Owners:
+1. Habilita el modo desarrollador en Discord (Configuración → Avanzado → Modo desarrollador)
+2. Haz clic derecho en tu perfil y copia tu ID
+3. Pégalo en `BOT_OWNERS`
+
+#### Support Server ID:
+1. Haz clic derecho en tu servidor
+2. Selecciona "Copiar ID del servidor"
+3. Pégalo en `SUPPORT_SERVER_ID`
+
+## ℹ️ Comandos de Información
+
+| Comando | Descripción | Ejemplo |
+|---------|-------------|---------|
+| `/help` | Menú de ayuda completo | `/help play` |
+| `/botinfo` | Información del bot | `/botinfo` |
+| `/serverinfo` | Información del servidor | `/serverinfo` |
+| `/userinfo` | Información de usuario | `/userinfo @usuario` |
+| `/roleinfo` | Información de rol | `/roleinfo rol:@Moderador` |
+| `/ping` | Latencia del bot | `/ping` |
+| `/invite` | Enlace de invitación | `/invite` |
+| `/support` | Servidor de soporte | `/support` |
+
+## 🛠️ Herramientas de Utilidad
+
+| Comando | Descripción | Ejemplo |
+|---------|-------------|---------|
+| `/calculator` | Calculadora matemática | `/calculator expresión:2+2*3` |
+| `/translate` | Traductor de idiomas | `/translate texto:"Hello" hacia:es` |
+| `/weather` | Consultar clima | `/weather ubicación:"Madrid"` |
+| `/define` | Definición de palabras | `/define palabra:serendipia` |
+| `/todo` | Lista de tareas personal | `/todo add tarea:"Estudiar"` |
+
+## ⚙️ Comandos de Administración
+
+| Comando | Descripción | Ejemplo |
+|---------|-------------|---------|
+| `/giveaway` | Sistema de sorteos | `/giveaway start premio:"Discord Nitro"` |
+| `/welcome` | Mensajes de bienvenida | `/welcome canal:#general` |
+| `/autorole` | Roles automáticos | `/autorole agregar:@Miembro` |
+| `/guildsettings` | Configuración del servidor | `/guildsettings` |
+| `/leveladmin` | Administrar sistema de niveles | `/leveladmin enable` |
+
+## 📊 Estadísticas y Rendimiento
+
+- **Servidores Activos**: Escalable para miles de servidores
+- **Comandos Disponibles**: 72+ comandos globales
+- **Uptime**: 99.9% disponibilidad
+- **Latencia Promedio**: <100ms
+- **Soporte Multimedia**: Imágenes, GIFs, videos, audio
+
+## 🤝 Contribuir
+
+¡Las contribuciones son bienvenidas! Si tienes ideas para mejoras:
+
+1. Fork el repositorio
+2. Crea una rama para tu característica (`git checkout -b feature/amazing-feature`)
+3. Commit tus cambios (`git commit -m 'Add amazing feature'`)
+4. Push a la rama (`git push origin feature/amazing-feature`)
+5. Abre un Pull Request
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
+
+## 🔗 Enlaces Útiles
+
+- **[Servidor de Discord](https://discord.gg/kAYpdenZ8b)** - Soporte y comunidad
+- **[Documentación Completa](DOCUMENTACION_COMPLETA.md)** - Guía detallada de comandos
+- **[Invitar el Bot](https://discord.com/oauth2/authorize?client_id=TU_CLIENT_ID&permissions=8&scope=bot%20applications.commands)** - Agrega Dexbot a tu servidor
+
+## 🙏 Agradecimientos
+
+- **[gaurav87565](https://github.com/gaurav87565)** - Creador original de Lanya 2.0
+- **[Discord.js](https://discord.js.org/)** - Librería principal de Discord
+- **[Lavalink](https://github.com/freyacodes/Lavalink)** - Servidor de audio de alta calidad
+- **Comunidad de Discord** - Feedback y soporte continuo
+
+---
+
+<div align="center">
+  <p><strong>⭐ Si te gusta Dexbot, considera darle una estrella al repositorio!</strong></p>
+  <p>Hecho con ❤️ por <a href="https://github.com/Charlie-Jsc">Charlie-Jsc</a></p>
+</div>
 | `/invite`     | Shows bot invite link                  |
 | `/support`    | Get invite link to the support server  |
 
