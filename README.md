@@ -202,24 +202,20 @@ DISCORD_TOKEN=tu_token_del_bot_aqui
 DISCORD_CLIENT_ID=tu_client_id_aqui
 
 # Bot Owners (separados por comas para múltiples propietarios)
-BOT_OWNERS=123456789012345678,987654321098765432
+BOT_OWNERS=YOUR-PROFILE-ID
 
 # Support Server (donde aparecerán comandos de propietario)
-SUPPORT_SERVER_ID=1400597416272597005
+SUPPORT_SERVER_ID=YOUR-SERVER-ID
 
 # Database
 MONGODB_URI=mongodb://localhost:27017/dexbot
 
 # Lavalink Music Server
-LAVALINK_HOST=localhost
-LAVALINK_PORT=2333
-LAVALINK_PASSWORD=youshallnotpass
+LL_HOST=localhost
+LL_PORT=2333
+LL_PASSWORD=youshallnotpass
 
-# Optional APIs
-WEATHER_API_KEY=tu_weather_api_key
-SPOTIFY_CLIENT_ID=tu_spotify_client_id
-SPOTIFY_CLIENT_SECRET=tu_spotify_client_secret
-```
+WEATHER_API_KEY=https://weatherapi.com/
 
 ### 🚀 Pasos de Instalación
 
