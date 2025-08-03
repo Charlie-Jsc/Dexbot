@@ -51,7 +51,7 @@ module.exports = async () => {
   try {
     console.log(`🔄 Started refreshing ${commands.length} application (/) commands.`);
 
-    const data = await rest.put(Routes.applicationCommands(clientId), { body: commands });
+    await rest.put(Routes.applicationCommands(clientId), { body: commands });
 
     console.log(`✅ Successfully reloaded ${commands.length} application (/) commands.`);
   } catch (error) {
